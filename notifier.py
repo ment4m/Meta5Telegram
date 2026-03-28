@@ -6,13 +6,45 @@ Pushover + Telegram self-message notifications.
 
 import urllib.request
 import urllib.parse
-import json
+import asyncio
 import config
 from logger import get_logger
 
 log = get_logger(__name__)
 
 _PUSHOVER_URL = "https://api.pushover.net/1/messages.json"
+_tg_client = None
+
+
+def set_telegram_client(client):
+    """Call once at startup with the Telethon client."""
+    global _tg_client
+    _tg_client = client
+
+
+async def _send_self(message: str):
+    """Send a message to the user's own Saved Messages."""
+    if _tg_client is None:
+        return
+    try:
+        await _tg_client.send_message("me", message, parse_mode="md")
+        log.info("Telegram self-message sent")
+    except Exception as e:
+        log.warning("Telegram self-message failed: %s", e)
+
+
+def _tg_notify(message: str):
+    """Fire-and-forget Telegram self-message."""
+    if _tg_client is None:
+        return
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            asyncio.ensure_future(_send_self(message))
+        else:
+            loop.run_until_complete(_send_self(message))
+    except Exception as e:
+        log.warning("Telegram notify error: %s", e)
 
 
 def _pushover(title: str, message: str, emergency: bool = True):
@@ -44,27 +76,41 @@ def alert_new_signal(direction: str, symbol: str, sl, tps: list, num_trades: int
     if len(tps) > 3:
         tp_list += f" +{len(tps)-3} more"
 
-    title = f"🔔 {direction.upper()} {symbol} — {num_trades} trades opened"
-    msg   = f"SL: {sl_str}\nTPs: {tp_list}\nID: {sig_id}"
-    _pushover(title, msg, emergency=True)
+    title  = f"🔔 {direction.upper()} {symbol} — {num_trades} trades opened"
+    detail = f"SL: {sl_str}\nTPs: {tp_list}\nID: {sig_id}"
+    _pushover(title, detail, emergency=True)
+    _tg_notify(
+        f"🔔 **{direction.upper()} {symbol}**\n"
+        f"Trades: {num_trades}\n"
+        f"SL: {sl_str}\n"
+        f"TPs: {tp_list}\n"
+        f"ID: `{sig_id}`"
+    )
 
 
 def alert_signal_update(direction: str, symbol: str, new_sl: float, sig_id: str):
     """Normal alert when SL/TPs are updated."""
-    title = f"✏️ Updated: {direction.upper()} {symbol}"
-    msg   = f"New SL: {new_sl:.5f}\nID: {sig_id}"
-    _pushover(title, msg, emergency=False)
+    title  = f"✏️ Updated: {direction.upper()} {symbol}"
+    detail = f"New SL: {new_sl:.5f}\nID: {sig_id}"
+    _pushover(title, detail, emergency=False)
+    _tg_notify(
+        f"✏️ **SL Updated — {direction.upper()} {symbol}**\n"
+        f"New SL: `{new_sl:.5f}`\n"
+        f"ID: `{sig_id}`"
+    )
 
 
 def alert_breakeven(symbol: str = ""):
     """Normal alert for breakeven action."""
-    title = "↔️ Breakeven triggered"
-    msg   = f"SL moved to entry{' — ' + symbol if symbol else ''}"
-    _pushover(title, msg, emergency=False)
+    title  = "↔️ Breakeven triggered"
+    detail = f"SL moved to entry{' — ' + symbol if symbol else ''}"
+    _pushover(title, detail, emergency=False)
+    _tg_notify(f"↔️ **Breakeven triggered**\nSL moved to entry price")
 
 
 def alert_close():
     """Normal alert when all trades are closed."""
-    title = "🔴 All trades closed"
-    msg   = "Close instruction received — all bot trades closed"
-    _pushover(title, msg, emergency=False)
+    title  = "🔴 All trades closed"
+    detail = "Close instruction received — all bot trades closed"
+    _pushover(title, detail, emergency=False)
+    _tg_notify("🔴 **All trades closed**\nClose instruction received")

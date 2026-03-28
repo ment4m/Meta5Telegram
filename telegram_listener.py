@@ -8,7 +8,7 @@ from signal_classifier import classify
 from signal_state import add_pending, find_pending, mark_active, remove_expired
 from sl_predictor import predict, record
 from mt5_bridge import write_open, write_update, write_update_sl_only, write_breakeven, write_close
-from notifier import alert_new_signal, alert_signal_update, alert_breakeven, alert_close
+from notifier import alert_new_signal, alert_signal_update, alert_breakeven, alert_close, set_telegram_client
 from logger import get_logger
 
 log = get_logger(__name__)
@@ -191,6 +191,7 @@ async def start():
 
     me = await client.get_me()
     log.info("Logged in as %s | monitoring: %s", me.username or me.phone, config.CHANNEL_USERNAME)
+    set_telegram_client(client)
 
     @client.on(events.NewMessage(chats=config.CHANNEL_USERNAME))
     async def on_message(event):
