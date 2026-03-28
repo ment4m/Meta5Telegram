@@ -29,6 +29,10 @@ COMPOUND_ENABLED = os.getenv("COMPOUND_ENABLED", "true").lower() == "true"
 # Claude AI
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 
+# Pushover alerts
+PUSHOVER_TOKEN = os.getenv("PUSHOVER_TOKEN", "")
+PUSHOVER_USER  = os.getenv("PUSHOVER_USER", "")
+
 # Trading
 DEVIATION = int(os.getenv("DEVIATION", "20"))
 MAGIC_NUMBER = int(os.getenv("MAGIC_NUMBER", "234000"))
