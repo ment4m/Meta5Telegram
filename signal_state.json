@@ -1,1 +1,47 @@
-{}
+{
+  "062634f7": {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1774725139,
+    "status": "pending",
+    "auto_tp": true
+  },
+  "158ba3ef": {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1774725211,
+    "status": "pending",
+    "auto_tp": true
+  },
+  "1ee557cf": {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1774725264,
+    "status": "pending",
+    "auto_tp": true
+  },
+  "9abe4c65": {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1774725265,
+    "status": "pending",
+    "auto_tp": true
+  },
+  "7d5ebb45": {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1774725369,
+    "status": "pending",
+    "auto_tp": true
+  }
+}
