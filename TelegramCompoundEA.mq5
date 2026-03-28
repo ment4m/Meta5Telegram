@@ -1,10 +1,11 @@
 //+------------------------------------------------------------------+
-//|  TelegramSignalEA.mq5  v2.4                                      |
-//|  Handles: open / update / breakeven actions from Python bot.     |
-//|  Reads from MT5 Common Files folder every second.                |
+//|  TelegramCompoundEA.mq5  v1.1                                    |
+//|  Single-trade compounding EA.                                    |
+//|  Risk = RiskPercent% of balance. TP = ProfitPercent% of balance.|
+//|  Both calculated fresh at trade open — ignores signal TP.        |
 //+------------------------------------------------------------------+
 #property copyright "MyTradeBot"
-#property version   "2.40"
+#property version   "1.10"
 #property strict
 
 #include <Trade\Trade.mqh>
@@ -12,12 +13,15 @@
 CTrade trade;
 
 input int    CheckIntervalMs = 1000;
-input string SignalFolder    = "signals";
+input string SignalFolder    = "signals_compound";   // separate folder from main EA
+input int    MagicNumber     = 235000;               // different magic from TelegramSignalEA
+input double RiskPercent     = 23.0;                 // % of balance to risk (SL hit = lose this %)
+input double ProfitPercent   = 30.0;                 // % of balance to target (TP hit = gain this %)
+input int    Deviation       = 20;
 
 //+------------------------------------------------------------------+
-//| Minimal JSON helpers                                             |
+//| JSON helpers (same as main EA)                                   |
 //+------------------------------------------------------------------+
-
 string JsonGetString(const string &json, const string key)
 {
     string search = "\"" + key + "\"";
@@ -37,12 +41,11 @@ double JsonGetDouble(const string &json, const string key)
 {
     string search = "\"" + key + "\"";
     int pos = StringFind(json, search);
-    if(pos < 0) return -999999.0;  // sentinel: key not found
+    if(pos < 0) return -999999.0;
     pos = StringFind(json, ":", pos);
     if(pos < 0) return -999999.0;
     pos++;
     while(pos < StringLen(json) && StringSubstr(json, pos, 1) == " ") pos++;
-    // Check for null
     if(StringSubstr(json, pos, 4) == "null") return -999999.0;
     string numStr = "";
     while(pos < StringLen(json))
@@ -97,7 +100,7 @@ int ParseTPs(const string &arr, double &tps[])
 }
 
 //+------------------------------------------------------------------+
-//| Symbol resolution — tries base name, then common broker suffixes |
+//| Symbol resolution                                                |
 //+------------------------------------------------------------------+
 string ResolveSymbol(const string base)
 {
@@ -121,14 +124,13 @@ string ResolveSymbol(const string base)
 }
 
 //+------------------------------------------------------------------+
-//| Lot size based on risk                                           |
-//| risk_per_trade = balance * 25% / num_tps                        |
-//| lot = risk_per_trade / (sl_distance / tick_size * tick_value)   |
+//| Lot size based on RiskPercent of balance                         |
+//| lot = (balance * risk%) / (sl_distance / tick_size * tick_value) |
 //+------------------------------------------------------------------+
-double CalcLot(const string symbol, int num_tps, int lot_balance_div, double sl_distance)
+double CalcLot(const string symbol, double sl_distance)
 {
     double balance    = AccountInfoDouble(ACCOUNT_BALANCE);
-    double risk       = (balance / lot_balance_div) / num_tps;
+    double risk_amt   = balance * RiskPercent / 100.0;
 
     double tick_val   = SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_VALUE);
     double tick_size  = SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_SIZE);
@@ -138,59 +140,47 @@ double CalcLot(const string symbol, int num_tps, int lot_balance_div, double sl_
 
     if(tick_val == 0 || tick_size == 0 || sl_distance == 0)
     {
-        Print("CalcLot: cannot calculate — using min lot. tick_val=", tick_val,
-              " tick_size=", tick_size, " sl_dist=", sl_distance);
+        Print("CalcLot: invalid params — using min lot");
         return min_lot;
     }
 
-    // ticks in SL distance × tick value per lot = $ loss per lot
     double loss_per_lot = (sl_distance / tick_size) * tick_val;
-    double lot = risk / loss_per_lot;
+    double lot = risk_amt / loss_per_lot;
 
     lot = MathFloor(lot / lot_step) * lot_step;
     lot = MathMax(lot, min_lot);
     lot = MathMin(lot, max_lot);
 
-    Print("CalcLot: balance=", balance, " risk=", risk, " sl_dist=", sl_distance,
-          " loss_per_lot=", loss_per_lot, " → lot=", lot);
+    Print("CalcLot: balance=", balance, " risk=", RiskPercent, "% → $", risk_amt,
+          " | sl_dist=", sl_distance, " | loss_per_lot=", loss_per_lot, " → lot=", lot);
     return NormalizeDouble(lot, 2);
 }
 
 //+------------------------------------------------------------------+
-//| ACTION: open                                                     |
+//| ACTION: open — single trade at RiskPercent, TP at ProfitPercent |
 //+------------------------------------------------------------------+
 void HandleOpen(const string &json)
 {
     string rawSymbol = JsonGetString(json, "symbol");
     string direction = JsonGetString(json, "direction");
-    double sl_val    = JsonGetDouble(json, "sl");        // -999999 = null
-    double sl_pts    = JsonGetDouble(json, "sl_points"); // -999999 = null
-    int    magic     = (int)JsonGetDouble(json, "magic");
-    int    deviation = (int)JsonGetDouble(json, "deviation");
-    int    lb_div    = (int)JsonGetDouble(json, "lot_balance_div");
-    string tpsRaw    = JsonGetArray(json, "tps");
-
-    double tps[];
-    int numTPs = ParseTPs(tpsRaw, tps);
-    if(numTPs == 0) { Print("OPEN: no TPs found"); return; }
-
-    double tp_step = JsonGetDouble(json, "tp_step"); // -999999 = not set
+    double sl_val    = JsonGetDouble(json, "sl");
+    double sl_pts    = JsonGetDouble(json, "sl_points");
 
     string symbol = ResolveSymbol(rawSymbol);
     SymbolSelect(symbol, true);
 
     ENUM_ORDER_TYPE orderType = (direction == "buy") ? ORDER_TYPE_BUY : ORDER_TYPE_SELL;
-    double point = SymbolInfoDouble(symbol, SYMBOL_POINT);
-    double ask   = SymbolInfoDouble(symbol, SYMBOL_ASK);
-    double bid   = SymbolInfoDouble(symbol, SYMBOL_BID);
-    double entry = (orderType == ORDER_TYPE_BUY) ? ask : bid;
-
-    // Calculate SL price first so we can use it for lot sizing
     int    digits    = (int)SymbolInfoInteger(symbol, SYMBOL_DIGITS);
+    double point     = SymbolInfoDouble(symbol, SYMBOL_POINT);
     double tick_val  = SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_VALUE);
     double tick_size = SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_SIZE);
-    int    lb        = lb_div > 0 ? lb_div : 4;
+    double ask       = SymbolInfoDouble(symbol, SYMBOL_ASK);
+    double bid       = SymbolInfoDouble(symbol, SYMBOL_BID);
+    double entry     = (orderType == ORDER_TYPE_BUY) ? ask : bid;
+    double balance   = AccountInfoDouble(ACCOUNT_BALANCE);
+    double sign      = (orderType == ORDER_TYPE_BUY) ? 1.0 : -1.0;
 
+    // --- SL Price ---
     double sl_price = 0.0;
     if(sl_val > -999998)
     {
@@ -198,79 +188,62 @@ void HandleOpen(const string &json)
     }
     else if(sl_pts > -999998)
     {
-        sl_price = (orderType == ORDER_TYPE_BUY)
-            ? NormalizeDouble(entry - sl_pts * point, digits)
-            : NormalizeDouble(entry + sl_pts * point, digits);
+        sl_price = NormalizeDouble(entry - sign * sl_pts * point, digits);
     }
     else
     {
-        // No SL provided — derive SL from risk so 1 lot risks exactly risk_per_trade
-        double risk_per_trade = AccountInfoDouble(ACCOUNT_BALANCE) / lb / numTPs;
-        double loss_ratio     = (tick_val > 0 && tick_size > 0) ? (tick_val / tick_size) : 0;
-        double sl_dist_auto   = (loss_ratio > 0) ? (risk_per_trade / loss_ratio) : (entry * 0.02);
-        sl_price = (orderType == ORDER_TYPE_BUY)
-            ? NormalizeDouble(entry - sl_dist_auto, digits)
-            : NormalizeDouble(entry + sl_dist_auto, digits);
-        Print("Auto SL: risk_per_trade=", risk_per_trade, " loss_ratio=", loss_ratio,
-              " sl_dist=", sl_dist_auto, " sl_price=", sl_price);
+        // No SL — derive from RiskPercent so that risk_amt is lost if SL hit at 1 lot
+        double risk_amt   = balance * RiskPercent / 100.0;
+        double loss_ratio = (tick_val > 0 && tick_size > 0) ? (tick_val / tick_size) : 0;
+        double sl_dist    = (loss_ratio > 0) ? (risk_amt / loss_ratio) : (entry * 0.02);
+        sl_price = NormalizeDouble(entry - sign * sl_dist, digits);
+        Print("Auto SL: risk_amt=$", risk_amt, " sl_dist=", sl_dist, " sl_price=", sl_price);
     }
 
     double sl_distance = MathAbs(entry - sl_price);
-    double lot = CalcLot(symbol, numTPs, lb, sl_distance);
+    double lot = CalcLot(symbol, sl_distance);
 
-    trade.SetDeviationInPoints(deviation > 0 ? deviation : 20);
+    // --- TP: calculated from ProfitPercent of balance (ignores signal TP) ---
+    // profit_target = balance * ProfitPercent%
+    // tp_distance   = profit_target / lot / (tick_value / tick_size)
+    double profit_amt = balance * ProfitPercent / 100.0;
+    double tp_distance = 0.0;
+    if(lot > 0 && tick_val > 0 && tick_size > 0)
+        tp_distance = profit_amt / lot / (tick_val / tick_size);
+    double tp = NormalizeDouble(entry + sign * tp_distance, digits);
+
+    trade.SetExpertMagicNumber(MagicNumber);
+    trade.SetDeviationInPoints(Deviation);
     trade.SetTypeFilling(ORDER_FILLING_IOC);
 
-    Print("OPEN ", direction, " ", symbol, " | lot=", lot, " | ", numTPs, " TPs | sl=",
-          sl_price, " entry~=", entry);
+    Print("COMPOUND OPEN ", direction, " ", symbol,
+          " | lot=", lot,
+          " | sl=", sl_price, " (risk $", NormalizeDouble(balance * RiskPercent / 100.0, 2), ")",
+          " | tp=", tp, " (target $", NormalizeDouble(profit_amt, 2), ")");
 
-    for(int i = 0; i < numTPs; i++)
-    {
-        trade.SetExpertMagicNumber(magic + i);
+    bool ok;
+    if(orderType == ORDER_TYPE_BUY)
+        ok = trade.Buy(lot, symbol, 0, sl_price, tp, "TG_COMPOUND");
+    else
+        ok = trade.Sell(lot, symbol, 0, sl_price, tp, "TG_COMPOUND");
 
-        // TP: use provided value, or auto-calculate from entry ± tp_step*i (last trade = open)
-        double tp;
-        if(tps[i] > 0)
-            tp = tps[i];
-        else if(tp_step > -999998 && i < numTPs - 1)
-            tp = NormalizeDouble(entry + (orderType == ORDER_TYPE_BUY ? 1 : -1) * tp_step * (i + 1), digits);
-        else
-            tp = 0.0; // last trade or no step: open-ended
-
-        double sl = sl_price;
-
-        bool ok;
-        if(orderType == ORDER_TYPE_BUY)
-            ok = trade.Buy(lot, symbol, 0, sl, tp, StringFormat("TG_TP%d", i + 1));
-        else
-            ok = trade.Sell(lot, symbol, 0, sl, tp, StringFormat("TG_TP%d", i + 1));
-
-        if(ok)
-            Print("  TP", i+1, " opened | ticket=", trade.ResultOrder(),
-                  " | sl=", sl, " | tp=", (tp > 0 ? DoubleToString(tp,5) : "OPEN"));
-        else
-            Print("  TP", i+1, " FAILED | retcode=", trade.ResultRetcode(),
-                  " | ", trade.ResultRetcodeDescription());
-    }
+    if(ok)
+        Print("  Opened | ticket=", trade.ResultOrder());
+    else
+        Print("  FAILED | retcode=", trade.ResultRetcode(), " | ", trade.ResultRetcodeDescription());
 }
 
 //+------------------------------------------------------------------+
-//| ACTION: update — modify SL/TP on existing trades                 |
+//| ACTION: update — update SL only, keep balance-based TP          |
 //+------------------------------------------------------------------+
 void HandleUpdate(const string &json)
 {
     string rawSymbol = JsonGetString(json, "symbol");
     string direction = JsonGetString(json, "direction");
     double new_sl    = JsonGetDouble(json, "new_sl");
-    int    magic_base= (int)JsonGetDouble(json, "magic");
-    string tpsRaw    = JsonGetArray(json, "tps");
-
-    double tps[];
-    int numTPs = ParseTPs(tpsRaw, tps);
 
     string symbol = ResolveSymbol(rawSymbol);
-
-    Print("UPDATE ", direction, " ", symbol, " | new_sl=", new_sl, " | ", numTPs, " TPs");
+    Print("COMPOUND UPDATE ", direction, " ", symbol, " | new_sl=", new_sl, " (keeping balance TP)");
 
     int updated = 0;
     for(int i = PositionsTotal() - 1; i >= 0; i--)
@@ -283,37 +256,33 @@ void HandleUpdate(const string &json)
         int    pos_type   = (int)PositionGetInteger(POSITION_TYPE);
         string pos_dir    = (pos_type == POSITION_TYPE_BUY) ? "buy" : "sell";
 
-        // Match: same symbol prefix, same direction, magic in our range
         if(StringFind(pos_symbol, rawSymbol) < 0 && StringFind(rawSymbol, pos_symbol) < 0) continue;
         if(pos_dir != direction) continue;
-        if(pos_magic < magic_base || pos_magic > magic_base + 200) continue;
+        if(pos_magic != MagicNumber) continue;
 
-        int tp_index = (int)(pos_magic - magic_base);
-        double tp = 0.0;
-        if(tp_index < numTPs && tps[tp_index] > 0) tp = tps[tp_index];
+        // Keep the TP that was set at open (30% of balance) — do not change it
+        double current_tp = PositionGetDouble(POSITION_TP);
 
-        if(trade.PositionModify(ticket, new_sl, tp))
-            Print("  Updated ticket=", ticket, " sl=", new_sl, " tp=", (tp>0?DoubleToString(tp,5):"OPEN"));
+        if(trade.PositionModify(ticket, new_sl, current_tp))
+            Print("  Updated ticket=", ticket, " sl=", new_sl, " tp=", current_tp, " (kept)");
         else
-            Print("  Update FAILED ticket=", ticket, " retcode=", trade.ResultRetcode());
+            Print("  FAILED ticket=", ticket, " retcode=", trade.ResultRetcode());
         updated++;
     }
-    if(updated == 0) Print("UPDATE: no matching trades found for ", symbol, " ", direction);
+    if(updated == 0) Print("UPDATE: no matching compound trades found");
 }
 
 //+------------------------------------------------------------------+
-//| ACTION: update_sl — update SL only, keep existing TPs           |
+//| ACTION: update_sl — SL only, keep TP                            |
 //+------------------------------------------------------------------+
 void HandleUpdateSL(const string &json)
 {
     string rawSymbol = JsonGetString(json, "symbol");
     string direction = JsonGetString(json, "direction");
     double new_sl    = JsonGetDouble(json, "new_sl");
-    int    magic_base= (int)JsonGetDouble(json, "magic");
 
     string symbol = ResolveSymbol(rawSymbol);
-
-    Print("UPDATE_SL ", direction, " ", symbol, " | new_sl=", new_sl, " (keeping auto TPs)");
+    Print("COMPOUND UPDATE_SL ", direction, " ", symbol, " | new_sl=", new_sl);
 
     int updated = 0;
     for(int i = PositionsTotal() - 1; i >= 0; i--)
@@ -328,121 +297,100 @@ void HandleUpdateSL(const string &json)
 
         if(StringFind(pos_symbol, rawSymbol) < 0 && StringFind(rawSymbol, pos_symbol) < 0) continue;
         if(pos_dir != direction) continue;
-        if(pos_magic < magic_base || pos_magic > magic_base + 200) continue;
+        if(pos_magic != MagicNumber) continue;
 
-        double current_tp = PositionGetDouble(POSITION_TP); // keep unchanged
-
+        double current_tp = PositionGetDouble(POSITION_TP);
         if(trade.PositionModify(ticket, new_sl, current_tp))
-            Print("  SL updated ticket=", ticket, " new_sl=", new_sl, " tp=", current_tp, " (unchanged)");
+            Print("  SL updated ticket=", ticket, " new_sl=", new_sl, " tp=", current_tp, " (kept)");
         else
-            Print("  SL update FAILED ticket=", ticket, " retcode=", trade.ResultRetcode());
+            Print("  FAILED ticket=", ticket, " retcode=", trade.ResultRetcode());
         updated++;
     }
-    if(updated == 0) Print("UPDATE_SL: no matching trades found for ", symbol, " ", direction);
+    if(updated == 0) Print("UPDATE_SL: no matching compound trades found");
 }
 
 //+------------------------------------------------------------------+
-//| ACTION: breakeven — move SL to entry + spread buffer            |
+//| ACTION: breakeven                                                |
 //+------------------------------------------------------------------+
 void HandleBreakeven(const string &json)
 {
-    int magic_base = (int)JsonGetDouble(json, "magic");
-
-    Print("BREAKEVEN — moving all bot trades to entry + spread buffer");
+    Print("COMPOUND BREAKEVEN — moving to entry + spread buffer");
 
     int moved = 0;
     for(int i = PositionsTotal() - 1; i >= 0; i--)
     {
         ulong ticket = PositionGetTicket(i);
         if(!PositionSelectByTicket(ticket)) continue;
+        if(PositionGetInteger(POSITION_MAGIC) != MagicNumber) continue;
 
-        long pos_magic = PositionGetInteger(POSITION_MAGIC);
-        if(pos_magic < magic_base || pos_magic > magic_base + 9999) continue;
+        string pos_symbol = PositionGetString(POSITION_SYMBOL);
+        double open_price = PositionGetDouble(POSITION_PRICE_OPEN);
+        double current_sl = PositionGetDouble(POSITION_SL);
+        double current_tp = PositionGetDouble(POSITION_TP);
+        int    pos_type   = (int)PositionGetInteger(POSITION_TYPE);
 
-        string pos_symbol  = PositionGetString(POSITION_SYMBOL);
-        double open_price  = PositionGetDouble(POSITION_PRICE_OPEN);
-        double current_sl  = PositionGetDouble(POSITION_SL);
-        double current_tp  = PositionGetDouble(POSITION_TP);
-        int    pos_type    = (int)PositionGetInteger(POSITION_TYPE);
-
-        // Buffer = 1.5× current spread (small, covers spread without big offset)
         long   spread = SymbolInfoInteger(pos_symbol, SYMBOL_SPREAD);
         double point  = SymbolInfoDouble(pos_symbol, SYMBOL_POINT);
         double buffer = spread * point * 1.5;
+        int    digits = (int)SymbolInfoInteger(pos_symbol, SYMBOL_DIGITS);
 
         double new_sl;
-        double current_bid = SymbolInfoDouble(pos_symbol, SYMBOL_BID);
-        double current_ask = SymbolInfoDouble(pos_symbol, SYMBOL_ASK);
+        double bid = SymbolInfoDouble(pos_symbol, SYMBOL_BID);
+        double ask = SymbolInfoDouble(pos_symbol, SYMBOL_ASK);
 
         if(pos_type == POSITION_TYPE_BUY)
         {
-            new_sl = NormalizeDouble(open_price + buffer, (int)SymbolInfoInteger(pos_symbol, SYMBOL_DIGITS));
-            // Already past breakeven — skip
+            new_sl = NormalizeDouble(open_price + buffer, digits);
             if(new_sl <= current_sl && current_sl > 0) continue;
-            // In drawdown — price hasn't reached breakeven level — close instead
-            if(current_bid < new_sl)
+            if(bid < new_sl)
             {
-                Print("  In drawdown — closing ticket=", ticket, " bid=", current_bid, " < be=", new_sl);
-                if(trade.PositionClose(ticket))
-                    Print("  Closed | ticket=", ticket);
-                else
-                    Print("  Close FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode());
-                moved++;
-                continue;
+                Print("  In drawdown — closing ticket=", ticket);
+                trade.PositionClose(ticket);
+                moved++; continue;
             }
         }
         else
         {
-            new_sl = NormalizeDouble(open_price - buffer, (int)SymbolInfoInteger(pos_symbol, SYMBOL_DIGITS));
+            new_sl = NormalizeDouble(open_price - buffer, digits);
             if(new_sl >= current_sl && current_sl > 0) continue;
-            // In drawdown — close instead
-            if(current_ask > new_sl)
+            if(ask > new_sl)
             {
-                Print("  In drawdown — closing ticket=", ticket, " ask=", current_ask, " > be=", new_sl);
-                if(trade.PositionClose(ticket))
-                    Print("  Closed | ticket=", ticket);
-                else
-                    Print("  Close FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode());
-                moved++;
-                continue;
+                Print("  In drawdown — closing ticket=", ticket);
+                trade.PositionClose(ticket);
+                moved++; continue;
             }
         }
 
         if(trade.PositionModify(ticket, new_sl, current_tp))
-            Print("  Breakeven set | ticket=", ticket, " entry=", open_price,
-                  " new_sl=", new_sl, " buffer=", buffer);
+            Print("  Breakeven set | ticket=", ticket, " new_sl=", new_sl);
         else
-            Print("  Breakeven FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode());
+            Print("  FAILED ticket=", ticket, " retcode=", trade.ResultRetcode());
         moved++;
     }
-    if(moved == 0) Print("BREAKEVEN: no eligible trades found");
+    if(moved == 0) Print("BREAKEVEN: no eligible compound trades");
 }
 
 //+------------------------------------------------------------------+
-//| ACTION: close — close all bot trades                             |
+//| ACTION: close                                                    |
 //+------------------------------------------------------------------+
 void HandleClose(const string &json)
 {
-    int magic_base = (int)JsonGetDouble(json, "magic");
-
-    Print("CLOSE — closing all bot trades");
+    Print("COMPOUND CLOSE — closing all compound trades");
 
     int closed = 0;
     for(int i = PositionsTotal() - 1; i >= 0; i--)
     {
         ulong ticket = PositionGetTicket(i);
         if(!PositionSelectByTicket(ticket)) continue;
-
-        long pos_magic = PositionGetInteger(POSITION_MAGIC);
-        if(pos_magic < magic_base || pos_magic > magic_base + 9999) continue;
+        if(PositionGetInteger(POSITION_MAGIC) != MagicNumber) continue;
 
         if(trade.PositionClose(ticket))
             Print("  Closed | ticket=", ticket);
         else
-            Print("  Close FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode());
+            Print("  FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode());
         closed++;
     }
-    if(closed == 0) Print("CLOSE: no bot trades found");
+    if(closed == 0) Print("CLOSE: no compound trades found");
 }
 
 //+------------------------------------------------------------------+
@@ -462,7 +410,7 @@ void ProcessFile(const string filename)
     FileClose(handle);
 
     string action = JsonGetString(json, "action");
-    Print("--- Processing file: ", filename, " | action=", action, " ---");
+    Print("--- [Compound] Processing: ", filename, " | action=", action, " ---");
 
     if(action == "open")           HandleOpen(json);
     else if(action == "update")    HandleUpdate(json);
@@ -478,7 +426,8 @@ void ProcessFile(const string filename)
 int OnInit()
 {
     EventSetMillisecondTimer(CheckIntervalMs);
-    Print("TelegramSignalEA v2.0 started | folder: Common\\Files\\", SignalFolder);
+    Print("TelegramCompoundEA v1.0 started | folder: Common\\Files\\", SignalFolder,
+          " | magic=", MagicNumber, " | risk=", RiskPercent, "%");
     return INIT_SUCCEEDED;
 }
 

@@ -12,7 +12,7 @@ from logger import get_logger
 log = get_logger(__name__)
 
 STATE_FILE = Path(__file__).parent / "signal_state.json"
-PENDING_TIMEOUT_SEC = 900  # 15 minutes — if no update arrives, discard
+PENDING_TIMEOUT_SEC = 300  # 5 minutes — if no update arrives, discard
 
 
 def _load() -> dict:
@@ -31,7 +31,8 @@ def _base_symbol(symbol: str) -> str:
     return symbol.upper()[:6]  # first 6 chars covers XAUUSD, BTCUSD, EURUSD
 
 
-def add_pending(symbol: str, direction: str, predicted_sl_points: int, num_tps: int) -> str:
+def add_pending(symbol: str, direction: str, predicted_sl_points: int, num_tps: int,
+                auto_tp: bool = False) -> str:
     """Store a pending signal and return its signal_id."""
     state = _load()
     signal_id = str(uuid.uuid4())[:8]
@@ -42,9 +43,10 @@ def add_pending(symbol: str, direction: str, predicted_sl_points: int, num_tps: 
         "num_tps": num_tps,
         "timestamp": int(time.time()),
         "status": "pending",
+        "auto_tp": auto_tp,  # True = TPs were auto-calculated, update only SL
     }
     _save(state)
-    log.info("Pending signal stored: id=%s %s %s", signal_id, direction, symbol)
+    log.info("Pending signal stored: id=%s %s %s auto_tp=%s", signal_id, direction, symbol, auto_tp)
     return signal_id
 
 

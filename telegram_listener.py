@@ -1,13 +1,27 @@
+import json
+from pathlib import Path
 from telethon import TelegramClient, events
 
 import config
 from signal_classifier import classify
 from signal_state import add_pending, find_pending, mark_active, remove_expired
 from sl_predictor import predict, record
-from mt5_bridge import write_open, write_update, write_breakeven
+from mt5_bridge import write_open, write_update, write_update_sl_only, write_breakeven, write_close
 from logger import get_logger
 
 log = get_logger(__name__)
+
+_LAST_SYMBOL_FILE = Path(__file__).parent / "last_symbol.json"
+
+
+def _get_last_symbol() -> str:
+    if _LAST_SYMBOL_FILE.exists():
+        return json.loads(_LAST_SYMBOL_FILE.read_text()).get("symbol", "")
+    return ""
+
+
+def _save_last_symbol(symbol: str):
+    _LAST_SYMBOL_FILE.write_text(json.dumps({"symbol": symbol}))
 
 
 def _handle_new_signal(msg: dict):
@@ -21,9 +35,29 @@ def _handle_new_signal(msg: dict):
     sl        = msg.get("sl")
     tps       = msg.get("tps") or []
 
+    if not symbol:
+        symbol = _get_last_symbol()
+        if symbol:
+            log.info("No symbol in message — using last traded symbol: %s", symbol)
     if not direction or not symbol:
         log.warning("new_signal missing direction or symbol — skipping")
         return
+
+    # Expand "TP every N pips" into actual TP prices if we have at least one anchor TP
+    tp_step_pips = msg.get("tp_step_pips")
+    if tp_step_pips and tps:
+        pip_value = config.PIP_VALUE_MAP.get(symbol, 0.10)
+        step = tp_step_pips * pip_value
+        sign = 1 if direction == "buy" else -1
+        anchor = next((t for t in tps if t is not None), None)
+        if anchor is not None:
+            # Fill remaining slots up to MAX_TRADES-1 (last is always open)
+            slots_needed = config.MAX_TRADES - 1 - len([t for t in tps if t is not None])
+            for i in range(1, slots_needed + 1):
+                tps.append(round(anchor + sign * step * i, 5))
+            log.info("Expanded pip-step TPs: %s", tps)
+
+    _save_last_symbol(symbol)
 
     if msg.get("is_complete"):
         # Complete signal — execute right away
@@ -34,18 +68,23 @@ def _handle_new_signal(msg: dict):
         if sl and tps:
             _record_history(symbol, direction, sl, tps)
     else:
-        # Incomplete — EA will calculate SL from risk, open immediately, wait for update
-        _, num_tps = predict(symbol, direction)  # only use num_tps prediction
-        log.info("Incomplete signal: %s %s — no SL, EA will auto-calculate | num_tps=%d",
-                 direction.upper(), symbol, num_tps)
+        # Incomplete — EA will calculate SL from risk, open immediately, wait for update.
+        # Always open exactly MAX_TRADES regardless of what the predictor or signal says.
+        num_tps = config.MAX_TRADES
+        # auto_tp=True when classifier returned no TP list at all (short message like "Sell gold")
+        # auto_tp=False when classifier returned TP labels with no numbers (full signal, TPs coming)
+        auto_tp = msg.get("tps") is None
+        log.info("Incomplete signal: %s %s — no SL | trades=%d | auto_tp=%s",
+                 direction.upper(), symbol, num_tps, auto_tp)
         predicted_tps = [None] * num_tps
-        sig_id = add_pending(symbol, direction, 0, num_tps)
+        sig_id = add_pending(symbol, direction, 0, num_tps, auto_tp=auto_tp)
         write_open(
             symbol=symbol,
             direction=direction,
             tps=predicted_tps,
             sl=None,       # EA calculates SL from risk
             sl_points=None,
+            tp_step=config.TP_STEP_MAP.get(symbol, config.TP_STEP_DEFAULT) if auto_tp else None,
             signal_id=sig_id,
         )
 
@@ -81,9 +120,15 @@ def _handle_signal_update(msg: dict):
             symbol = pending["symbol"]
 
     if pending:
-        log.info("Updating pending signal %s: %s %s | new_sl=%.5f | %d TPs",
-                 sig_id, direction.upper(), symbol, sl, len(tps))
-        write_update(symbol=symbol, direction=direction, new_sl=sl, tps=tps, signal_id=sig_id)
+        if pending.get("auto_tp"):
+            # TPs were auto-calculated from entry — only update the SL, keep TPs
+            log.info("Updating auto-TP signal %s: %s %s | new_sl=%.5f (TPs kept)",
+                     sig_id, direction.upper(), symbol, sl)
+            write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id=sig_id)
+        else:
+            log.info("Updating pending signal %s: %s %s | new_sl=%.5f | %d TPs",
+                     sig_id, direction.upper(), symbol, sl, len(tps))
+            write_update(symbol=symbol, direction=direction, new_sl=sl, tps=tps, signal_id=sig_id)
         mark_active(sig_id)
         _record_history(symbol, direction, sl, tps)
     else:
@@ -149,6 +194,10 @@ async def start():
         elif msg_type == "breakeven":
             log.info("Breakeven instruction detected")
             write_breakeven()
+
+        elif msg_type == "close":
+            log.info("Close/cancel instruction detected")
+            write_close()
 
         else:
             log.debug("Message ignored (type=%s)", msg_type)

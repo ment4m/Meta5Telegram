@@ -23,12 +23,25 @@ def _signals_dir() -> Path:
     return path
 
 
+def _compound_dir() -> Path:
+    path = Path(config.MT5_FILES_PATH_COMPOUND)
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
 def _write(payload: dict, prefix: str) -> Path:
     filename = f"{prefix}_{int(time.time())}.json"
+    # Write to main EA folder
     filepath = _signals_dir() / filename
     with open(filepath, "w") as f:
         json.dump(payload, f, indent=2)
     log.info("Written → %s | %s", filename, payload)
+    # Mirror to compound EA folder
+    if config.COMPOUND_ENABLED:
+        compound_path = _compound_dir() / filename
+        with open(compound_path, "w") as f:
+            json.dump(payload, f, indent=2)
+        log.debug("Mirrored → compound/%s", filename)
     return filepath
 
 
@@ -40,14 +53,24 @@ def write_open(
     tps: list,
     sl: float = None,
     sl_points: int = None,
+    tp_step: float = None,
     signal_id: str = "",
 ) -> Path:
     """
     Open one trade per TP.
     - sl: actual price (used when signal is complete)
     - sl_points: distance from entry in points (used when signal is incomplete/predicted)
+    - tp_step: when TPs are all null, EA auto-calculates TPs as entry ± tp_step*i
     EA calculates lot size = AccountBalance / LOT_BALANCE_DIVISOR / num_tps.
     """
+    # Cap to MAX_TRADES: keep first (MAX_TRADES-1) real TPs, force last = open
+    tps = list(tps)
+    if len(tps) > config.MAX_TRADES:
+        tps = tps[:config.MAX_TRADES - 1] + [None]
+    elif tps and tps[-1] is not None:
+        # ensure last trade is always open
+        tps[-1] = None
+
     payload = {
         "action":            "open",
         "symbol":            symbol,
@@ -55,14 +78,15 @@ def write_open(
         "sl":                sl,          # None if predicted
         "sl_points":         sl_points,   # None if actual sl provided
         "tps":               tps,         # list of floats or None (None = no TP)
+        "tp_step":           tp_step,     # auto-calculate TPs from entry ± step*i
         "magic":             config.MAGIC_NUMBER,
         "deviation":         config.DEVIATION,
         "lot_balance_div":   config.LOT_BALANCE_DIVISOR,
         "signal_id":         signal_id,
         "timestamp":         int(time.time()),
     }
-    log.info("OPEN %s %s | sl=%s | sl_pts=%s | %d TPs",
-             direction.upper(), symbol, sl, sl_points, len(tps))
+    log.info("OPEN %s %s | sl=%s | sl_pts=%s | %d trades (capped) | tp_step=%s",
+             direction.upper(), symbol, sl, sl_points, len(tps), tp_step)
     return _write(payload, "open")
 
 
@@ -89,6 +113,42 @@ def write_update(
     }
     log.info("UPDATE %s %s | new_sl=%.5f | %d TPs", direction.upper(), symbol, new_sl, len(tps))
     return _write(payload, "update")
+
+
+def write_update_sl_only(
+    symbol: str,
+    direction: str,
+    new_sl: float,
+    signal_id: str = "",
+) -> Path:
+    """
+    Update only the SL on all open trades matching symbol+direction+magic.
+    TPs are left untouched (used when TPs were auto-calculated from entry).
+    """
+    payload = {
+        "action":    "update_sl",
+        "symbol":    symbol,
+        "direction": direction.lower(),
+        "new_sl":    new_sl,
+        "magic":     config.MAGIC_NUMBER,
+        "signal_id": signal_id,
+        "timestamp": int(time.time()),
+    }
+    log.info("UPDATE_SL %s %s | new_sl=%.5f (keeping auto TPs)", direction.upper(), symbol, new_sl)
+    return _write(payload, "update_sl")
+
+
+def write_close() -> Path:
+    """
+    Close ALL open trades opened by this bot (matched by magic number).
+    """
+    payload = {
+        "action":    "close",
+        "magic":     config.MAGIC_NUMBER,
+        "timestamp": int(time.time()),
+    }
+    log.info("CLOSE — closing all bot trades")
+    return _write(payload, "close")
 
 
 def write_breakeven() -> Path:
