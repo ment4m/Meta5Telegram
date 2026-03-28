@@ -7,6 +7,7 @@ Pushover + Telegram self-message notifications.
 import urllib.request
 import urllib.parse
 import asyncio
+import ssl
 import config
 from logger import get_logger
 
@@ -63,7 +64,10 @@ def _pushover(title: str, message: str, emergency: bool = True):
             "sound":   "persistent",
         }).encode()
         req = urllib.request.Request(_PUSHOVER_URL, data=data)
-        urllib.request.urlopen(req, timeout=10)
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        urllib.request.urlopen(req, timeout=10, context=ctx)
         log.info("Pushover alert sent: %s", title)
     except Exception as e:
         log.warning("Pushover failed: %s", e)
