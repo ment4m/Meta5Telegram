@@ -112,16 +112,16 @@ def alert_signal_update(direction: str, symbol: str, new_sl: float, sig_id: str)
 
 
 def alert_breakeven(symbol: str = ""):
-    """High priority alert for breakeven action."""
+    """Emergency alert for breakeven action."""
     title  = "↔️ Breakeven triggered"
     detail = f"SL moved to entry{' — ' + symbol if symbol else ''}"
-    _pushover(title, detail, priority=1)  # high — plays sound
+    _pushover(title, detail, priority=2)  # emergency — repeats until dismissed
     _tg_notify(f"↔️ **Breakeven triggered**\nSL moved to entry price")
 
 
 def alert_close():
-    """High priority alert when all trades are closed."""
+    """Emergency alert when all trades are closed."""
     title  = "🔴 All trades closed"
     detail = "Close instruction received — all bot trades closed"
-    _pushover(title, detail, priority=1)  # high — plays sound
+    _pushover(title, detail, priority=2)  # emergency — repeats until dismissed
     _tg_notify("🔴 **All trades closed**\nClose instruction received")
