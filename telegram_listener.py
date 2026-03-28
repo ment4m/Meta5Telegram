@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 from telethon import TelegramClient, events
+from telethon.sessions import StringSession
 
 import config
 from signal_classifier import classify
@@ -154,8 +155,22 @@ def _record_history(symbol: str, direction: str, sl: float, tps: list):
         log.debug("History record error (non-critical): %s", e)
 
 
+_SESSION_FILE = Path(__file__).parent / "tg_session.string"
+
+
+def _load_session() -> StringSession:
+    if _SESSION_FILE.exists():
+        return StringSession(_SESSION_FILE.read_text().strip())
+    return StringSession()
+
+
+def _save_session(client):
+    _SESSION_FILE.write_text(client.session.save())
+    log.info("Session saved to %s", _SESSION_FILE)
+
+
 async def start():
-    client = TelegramClient("tg_session", config.API_ID, config.API_HASH)
+    client = TelegramClient(_load_session(), config.API_ID, config.API_HASH)
     await client.connect()
     if not await client.is_user_authorized():
         await client.send_code_request(config.PHONE_NUMBER)
@@ -168,6 +183,7 @@ async def start():
                 await client.sign_in(password=pw)
             else:
                 raise
+        _save_session(client)
 
     me = await client.get_me()
     log.info("Logged in as %s | monitoring: %s", me.username or me.phone, config.CHANNEL_USERNAME)
