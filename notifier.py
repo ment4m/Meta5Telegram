@@ -48,21 +48,28 @@ def _tg_notify(message: str):
         log.warning("Telegram notify error: %s", e)
 
 
-def _pushover(title: str, message: str, emergency: bool = True):
+def _pushover(title: str, message: str, priority: int = 1):
+    """
+    priority 2 = emergency (repeats every 30s until dismissed, bypasses silent)
+    priority 1 = high (plays sound, bypasses quiet hours, no repeat)
+    priority 0 = normal (sound only if not in quiet hours)
+    """
     if not config.PUSHOVER_TOKEN or not config.PUSHOVER_USER:
         log.debug("Pushover not configured — skipping")
         return
     try:
-        data = urllib.parse.urlencode({
-            "token":   config.PUSHOVER_TOKEN,
-            "user":    config.PUSHOVER_USER,
-            "title":   title,
-            "message": message,
-            "priority": 2 if emergency else 0,  # 2 = emergency (repeats until dismissed)
-            "retry":   30,    # retry every 30 seconds
-            "expire":  3600,  # keep alerting for up to 1 hour
-            "sound":   "persistent",
-        }).encode()
+        params = {
+            "token":    config.PUSHOVER_TOKEN,
+            "user":     config.PUSHOVER_USER,
+            "title":    title,
+            "message":  message,
+            "priority": priority,
+            "sound":    "persistent",
+        }
+        if priority == 2:
+            params["retry"]  = 30
+            params["expire"] = 3600
+        data = urllib.parse.urlencode(params).encode()
         req = urllib.request.Request(_PUSHOVER_URL, data=data)
         ctx = ssl.create_default_context()
         ctx.check_hostname = False
@@ -82,7 +89,7 @@ def alert_new_signal(direction: str, symbol: str, sl, tps: list, num_trades: int
 
     title  = f"🔔 {direction.upper()} {symbol} — {num_trades} trades opened"
     detail = f"SL: {sl_str}\nTPs: {tp_list}\nID: {sig_id}"
-    _pushover(title, detail, emergency=True)
+    _pushover(title, detail, priority=2)  # emergency — repeats until dismissed
     _tg_notify(
         f"🔔 **{direction.upper()} {symbol}**\n"
         f"Trades: {num_trades}\n"
@@ -93,10 +100,10 @@ def alert_new_signal(direction: str, symbol: str, sl, tps: list, num_trades: int
 
 
 def alert_signal_update(direction: str, symbol: str, new_sl: float, sig_id: str):
-    """Normal alert when SL/TPs are updated."""
+    """High priority alert when SL/TPs are updated."""
     title  = f"✏️ Updated: {direction.upper()} {symbol}"
     detail = f"New SL: {new_sl:.5f}\nID: {sig_id}"
-    _pushover(title, detail, emergency=False)
+    _pushover(title, detail, priority=1)  # high — plays sound
     _tg_notify(
         f"✏️ **SL Updated — {direction.upper()} {symbol}**\n"
         f"New SL: `{new_sl:.5f}`\n"
@@ -105,16 +112,16 @@ def alert_signal_update(direction: str, symbol: str, new_sl: float, sig_id: str)
 
 
 def alert_breakeven(symbol: str = ""):
-    """Normal alert for breakeven action."""
+    """High priority alert for breakeven action."""
     title  = "↔️ Breakeven triggered"
     detail = f"SL moved to entry{' — ' + symbol if symbol else ''}"
-    _pushover(title, detail, emergency=False)
+    _pushover(title, detail, priority=1)  # high — plays sound
     _tg_notify(f"↔️ **Breakeven triggered**\nSL moved to entry price")
 
 
 def alert_close():
-    """Normal alert when all trades are closed."""
+    """High priority alert when all trades are closed."""
     title  = "🔴 All trades closed"
     detail = "Close instruction received — all bot trades closed"
-    _pushover(title, detail, emergency=False)
+    _pushover(title, detail, priority=1)  # high — plays sound
     _tg_notify("🔴 **All trades closed**\nClose instruction received")
