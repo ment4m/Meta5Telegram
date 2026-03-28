@@ -21,7 +21,7 @@ Message types:
     * Direction indicators: 👉🏾 👉🏼 👉 🫰 before BUY/SELL, or just "BUY"/"SELL" anywhere in the line.
     * Short pre-entry messages with no SL/TPs: "Sell gold", "Buy gold", "Sell again", "Buy now again", "Sell again gold", "Buy now", "Sell now", "Buy BTC", "Sell BTC" etc.
 - "signal_update" : Follow-up providing actual SL/TP numbers for a previous incomplete signal.
-- "breakeven"     : Move stop loss to entry price. e.g. "Move SL to breakeven", "move stop loss to break even". ONLY when the instruction is to MOVE the stop loss — NOT when it says to close.
+- "breakeven"     : Move stop loss to entry price. e.g. "Move SL to breakeven", "move stop loss to break even", "BE", "B/E", "move to BE", "SL to BE", "breakeven now". ONLY when the instruction is to MOVE the stop loss — NOT when it says to close.
 - "close"         : Close/cancel all open trades. e.g. "Cancel the trade", "Close all", "Close trade", "Cancel signal", "Exit now", "Close positions", "I don't like it close this trade", "close with breakeven", "close at breakeven", "Not good anymore close with breakeven", "Close the rest". IMPORTANT: any message that says to close/cancel — even if it mentions breakeven — is a close, NOT a breakeven. "Close with breakeven" = close immediately.
 - "ignore"        : Everything else — including:
     * "Looking buys/sells on X" — watching, not yet entering (ALWAYS ignore)
