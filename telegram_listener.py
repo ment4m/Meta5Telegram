@@ -31,8 +31,8 @@ def _handle_new_signal(msg: dict):
     - Complete (has SL + TPs): execute immediately.
     - Incomplete (no SL/TP numbers): predict SL, open trades, store pending state.
     """
-    direction = msg.get("direction", "").lower()
-    symbol    = msg.get("symbol", "")
+    direction = (msg.get("direction") or "").lower()
+    symbol    = msg.get("symbol") or ""
     sl        = msg.get("sl")
     tps       = msg.get("tps") or []
 
@@ -95,8 +95,8 @@ def _handle_signal_update(msg: dict):
     Find matching pending signal and update existing trades.
     If no pending signal found, treat as a fresh complete signal.
     """
-    direction = msg.get("direction", "").lower()
-    symbol    = msg.get("symbol", "")
+    direction = (msg.get("direction") or "").lower()
+    symbol    = msg.get("symbol") or ""
     sl        = msg.get("sl")
     tps       = msg.get("tps") or []
 
