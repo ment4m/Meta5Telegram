@@ -191,15 +191,16 @@ async def start():
     channel_entity = await client.get_entity(config.CHANNEL_USERNAME)
     log.info("Channel entity resolved: %s", channel_entity.id)
 
-    import time as _time
-    _bot_start_time = int(_time.time())
+    # Get the latest message ID so we only process NEW messages after this point
+    history = await client.get_messages(channel_entity, limit=1)
+    _last_msg_id = history[0].id if history else 0
+    log.info("Starting from message ID: %d (ignoring everything before)", _last_msg_id)
 
     @client.on(events.NewMessage(chats=channel_entity))
     async def on_message(event):
-        # Ignore messages sent more than 60 seconds before bot started (replay on reconnect)
-        msg_time = event.message.date.timestamp() if event.message.date else 0
-        if msg_time < _bot_start_time - 60:
-            log.info("Skipping old message from %s (before bot start)", event.message.date)
+        # Only process messages newer than what existed when bot started
+        if event.message.id <= _last_msg_id:
+            log.debug("Skipping already-seen message id=%d", event.message.id)
             return
 
         text = event.message.text
