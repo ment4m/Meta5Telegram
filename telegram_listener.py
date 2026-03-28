@@ -187,15 +187,19 @@ async def start():
     me = await client.get_me()
     log.info("Logged in as %s | monitoring: %s", me.username or me.phone, config.CHANNEL_USERNAME)
 
+    # Resolve channel entity once at startup so the filter works with StringSession
+    channel_entity = await client.get_entity(config.CHANNEL_USERNAME)
+    log.info("Channel entity resolved: %s", channel_entity.id)
+
     import time as _time
     _bot_start_time = int(_time.time())
 
-    @client.on(events.NewMessage(chats=config.CHANNEL_USERNAME))
+    @client.on(events.NewMessage(chats=channel_entity))
     async def on_message(event):
-        # Ignore messages that were sent before the bot started (replay on reconnect)
+        # Ignore messages sent more than 60 seconds before bot started (replay on reconnect)
         msg_time = event.message.date.timestamp() if event.message.date else 0
-        if msg_time < _bot_start_time:
-            log.debug("Skipping old message from %s (before bot start)", event.message.date)
+        if msg_time < _bot_start_time - 60:
+            log.info("Skipping old message from %s (before bot start)", event.message.date)
             return
 
         text = event.message.text
