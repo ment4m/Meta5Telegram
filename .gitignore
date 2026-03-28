@@ -1,0 +1,8 @@
+.env
+tg_session.session
+tg_session.session-journal
+logs/
+__pycache__/
+*.pyc
+*.pyo
+signals/

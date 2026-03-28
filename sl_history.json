@@ -1,0 +1,50 @@
+[
+  {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "sl_points": 676,
+    "num_tps": 2
+  },
+  {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "sl_points": 676,
+    "num_tps": 2
+  },
+  {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "sl_points": 676,
+    "num_tps": 2
+  },
+  {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "sl_points": 676,
+    "num_tps": 2
+  },
+  {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "sl_points": 676,
+    "num_tps": 2
+  },
+  {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "sl_points": 750,
+    "num_tps": 2
+  },
+  {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "sl_points": 750,
+    "num_tps": 2
+  },
+  {
+    "symbol": "BTCUSD",
+    "direction": "sell",
+    "sl_points": 750,
+    "num_tps": 2
+  }
+]
