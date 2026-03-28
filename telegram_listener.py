@@ -8,7 +8,6 @@ from signal_classifier import classify
 from signal_state import add_pending, find_pending, mark_active, remove_expired
 from sl_predictor import predict, record
 from mt5_bridge import write_open, write_update, write_update_sl_only, write_breakeven, write_close
-from notifier import alert_new_signal, alert_signal_update, alert_breakeven, alert_close
 from logger import get_logger
 
 log = get_logger(__name__)
@@ -66,7 +65,6 @@ def _handle_new_signal(msg: dict):
         log.info("Complete signal: %s %s | SL=%.5f | %d TPs", direction.upper(), symbol, sl, len(tps))
         sig_id = f"sig_{int(__import__('time').time())}"
         write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, signal_id=sig_id)
-        alert_new_signal(direction, symbol, sl, tps, len(tps), sig_id)
         if sl and tps:
             _record_history(symbol, direction, sl, tps)
     else:
@@ -89,7 +87,6 @@ def _handle_new_signal(msg: dict):
             tp_step=config.TP_STEP_MAP.get(symbol, config.TP_STEP_DEFAULT) if auto_tp else None,
             signal_id=sig_id,
         )
-        alert_new_signal(direction, symbol, None, predicted_tps, num_tps, sig_id)
 
 
 def _handle_signal_update(msg: dict):
@@ -133,14 +130,12 @@ def _handle_signal_update(msg: dict):
                      sig_id, direction.upper(), symbol, sl, len(tps))
             write_update(symbol=symbol, direction=direction, new_sl=sl, tps=tps, signal_id=sig_id)
         mark_active(sig_id)
-        alert_signal_update(direction, symbol, sl, sig_id)
         _record_history(symbol, direction, sl, tps)
     else:
         # No pending found — treat as a standalone complete signal
         log.info("No pending signal found — treating update as new complete signal")
         sig_id = f"sig_{int(__import__('time').time())}"
         write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, signal_id=sig_id)
-        alert_new_signal(direction, symbol, sl, tps, len(tps), sig_id)
         _record_history(symbol, direction, sl, tps)
 
 
@@ -214,12 +209,10 @@ async def start():
         elif msg_type == "breakeven":
             log.info("Breakeven instruction detected")
             write_breakeven()
-            alert_breakeven()
 
         elif msg_type == "close":
             log.info("Close/cancel instruction detected")
             write_close()
-            alert_close()
 
         else:
             log.debug("Message ignored (type=%s)", msg_type)
