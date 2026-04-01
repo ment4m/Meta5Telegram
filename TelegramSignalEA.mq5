@@ -222,15 +222,13 @@ void HandleOpen(const string &json)
     }
     else
     {
-        // No SL provided — derive SL from risk so 1 lot risks exactly risk_per_trade
-        double risk_per_trade = AccountInfoDouble(ACCOUNT_BALANCE) / lb / numTPs;
-        double loss_ratio     = (tick_val > 0 && tick_size > 0) ? (tick_val / tick_size) : 0;
-        double sl_dist_auto   = (loss_ratio > 0) ? (risk_per_trade / loss_ratio) : (entry * 0.02);
+        // No SL provided — use fixed 15-unit SL distance from entry.
+        // CalcLot will size the lot so that 25% of balance is at risk across all TPs.
+        double sl_dist_auto = 15.0;
         sl_price = (orderType == ORDER_TYPE_BUY)
             ? NormalizeDouble(entry - sl_dist_auto, digits)
             : NormalizeDouble(entry + sl_dist_auto, digits);
-        Print("Auto SL: risk_per_trade=", risk_per_trade, " loss_ratio=", loss_ratio,
-              " sl_dist=", sl_dist_auto, " sl_price=", sl_price);
+        Print("Auto SL (fixed 15pts): entry=", entry, " sl_price=", sl_price);
     }
 
     double sl_distance = MathAbs(entry - sl_price);
