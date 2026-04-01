@@ -166,6 +166,24 @@ void HandleOpen(const string &json)
     double sl_val    = JsonGetDouble(json, "sl");        // -999999 = null
     double sl_pts    = JsonGetDouble(json, "sl_points"); // -999999 = null
     int    magic     = (int)JsonGetDouble(json, "magic");
+
+    // Block duplicate opens: skip if we already have open trades for this symbol+direction
+    string checkSymbol = ResolveSymbol(rawSymbol);
+    ENUM_POSITION_TYPE checkType = (direction == "buy") ? POSITION_TYPE_BUY : POSITION_TYPE_SELL;
+    for(int c = PositionsTotal() - 1; c >= 0; c--)
+    {
+        if(!PositionGetTicket(c)) continue;
+        long   pos_magic = PositionGetInteger(POSITION_MAGIC);
+        string pos_sym   = PositionGetString(POSITION_SYMBOL);
+        int    pos_type  = (int)PositionGetInteger(POSITION_TYPE);
+        if(pos_magic >= magic && pos_magic <= magic + 200 &&
+           StringFind(pos_sym, checkSymbol) >= 0 &&
+           pos_type == (int)checkType)
+        {
+            Print("OPEN skipped — trades already open for ", direction, " ", checkSymbol);
+            return;
+        }
+    }
     int    deviation = (int)JsonGetDouble(json, "deviation");
     int    lb_div    = (int)JsonGetDouble(json, "lot_balance_div");
     string tpsRaw    = JsonGetArray(json, "tps");
@@ -344,7 +362,7 @@ void HandleUpdateSL(const string &json)
 //+------------------------------------------------------------------+
 //| ACTION: breakeven — move SL to entry + spread buffer            |
 //+------------------------------------------------------------------+
-void HandleBreakeven(const string &json)
+int HandleBreakeven(const string &json)
 {
     int magic_base = (int)JsonGetDouble(json, "magic");
 
@@ -416,6 +434,7 @@ void HandleBreakeven(const string &json)
         moved++;
     }
     if(moved == 0) Print("BREAKEVEN: no eligible trades found");
+    return moved;
 }
 
 //+------------------------------------------------------------------+
@@ -464,14 +483,32 @@ void ProcessFile(const string filename)
     string action = JsonGetString(json, "action");
     Print("--- Processing file: ", filename, " | action=", action, " ---");
 
+    bool deleteFile = true;
+
     if(action == "open")           HandleOpen(json);
     else if(action == "update")    HandleUpdate(json);
     else if(action == "update_sl") HandleUpdateSL(json);
-    else if(action == "breakeven") HandleBreakeven(json);
+    else if(action == "breakeven")
+    {
+        // Retry breakeven if no trades found yet (trades may still be opening)
+        int moved = HandleBreakeven(json);
+        if(moved == 0)
+        {
+            double ts = JsonGetDouble(json, "timestamp");
+            double age = (double)(TimeCurrent() - (datetime)ts);
+            if(age < 30) // retry for up to 30 seconds
+            {
+                Print("BREAKEVEN: no trades yet, will retry (age=", (int)age, "s)");
+                deleteFile = false;
+            }
+            else
+                Print("BREAKEVEN: gave up after 30s, no trades found");
+        }
+    }
     else if(action == "close")     HandleClose(json);
     else Print("Unknown action: ", action);
 
-    FileDelete(folder + filename, FILE_COMMON);
+    if(deleteFile) FileDelete(folder + filename, FILE_COMMON);
 }
 
 //+------------------------------------------------------------------+

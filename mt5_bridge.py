@@ -8,6 +8,7 @@ Actions:
 """
 
 import json
+import threading
 import time
 from pathlib import Path
 
@@ -16,6 +17,10 @@ from logger import get_logger
 
 log = get_logger(__name__)
 
+_OPEN_COOLDOWN_SEC = 3600  # block duplicate open for same symbol+direction for 1 hour
+_open_lock = threading.Lock()          # prevents race between concurrent threads
+_last_open: dict = {}                  # (symbol, direction) -> timestamp (in-memory)
+
 
 def _signals_dir() -> Path:
     path = Path(config.MT5_FILES_PATH)
@@ -23,25 +28,13 @@ def _signals_dir() -> Path:
     return path
 
 
-def _compound_dir() -> Path:
-    path = Path(config.MT5_FILES_PATH_COMPOUND)
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
 
 def _write(payload: dict, prefix: str) -> Path:
     filename = f"{prefix}_{int(time.time())}.json"
-    # Write to main EA folder
     filepath = _signals_dir() / filename
     with open(filepath, "w") as f:
         json.dump(payload, f, indent=2)
     log.info("Written → %s | %s", filename, payload)
-    # Mirror to compound EA folder
-    if config.COMPOUND_ENABLED:
-        compound_path = _compound_dir() / filename
-        with open(compound_path, "w") as f:
-            json.dump(payload, f, indent=2)
-        log.debug("Mirrored → compound/%s", filename)
     return filepath
 
 
@@ -85,6 +78,14 @@ def write_open(
         "signal_id":         signal_id,
         "timestamp":         int(time.time()),
     }
+    with _open_lock:
+        key = (symbol.upper(), direction.lower())
+        now = time.time()
+        last = _last_open.get(key, 0)
+        if now - last < _OPEN_COOLDOWN_SEC:
+            log.warning("Duplicate OPEN blocked: %s %s (%.0fs ago)", direction.upper(), symbol, now - last)
+            return None
+        _last_open[key] = now
     log.info("OPEN %s %s | sl=%s | sl_pts=%s | %d trades (capped) | tp_step=%s",
              direction.upper(), symbol, sl, sl_points, len(tps), tp_step)
     return _write(payload, "open")

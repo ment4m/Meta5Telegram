@@ -1,4 +1,5 @@
 import json
+import time
 from pathlib import Path
 from telethon import TelegramClient, events
 from telethon.sessions import StringSession
@@ -12,7 +13,38 @@ from logger import get_logger
 
 log = get_logger(__name__)
 
-_LAST_SYMBOL_FILE = Path(__file__).parent / "last_symbol.json"
+_LAST_SYMBOL_FILE  = Path(__file__).parent / "last_symbol.json"
+_LAST_MSG_ID_FILE  = Path(__file__).parent / "last_msg_id.json"
+
+# Text-based deduplication: block identical message text within the window.
+# Checked BEFORE classify() so there is no async gap between check and lock.
+_RECENT_TEXTS: dict = {}  # text -> timestamp
+_DEDUP_WINDOW_SEC = 3600  # 1 hour — same raw text won't fire twice
+
+
+def _is_duplicate_text(text: str) -> bool:
+    """Return True if this exact message text was seen within the dedup window."""
+    now = time.time()
+    # Clean up expired entries
+    expired = [k for k, ts in _RECENT_TEXTS.items() if now - ts > _DEDUP_WINDOW_SEC]
+    for k in expired:
+        del _RECENT_TEXTS[k]
+    if text in _RECENT_TEXTS:
+        elapsed = int(now - _RECENT_TEXTS[text])
+        log.warning("Duplicate message blocked (same text seen %ds ago)", elapsed)
+        return True
+    _RECENT_TEXTS[text] = now
+    return False
+
+
+def _load_last_msg_id() -> int:
+    if _LAST_MSG_ID_FILE.exists():
+        return json.loads(_LAST_MSG_ID_FILE.read_text()).get("id", 0)
+    return 0
+
+
+def _save_last_msg_id(msg_id: int):
+    _LAST_MSG_ID_FILE.write_text(json.dumps({"id": msg_id}))
 
 
 def _get_last_symbol() -> str:
@@ -191,17 +223,25 @@ async def start():
     channel_entity = await client.get_entity(config.CHANNEL_USERNAME)
     log.info("Channel entity resolved: %s", channel_entity.id)
 
-    # Get the latest message ID so we only process NEW messages after this point
-    history = await client.get_messages(channel_entity, limit=1)
-    _last_msg_id = history[0].id if history else 0
+    # Load last processed message ID from disk (survives restarts)
+    _last_msg_id = _load_last_msg_id()
+    if _last_msg_id == 0:
+        # First run — start from latest message in channel
+        history = await client.get_messages(channel_entity, limit=1)
+        _last_msg_id = history[0].id if history else 0
+        _save_last_msg_id(_last_msg_id)
     log.info("Starting from message ID: %d (ignoring everything before)", _last_msg_id)
 
     @client.on(events.NewMessage(chats=channel_entity))
     async def on_message(event):
-        # Only process messages newer than what existed when bot started
+        nonlocal _last_msg_id
+        # Only process messages newer than last processed
         if event.message.id <= _last_msg_id:
-            log.debug("Skipping already-seen message id=%d", event.message.id)
+            log.info("Skipping replay msg id=%d (last=%d)", event.message.id, _last_msg_id)
             return
+        # Mark as processed immediately to prevent re-delivery duplicates
+        _last_msg_id = event.message.id
+        _save_last_msg_id(_last_msg_id)
 
         text = event.message.text
         if not text:
@@ -210,7 +250,11 @@ async def start():
 
         remove_expired()
 
-        log.debug("New message:\n%s", text[:200])
+        # Block identical text within 10-minute window BEFORE calling Claude
+        if _is_duplicate_text(text):
+            return
+
+        log.debug("New message [id=%d]:\n%s", event.message.id, text[:200])
         msg = classify(text)
         msg_type = msg.get("type", "ignore")
 
