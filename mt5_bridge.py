@@ -79,10 +79,17 @@ def write_open(
         "timestamp":         int(time.time()),
     }
     with _open_lock:
-        key = (symbol.upper(), direction.lower())
         now = time.time()
+        if sl is not None or sl_points is not None:
+            # Complete signal (has SL) — block duplicates for 1 hour
+            key = (symbol.upper(), direction.lower(), str(round(sl or sl_points or 0, 2)))
+            cooldown = _OPEN_COOLDOWN_SEC
+        else:
+            # Incomplete signal (no SL) — block duplicates for only 5 minutes
+            key = (symbol.upper(), direction.lower(), "nosl")
+            cooldown = 300
         last = _last_open.get(key, 0)
-        if now - last < _OPEN_COOLDOWN_SEC:
+        if now - last < cooldown:
             log.warning("Duplicate OPEN blocked: %s %s (%.0fs ago)", direction.upper(), symbol, now - last)
             return None
         _last_open[key] = now

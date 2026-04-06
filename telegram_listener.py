@@ -250,10 +250,6 @@ async def start():
 
         remove_expired()
 
-        # Block identical text within 10-minute window BEFORE calling Claude
-        if _is_duplicate_text(text):
-            return
-
         log.debug("New message [id=%d]:\n%s", event.message.id, text[:200])
         msg = classify(text)
         msg_type = msg.get("type", "ignore")
