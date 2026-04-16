@@ -76,27 +76,23 @@ def _handle_new_signal(msg: dict):
         log.warning("new_signal missing direction or symbol — skipping")
         return
 
-    # Expand "TP every N pips" into actual TP prices if we have at least one anchor TP
+    # "TP every N pips" — let the EA generate TPs from actual entry price
     tp_step_pips = msg.get("tp_step_pips")
-    if tp_step_pips and tps:
+    tp_step = None
+    if tp_step_pips:
         pip_value = config.PIP_VALUE_MAP.get(symbol, 0.10)
-        step = tp_step_pips * pip_value
-        sign = 1 if direction == "buy" else -1
-        anchor = next((t for t in tps if t is not None), None)
-        if anchor is not None:
-            # Fill remaining slots up to MAX_TRADES-1 (last is always open)
-            slots_needed = config.MAX_TRADES - 1 - len([t for t in tps if t is not None])
-            for i in range(1, slots_needed + 1):
-                tps.append(round(anchor + sign * step * i, 5))
-            log.info("Expanded pip-step TPs: %s", tps)
+        tp_step = round(tp_step_pips * pip_value, 5)
+        # TPs will be generated from entry by the EA — send nulls for all slots
+        tps = [None] * config.MAX_TRADES
+        log.info("Pip-step signal: step=%.5f (%d pips) — EA will generate TPs from entry", tp_step, tp_step_pips)
 
     _save_last_symbol(symbol)
 
     if msg.get("is_complete"):
         # Complete signal — execute right away
-        log.info("Complete signal: %s %s | SL=%.5f | %d TPs", direction.upper(), symbol, sl, len(tps))
+        log.info("Complete signal: %s %s | SL=%.5f | %d TPs | tp_step=%s", direction.upper(), symbol, sl, len(tps), tp_step)
         sig_id = f"sig_{int(__import__('time').time())}"
-        write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, signal_id=sig_id)
+        write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, tp_step=tp_step, signal_id=sig_id)
         if sl and tps:
             _record_history(symbol, direction, sl, tps)
     else:
