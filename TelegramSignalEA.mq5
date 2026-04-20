@@ -130,11 +130,21 @@ double CalcLot(const string symbol, int num_tps, int lot_balance_div, double sl_
     double balance    = AccountInfoDouble(ACCOUNT_BALANCE);
     double risk       = (balance / lot_balance_div) / num_tps;
 
+    // Refresh market data to ensure tick values are loaded
+    SymbolSelect(symbol, true);
     double tick_val   = SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_VALUE);
     double tick_size  = SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_SIZE);
     double min_lot    = SymbolInfoDouble(symbol, SYMBOL_VOLUME_MIN);
     double max_lot    = SymbolInfoDouble(symbol, SYMBOL_VOLUME_MAX);
     double lot_step   = SymbolInfoDouble(symbol, SYMBOL_VOLUME_STEP);
+
+    // If tick_val still 0, retry once after a short wait
+    if(tick_val == 0)
+    {
+        Sleep(500);
+        tick_val = SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_VALUE);
+        tick_size = SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_SIZE);
+    }
 
     if(tick_val == 0 || tick_size == 0 || sl_distance == 0)
     {
