@@ -1,14 +1,133 @@
 """
-Signal classifier using Claude AI.
+Signal classifier — regex fast-path first, Claude AI fallback.
 Reads any Telegram message and returns structured trading intent.
 """
 
 import json
+import re
 import anthropic
 import config
 from logger import get_logger
 
 log = get_logger(__name__)
+
+# ---------------------------------------------------------------------------
+# Symbol map — expands aliases to standard pair names
+# ---------------------------------------------------------------------------
+_SYMBOL_MAP = {
+    "gold": "XAUUSD", "xauusd": "XAUUSD",
+    "btc": "BTCUSD",  "bitcoin": "BTCUSD", "btcusd": "BTCUSD",
+    "eth": "ETHUSD",  "ethereum": "ETHUSD", "ethusd": "ETHUSD",
+    "eurusd": "EURUSD", "gbpusd": "GBPUSD",
+    "usdjpy": "USDJPY", "us30": "US30", "nas100": "NAS100",
+}
+
+def _extract_symbol(text: str):
+    t = text.lower()
+    for alias, sym in _SYMBOL_MAP.items():
+        if re.search(r'\b' + alias + r'\b', t):
+            return sym
+    return None
+
+# ---------------------------------------------------------------------------
+# Regex fast-path classifier
+# Returns a result dict, or None if the message is too complex for regex.
+# ---------------------------------------------------------------------------
+_RE_CLOSE = re.compile(
+    r'\b(close|cancel|exit|cancelled|canceled)\b',
+    re.IGNORECASE
+)
+_RE_BE = re.compile(
+    r'(?i)(\bBE\b|\bb/e\b|\bbreakeven\b|\bbreak\s+even\b'
+    r'|risk\s*free|go\s*risk\s*free|make\s+it\s+risk\s+free)',
+)
+_RE_DIRECTION = re.compile(r'\b(buy|sell)\b', re.IGNORECASE)
+_RE_SL = re.compile(
+    r'(?:🛑|🔴|sl|stop\s*loss)\s*:?\s*(\d+(?:\.\d+)?)',
+    re.IGNORECASE
+)
+_RE_TP = re.compile(
+    r'(?:✅|tp\d*|take\s*profit)\s*:?\s*(\d+(?:\.\d+)?|open)',
+    re.IGNORECASE
+)
+_RE_TP_STEP = re.compile(
+    r'(?:tp\s+every|take\s+(?:profit|tp)\s+every)\s+(\d+)\s*pips?',
+    re.IGNORECASE
+)
+_RE_LOOKING = re.compile(
+    r'\b(looking|watching|wait|waiting|be\s+active)\b',
+    re.IGNORECASE
+)
+_RE_TP_HIT = re.compile(
+    r'\btp\s*(hit|done|reached|successfully)\b',
+    re.IGNORECASE
+)
+
+
+def _regex_classify(text: str):
+    """
+    Fast regex classifier. Returns result dict or None to fall back to Claude.
+    """
+    t_clean = text.strip()
+    t_lower = t_clean.lower()
+
+    # --- Ignore: TP hit notifications ---
+    if _RE_TP_HIT.search(t_clean):
+        return {"type": "ignore", "direction": None, "symbol": None,
+                "sl": None, "tps": None, "tp_step_pips": None, "is_complete": False}
+
+    # --- Ignore: looking/watching messages ---
+    if _RE_LOOKING.search(t_clean) and not _RE_DIRECTION.search(t_clean):
+        return {"type": "ignore", "direction": None, "symbol": None,
+                "sl": None, "tps": None, "tp_step_pips": None, "is_complete": False}
+
+    # --- Close: must check before BE (close with BE = close) ---
+    if _RE_CLOSE.search(t_clean):
+        return {"type": "close", "direction": None, "symbol": None,
+                "sl": None, "tps": None, "tp_step_pips": None, "is_complete": False}
+
+    # --- Breakeven ---
+    if _RE_BE.search(t_clean):
+        return {"type": "breakeven", "direction": None, "symbol": None,
+                "sl": None, "tps": None, "tp_step_pips": None, "is_complete": False}
+
+    # --- New signal: needs direction ---
+    dir_match = _RE_DIRECTION.search(t_clean)
+    if not dir_match:
+        return None  # can't determine — fall back to Claude
+
+    direction = dir_match.group(1).lower()
+    symbol = _extract_symbol(t_clean)
+
+    # Parse SL
+    sl_match = _RE_SL.search(t_clean)
+    sl = float(sl_match.group(1)) if sl_match else None
+
+    # Parse TPs
+    tp_step_match = _RE_TP_STEP.search(t_clean)
+    tp_step_pips = int(tp_step_match.group(1)) if tp_step_match else None
+
+    tp_matches = _RE_TP.findall(t_clean)
+    tps = None
+    if tp_matches:
+        tps = []
+        for v in tp_matches:
+            if v.lower() == "open":
+                tps.append(None)
+            else:
+                tps.append(float(v))
+
+    is_complete = bool(sl is not None and tps and any(t is not None for t in tps))
+
+    return {
+        "type": "new_signal",
+        "direction": direction,
+        "symbol": symbol,
+        "sl": sl,
+        "tps": tps,
+        "tp_step_pips": tp_step_pips,
+        "is_complete": is_complete,
+    }
 
 _client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
 
@@ -59,15 +178,16 @@ Rules:
 def classify(text: str) -> dict:
     """
     Classify a Telegram message and extract trading data.
-
-    Returns dict with keys:
-        type        : "new_signal" | "signal_update" | "breakeven" | "ignore"
-        direction   : "buy" | "sell" | None
-        symbol      : e.g. "XAUUSD" | None
-        sl          : float | None
-        tps         : list[float|None] | None
-        is_complete : bool
+    Tries regex fast-path first; falls back to Claude AI for complex messages.
     """
+    # Fast path — no API call needed
+    fast = _regex_classify(text)
+    if fast is not None:
+        log.debug("Regex classified → %s", fast)
+        return fast
+
+    # Slow path — Claude API
+    log.debug("Falling back to Claude for: %s", text[:80])
     try:
         resp = _client.messages.create(
             model="claude-haiku-4-5-20251001",

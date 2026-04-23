@@ -17,7 +17,7 @@ from logger import get_logger
 
 log = get_logger(__name__)
 
-_OPEN_COOLDOWN_SEC = 3600  # block duplicate open for same symbol+direction for 1 hour
+_OPEN_COOLDOWN_SEC = 300  # block duplicate open for same symbol+direction for 1 hour
 _open_lock = threading.Lock()          # prevents race between concurrent threads
 _last_open: dict = {}                  # (symbol, direction) -> timestamp (in-memory)
 
