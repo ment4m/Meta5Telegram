@@ -1,3 +1,4 @@
+import asyncio
 import json
 import time
 from pathlib import Path
@@ -7,7 +8,7 @@ from telethon.sessions import StringSession
 import config
 from signal_classifier import classify
 from signal_state import add_pending, find_pending, mark_active, remove_expired
-from sl_predictor import predict, record
+from sl_predictor import record
 from mt5_bridge import write_open, write_update, write_update_sl_only, write_breakeven, write_close
 from logger import get_logger
 
@@ -19,7 +20,7 @@ _LAST_MSG_ID_FILE  = Path(__file__).parent / "last_msg_id.json"
 # Text-based deduplication: block identical message text within the window.
 # Checked BEFORE classify() so there is no async gap between check and lock.
 _RECENT_TEXTS: dict = {}  # text -> timestamp
-_DEDUP_WINDOW_SEC = 3600  # 1 hour — same raw text won't fire twice
+_DEDUP_WINDOW_SEC = 10  # 10 seconds — just enough to prevent event+poll double-fire
 
 
 def _is_duplicate_text(text: str) -> bool:
@@ -76,6 +77,10 @@ def _handle_new_signal(msg: dict):
         log.warning("new_signal missing direction or symbol — skipping")
         return
 
+    # Apply broker symbol suffix (e.g. "m" for Exness: XAUUSD → XAUUSDm)
+    if config.SYMBOL_SUFFIX and not symbol.endswith(config.SYMBOL_SUFFIX):
+        symbol = symbol + config.SYMBOL_SUFFIX
+
     # "TP every N pips" — let the EA generate TPs from actual entry price
     tp_step_pips = msg.get("tp_step_pips")
     tp_step = None
@@ -89,12 +94,27 @@ def _handle_new_signal(msg: dict):
     _save_last_symbol(symbol)
 
     if msg.get("is_complete"):
-        # Complete signal — execute right away
-        log.info("Complete signal: %s %s | SL=%.5f | %d TPs | tp_step=%s", direction.upper(), symbol, sl, len(tps), tp_step)
-        sig_id = f"sig_{int(__import__('time').time())}"
-        write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, tp_step=tp_step, signal_id=sig_id)
-        if sl and tps:
-            _record_history(symbol, direction, sl, tps)
+        # Check if there's already a pending signal for same symbol+direction — update instead of open
+        existing_id, existing_pending = find_pending(symbol, direction)
+        if existing_pending:
+            if existing_pending.get("auto_tp"):
+                log.info("Complete signal matches pending %s — updating SL only: %s %s | sl=%.5f",
+                         existing_id, direction.upper(), symbol, sl)
+                write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id=existing_id)
+            else:
+                log.info("Complete signal matches pending %s — updating SL+TPs: %s %s | sl=%.5f | %d TPs",
+                         existing_id, direction.upper(), symbol, sl, len(tps))
+                write_update(symbol=symbol, direction=direction, new_sl=sl, tps=tps, signal_id=existing_id)
+            mark_active(existing_id)
+            if sl and tps:
+                _record_history(symbol, direction, sl, tps)
+        else:
+            # No pending signal — open fresh trades
+            log.info("Complete signal: %s %s | SL=%.5f | %d TPs | tp_step=%s", direction.upper(), symbol, sl, len(tps), tp_step)
+            sig_id = f"sig_{int(__import__('time').time())}"
+            write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, tp_step=tp_step, signal_id=sig_id)
+            if sl and tps:
+                _record_history(symbol, direction, sl, tps)
     else:
         # Incomplete — EA will calculate SL from risk, open immediately, wait for update.
         # Always open exactly MAX_TRADES regardless of what the predictor or signal says.
@@ -228,6 +248,34 @@ async def start():
         _save_last_msg_id(_last_msg_id)
     log.info("Starting from message ID: %d (ignoring everything before)", _last_msg_id)
 
+    # Replay any messages that arrived while the bot was offline
+    missed = await client.get_messages(channel_entity, limit=20, min_id=_last_msg_id)
+    if missed:
+        log.info("Replaying %d missed messages...", len(missed))
+        for m in reversed(missed):  # oldest first
+            if not m.text:
+                continue
+            log.info("Replay msg id=%d: %s", m.id, m.text[:80])
+            _last_msg_id = m.id
+            _save_last_msg_id(_last_msg_id)
+            remove_expired()
+            msg = classify(m.text)
+            msg_type = msg.get("type", "ignore")
+            if msg_type not in ("close", "breakeven") and _is_duplicate_text(m.text):
+                continue
+            if msg_type == "new_signal":
+                _handle_new_signal(msg)
+            elif msg_type == "signal_update":
+                _handle_signal_update(msg)
+            elif msg_type == "breakeven":
+                log.info("Replay breakeven")
+                write_breakeven()
+            elif msg_type == "close":
+                log.info("Replay close")
+                write_close()
+            else:
+                log.debug("Replay ignored (type=%s)", msg_type)
+
     @client.on(events.NewMessage(chats=channel_entity))
     async def on_message(event):
         nonlocal _last_msg_id
@@ -250,6 +298,10 @@ async def start():
         msg = classify(text)
         msg_type = msg.get("type", "ignore")
 
+        # Dedup: skip for close/breakeven so they can always be resent
+        if msg_type not in ("close", "breakeven") and _is_duplicate_text(text):
+            return
+
         if msg_type == "new_signal":
             _handle_new_signal(msg)
 
@@ -267,5 +319,46 @@ async def start():
         else:
             log.debug("Message ignored (type=%s)", msg_type)
 
+    async def _process_message(text: str):
+        """Shared handler for both real-time events and poll fallback."""
+        nonlocal _last_msg_id
+        remove_expired()
+        msg = classify(text)
+        msg_type = msg.get("type", "ignore")
+        if msg_type not in ("close", "breakeven") and _is_duplicate_text(text):
+            return
+        if msg_type == "new_signal":
+            _handle_new_signal(msg)
+        elif msg_type == "signal_update":
+            _handle_signal_update(msg)
+        elif msg_type == "breakeven":
+            log.info("Breakeven instruction detected")
+            write_breakeven()
+        elif msg_type == "close":
+            log.info("Close/cancel instruction detected")
+            write_close()
+        else:
+            log.debug("Message ignored (type=%s)", msg_type)
+
+    async def _poll_fallback():
+        """Poll every 30s to catch messages the event handler missed."""
+        nonlocal _last_msg_id
+        while True:
+            await asyncio.sleep(5)
+            try:
+                missed = await client.get_messages(channel_entity, limit=10, min_id=_last_msg_id)
+                if missed:
+                    log.warning("Poll fallback caught %d missed message(s)", len(missed))
+                    for m in reversed(missed):
+                        if not m.text:
+                            continue
+                        log.info("Poll msg id=%d: %s", m.id, m.text[:80])
+                        _last_msg_id = m.id
+                        _save_last_msg_id(_last_msg_id)
+                        await _process_message(m.text)
+            except Exception as e:
+                log.warning("Poll fallback error: %s", e)
+
     log.info("Bot is running. Press Ctrl+C to stop.")
+    asyncio.ensure_future(_poll_fallback())
     await client.run_until_disconnected()

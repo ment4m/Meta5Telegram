@@ -448,11 +448,11 @@ int HandleBreakeven(const string &json)
 //+------------------------------------------------------------------+
 //| ACTION: close — close all bot trades                             |
 //+------------------------------------------------------------------+
-void HandleClose(const string &json)
+int HandleClose(const string &json)
 {
     int magic_base = (int)JsonGetDouble(json, "magic");
 
-    Print("CLOSE — closing all bot trades");
+    Print("CLOSE — closing all bot trades (magic_base=", magic_base, " total_positions=", PositionsTotal(), ")");
 
     int closed = 0;
     for(int i = PositionsTotal() - 1; i >= 0; i--)
@@ -461,15 +461,21 @@ void HandleClose(const string &json)
         if(!PositionSelectByTicket(ticket)) continue;
 
         long pos_magic = PositionGetInteger(POSITION_MAGIC);
+        string pos_sym = PositionGetString(POSITION_SYMBOL);
+        Print("  Checking position: ticket=", ticket, " magic=", pos_magic, " symbol=", pos_sym);
+
         if(pos_magic < magic_base || pos_magic > magic_base + 9999) continue;
 
         if(trade.PositionClose(ticket))
             Print("  Closed | ticket=", ticket);
         else
-            Print("  Close FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode());
+            Print("  Close FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode(),
+                  " | ", trade.ResultRetcodeDescription());
         closed++;
     }
-    if(closed == 0) Print("CLOSE: no bot trades found");
+    if(closed == 0) Print("CLOSE: no bot trades found in range ", magic_base, "-", magic_base+9999);
+    else Print("CLOSE: closed ", closed, " trades");
+    return closed;
 }
 
 //+------------------------------------------------------------------+
@@ -513,7 +519,23 @@ void ProcessFile(const string filename)
                 Print("BREAKEVEN: gave up after 30s, no trades found");
         }
     }
-    else if(action == "close")     HandleClose(json);
+    else if(action == "close")
+    {
+        // Retry close if no trades found yet (trades may still be opening)
+        int closed = HandleClose(json);
+        if(closed == 0)
+        {
+            double ts = JsonGetDouble(json, "timestamp");
+            double age = (double)(TimeCurrent() - (datetime)ts);
+            if(age < 30) // retry for up to 30 seconds
+            {
+                Print("CLOSE: no trades yet, will retry (age=", (int)age, "s)");
+                deleteFile = false;
+            }
+            else
+                Print("CLOSE: gave up after 30s, no trades found");
+        }
+    }
     else Print("Unknown action: ", action);
 
     if(deleteFile) FileDelete(folder + filename, FILE_COMMON);
