@@ -53,7 +53,15 @@ if __name__ == "__main__":
     validate_config()
     log.info("Starting Telegram → MT5 signal bot...")
     log.info("Signal files will be written to: %s", config.MT5_FILES_PATH)
-    try:
-        asyncio.run(start())
-    except KeyboardInterrupt:
-        log.info("Bot stopped by user.")
+    retry_delay = 5
+    while True:
+        try:
+            asyncio.run(start())
+            log.warning("Bot disconnected — reconnecting in %ds...", retry_delay)
+        except KeyboardInterrupt:
+            log.info("Bot stopped by user.")
+            break
+        except Exception as e:
+            log.error("Bot crashed: %s — reconnecting in %ds...", e, retry_delay)
+        import time as _time
+        _time.sleep(retry_delay)

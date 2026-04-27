@@ -14,17 +14,13 @@ CHANNEL_USERNAME = int(_channel) if _channel.lstrip("-").isdigit() else _channel
 MT5_LOGIN = int(os.getenv("MT5_LOGIN", "0"))
 MT5_PASSWORD = os.getenv("MT5_PASSWORD", "")
 MT5_SERVER = os.getenv("MT5_SERVER", "")
+SYMBOL_SUFFIX = os.getenv("SYMBOL_SUFFIX", "")
 
 # MT5 Files path (where EA reads signal JSON files)
 MT5_FILES_PATH = os.getenv(
     "MT5_FILES_PATH",
     os.path.expanduser("~/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/AppData/Roaming/MetaQuotes/Terminal/D0E8209F77C8CF37AD8BF550E51FF075/MQL5/Files/signals")
 )
-
-# Second MT5 path for compound EA (signals_compound folder alongside main signals folder)
-_compound_default = str(MT5_FILES_PATH).replace("/signals", "/signals_compound")
-MT5_FILES_PATH_COMPOUND = os.getenv("MT5_FILES_PATH_COMPOUND", _compound_default)
-COMPOUND_ENABLED = os.getenv("COMPOUND_ENABLED", "true").lower() == "true"
 
 # Claude AI
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
