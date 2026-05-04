@@ -241,6 +241,20 @@ void HandleOpen(const string &json)
         Print("Auto SL (fixed 15pts): entry=", entry, " sl_price=", sl_price);
     }
 
+    // Validate SL is on the correct side of entry — fall back to 15-unit default if wrong
+    bool sl_valid = (orderType == ORDER_TYPE_BUY)  ? (sl_price < entry)
+                                                   : (sl_price > entry);
+    if(!sl_valid && sl_price != 0.0)
+    {
+        double sl_dist_auto = 15.0;
+        double corrected = (orderType == ORDER_TYPE_BUY)
+            ? NormalizeDouble(entry - sl_dist_auto, digits)
+            : NormalizeDouble(entry + sl_dist_auto, digits);
+        Print("SL validation failed (sl=", sl_price, " entry=", entry, " dir=", direction,
+              ") — using default 15-unit SL: ", corrected);
+        sl_price = corrected;
+    }
+
     double sl_distance = MathAbs(entry - sl_price);
     double lot = CalcLot(symbol, numTPs, lb, sl_distance);
 

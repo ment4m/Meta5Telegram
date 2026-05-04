@@ -319,6 +319,27 @@ async def start():
         else:
             log.debug("Message ignored (type=%s)", msg_type)
 
+    @client.on(events.MessageEdited(chats=channel_entity))
+    async def on_edit(event):
+        """Detect when a signal message is edited (e.g. SL corrected) and update trades."""
+        text = event.message.text
+        if not text:
+            return
+        log.info("Message edited [id=%d]: %s", event.message.id, text[:120])
+        msg = classify(text)
+        if msg.get("type") != "new_signal":
+            return
+        sl = msg.get("sl")
+        if not sl:
+            return
+        # Update SL on all open trades for this symbol+direction
+        symbol   = msg.get("symbol") or ""
+        direction = msg.get("direction") or ""
+        tps      = msg.get("tps") or []
+        if symbol and direction:
+            log.info("Edit detected — updating SL to %.5f for %s %s", sl, direction.upper(), symbol)
+            write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id="edit")
+
     async def _process_message(text: str):
         """Shared handler for both real-time events and poll fallback."""
         nonlocal _last_msg_id
