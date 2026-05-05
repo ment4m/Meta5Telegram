@@ -58,11 +58,17 @@ def _save_last_symbol(symbol: str):
     _LAST_SYMBOL_FILE.write_text(json.dumps({"symbol": symbol}))
 
 
+_last_open_time: dict = {}  # (symbol, direction) -> timestamp of last open
+_SL_UPDATE_WINDOW = 600    # 10 minutes — new signal within this window updates SL instead of opening
+
+
 def _handle_new_signal(msg: dict):
     """
     New signal from channel.
     - Complete (has SL + TPs): execute immediately.
     - Incomplete (no SL/TP numbers): predict SL, open trades, store pending state.
+    - Complete signal within 10 min of last open → update SL only (don't open new trades).
+    - Complete signal after 10 min → open new trades even if existing ones are open.
     """
     direction = (msg.get("direction") or "").lower()
     symbol    = msg.get("symbol") or ""
@@ -94,25 +100,34 @@ def _handle_new_signal(msg: dict):
     _save_last_symbol(symbol)
 
     if msg.get("is_complete"):
-        # Check if there's already a pending signal for same symbol+direction — update instead of open
+        import time as _time
+        key = (symbol, direction)
+        now = _time.time()
+        last_open = _last_open_time.get(key, 0)
+        within_window = (now - last_open) < _SL_UPDATE_WINDOW
+
+        # Check if there's already a pending signal for same symbol+direction
         existing_id, existing_pending = find_pending(symbol, direction)
-        if existing_pending:
-            if existing_pending.get("auto_tp"):
-                log.info("Complete signal matches pending %s — updating SL only: %s %s | sl=%.5f",
+
+        if within_window and (existing_pending or last_open > 0):
+            # Within 10 min — update SL on existing trades instead of opening new ones
+            if existing_pending:
+                log.info("Within 10min window — updating SL on pending %s: %s %s | sl=%.5f",
                          existing_id, direction.upper(), symbol, sl)
                 write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id=existing_id)
+                mark_active(existing_id)
             else:
-                log.info("Complete signal matches pending %s — updating SL+TPs: %s %s | sl=%.5f | %d TPs",
-                         existing_id, direction.upper(), symbol, sl, len(tps))
-                write_update(symbol=symbol, direction=direction, new_sl=sl, tps=tps, signal_id=existing_id)
-            mark_active(existing_id)
+                log.info("Within 10min window — updating SL on active trades: %s %s | sl=%.5f",
+                         direction.upper(), symbol, sl)
+                write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id="sl_update")
             if sl and tps:
                 _record_history(symbol, direction, sl, tps)
         else:
-            # No pending signal — open fresh trades
+            # After 10 min or first signal — open fresh trades (force past EA position check)
             log.info("Complete signal: %s %s | SL=%.5f | %d TPs | tp_step=%s", direction.upper(), symbol, sl, len(tps), tp_step)
-            sig_id = f"sig_{int(__import__('time').time())}"
-            write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, tp_step=tp_step, signal_id=sig_id)
+            sig_id = f"sig_{int(_time.time())}"
+            _last_open_time[key] = now
+            write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, tp_step=tp_step, signal_id=sig_id, force=True)
             if sl and tps:
                 _record_history(symbol, direction, sl, tps)
     else:
@@ -126,6 +141,8 @@ def _handle_new_signal(msg: dict):
                  direction.upper(), symbol, num_tps, auto_tp)
         predicted_tps = [None] * num_tps
         sig_id = add_pending(symbol, direction, 0, num_tps, auto_tp=auto_tp)
+        import time as _time
+        _last_open_time[(symbol, direction)] = _time.time()
         write_open(
             symbol=symbol,
             direction=direction,

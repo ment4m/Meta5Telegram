@@ -177,21 +177,26 @@ void HandleOpen(const string &json)
     double sl_pts    = JsonGetDouble(json, "sl_points"); // -999999 = null
     int    magic     = (int)JsonGetDouble(json, "magic");
 
-    // Block duplicate opens: skip if we already have open trades for this symbol+direction
+    // Block duplicate opens unless force=true (force allows new trades alongside existing ones)
+    string forceStr   = JsonGetString(json, "force");
+    bool   forceOpen  = (forceStr == "true" || forceStr == "True");
     string checkSymbol = ResolveSymbol(rawSymbol);
-    ENUM_POSITION_TYPE checkType = (direction == "buy") ? POSITION_TYPE_BUY : POSITION_TYPE_SELL;
-    for(int c = PositionsTotal() - 1; c >= 0; c--)
+    if(!forceOpen)
     {
-        if(!PositionGetTicket(c)) continue;
-        long   pos_magic = PositionGetInteger(POSITION_MAGIC);
-        string pos_sym   = PositionGetString(POSITION_SYMBOL);
-        int    pos_type  = (int)PositionGetInteger(POSITION_TYPE);
-        if(pos_magic >= magic && pos_magic <= magic + 200 &&
-           StringFind(pos_sym, checkSymbol) >= 0 &&
-           pos_type == (int)checkType)
+        ENUM_POSITION_TYPE checkType = (direction == "buy") ? POSITION_TYPE_BUY : POSITION_TYPE_SELL;
+        for(int c = PositionsTotal() - 1; c >= 0; c--)
         {
-            Print("OPEN skipped — trades already open for ", direction, " ", checkSymbol);
-            return;
+            if(!PositionGetTicket(c)) continue;
+            long   pos_magic = PositionGetInteger(POSITION_MAGIC);
+            string pos_sym   = PositionGetString(POSITION_SYMBOL);
+            int    pos_type  = (int)PositionGetInteger(POSITION_TYPE);
+            if(pos_magic >= magic && pos_magic <= magic + 200 &&
+               StringFind(pos_sym, checkSymbol) >= 0 &&
+               pos_type == (int)checkType)
+            {
+                Print("OPEN skipped — trades already open for ", direction, " ", checkSymbol);
+                return;
+            }
         }
     }
     int    deviation = (int)JsonGetDouble(json, "deviation");

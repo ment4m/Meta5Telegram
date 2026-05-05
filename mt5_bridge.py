@@ -48,6 +48,7 @@ def write_open(
     sl_points: int = None,
     tp_step: float = None,
     signal_id: str = "",
+    force: bool = False,
 ) -> Path:
     """
     Open one trade per TP.
@@ -76,20 +77,19 @@ def write_open(
         "deviation":         config.DEVIATION,
         "lot_balance_div":   config.LOT_BALANCE_DIVISOR,
         "signal_id":         signal_id,
+        "force":             force,
         "timestamp":         int(time.time()),
     }
     with _open_lock:
         now = time.time()
         if sl is not None or sl_points is not None:
-            # Complete signal (has SL) — block duplicates for 1 hour
             key = (symbol.upper(), direction.lower(), str(round(sl or sl_points or 0, 2)))
             cooldown = _OPEN_COOLDOWN_SEC
         else:
-            # Incomplete signal (no SL) — block duplicates for only 5 minutes
             key = (symbol.upper(), direction.lower(), "nosl")
             cooldown = 300
         last = _last_open.get(key, 0)
-        if now - last < cooldown:
+        if not force and now - last < cooldown:
             log.warning("Duplicate OPEN blocked: %s %s (%.0fs ago)", direction.upper(), symbol, now - last)
             return None
         _last_open[key] = now
