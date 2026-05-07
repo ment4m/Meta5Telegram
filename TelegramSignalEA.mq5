@@ -178,8 +178,9 @@ void HandleOpen(const string &json)
     int    magic     = (int)JsonGetDouble(json, "magic");
 
     // Block duplicate opens unless force=true (force allows new trades alongside existing ones)
-    string forceStr   = JsonGetString(json, "force");
-    bool   forceOpen  = (forceStr == "true" || forceStr == "True");
+    // JSON booleans are not quoted, so check raw content for "true"
+    bool forceOpen = (StringFind(json, "\"force\": true") >= 0 ||
+                      StringFind(json, "\"force\":true")  >= 0);
     string checkSymbol = ResolveSymbol(rawSymbol);
     if(!forceOpen)
     {
