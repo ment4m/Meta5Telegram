@@ -295,22 +295,17 @@ async def start():
         log.error("No channels could be resolved — exiting")
         return
 
-    # Load per-channel last message IDs; seed from disk for primary channel
-    global_last = _load_last_msg_id()
+    # Load per-channel last message IDs; each channel starts from its own latest message
     for entity in channel_entities:
         ch_id = entity.id
         if ch_id not in _last_msg_ids:
-            # Try to get the latest message to start from
             try:
                 history = await client.get_messages(entity, limit=1)
-                if history:
-                    # If first run (global_last==0), start from latest to avoid replaying history
-                    _last_msg_ids[ch_id] = history[0].id if global_last == 0 else global_last
-                else:
-                    _last_msg_ids[ch_id] = global_last
+                # Always start from this channel's own latest message to avoid cross-channel ID confusion
+                _last_msg_ids[ch_id] = history[0].id if history else 0
             except Exception as e:
                 log.warning("Could not fetch history for channel %s: %s", ch_id, e)
-                _last_msg_ids[ch_id] = global_last
+                _last_msg_ids[ch_id] = 0
         log.info("Channel %s: starting from message ID %d", ch_id, _last_msg_ids[ch_id])
 
     # Replay missed messages for each channel
