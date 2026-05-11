@@ -38,16 +38,6 @@ def _is_duplicate_text(text: str) -> bool:
     return False
 
 
-def _load_last_msg_id() -> int:
-    if _LAST_MSG_ID_FILE.exists():
-        return json.loads(_LAST_MSG_ID_FILE.read_text()).get("id", 0)
-    return 0
-
-
-def _save_last_msg_id(msg_id: int):
-    _LAST_MSG_ID_FILE.write_text(json.dumps({"id": msg_id}))
-
-
 def _get_last_symbol() -> str:
     if _LAST_SYMBOL_FILE.exists():
         return json.loads(_LAST_SYMBOL_FILE.read_text()).get("symbol", "")
@@ -221,6 +211,22 @@ def _record_history(symbol: str, direction: str, sl: float, tps: list):
 
 _SESSION_FILE = Path(__file__).parent / "tg_session.string"
 
+# Per-channel last message ID tracking
+_last_msg_ids: dict = {}  # channel_id -> last processed message id
+
+
+def _load_last_msg_id() -> int:
+    if _LAST_MSG_ID_FILE.exists():
+        return json.loads(_LAST_MSG_ID_FILE.read_text()).get("id", 0)
+    return 0
+
+
+def _save_last_msg_id_for(channel_id: int, msg_id: int):
+    """Save last message ID for a specific channel."""
+    _last_msg_ids[channel_id] = msg_id
+    # Also persist the global one (most recent across all channels)
+    _LAST_MSG_ID_FILE.write_text(json.dumps({"id": msg_id}))
+
 
 def _load_session() -> StringSession:
     if _SESSION_FILE.exists():
@@ -231,6 +237,27 @@ def _load_session() -> StringSession:
 def _save_session(client):
     _SESSION_FILE.write_text(client.session.save())
     log.info("Session saved to %s", _SESSION_FILE)
+
+
+async def _process_message(text: str):
+    """Shared handler for both real-time events and poll fallback."""
+    remove_expired()
+    msg = classify(text)
+    msg_type = msg.get("type", "ignore")
+    if msg_type not in ("close", "breakeven") and _is_duplicate_text(text):
+        return
+    if msg_type == "new_signal":
+        _handle_new_signal(msg)
+    elif msg_type == "signal_update":
+        _handle_signal_update(msg)
+    elif msg_type == "breakeven":
+        log.info("Breakeven instruction detected")
+        write_breakeven()
+    elif msg_type == "close":
+        log.info("Close/cancel instruction detected")
+        write_close()
+    else:
+        log.debug("Message ignored (type=%s)", msg_type)
 
 
 async def start():
@@ -250,93 +277,99 @@ async def start():
         _save_session(client)
 
     me = await client.get_me()
-    log.info("Logged in as %s | monitoring: %s", me.username or me.phone, config.CHANNEL_USERNAME)
+    log.info("Logged in as %s | monitoring %d channel(s): %s",
+             me.username or me.phone, len(config.CHANNEL_LIST), config.CHANNEL_LIST)
 
-    # Resolve channel entity once at startup so the filter works with StringSession
-    channel_entity = await client.get_entity(config.CHANNEL_USERNAME)
-    log.info("Channel entity resolved: %s", channel_entity.id)
+    # Resolve all channel entities at startup
+    channel_entities = []
+    for ch in config.CHANNEL_LIST:
+        try:
+            entity = await client.get_entity(ch)
+            title = getattr(entity, "title", str(ch))
+            log.info("Channel resolved: %s (id=%s)", title, entity.id)
+            channel_entities.append(entity)
+        except Exception as e:
+            log.error("Failed to resolve channel %s: %s", ch, e)
 
-    # Load last processed message ID from disk (survives restarts)
-    _last_msg_id = _load_last_msg_id()
-    if _last_msg_id == 0:
-        # First run — start from latest message in channel
-        history = await client.get_messages(channel_entity, limit=1)
-        _last_msg_id = history[0].id if history else 0
-        _save_last_msg_id(_last_msg_id)
-    log.info("Starting from message ID: %d (ignoring everything before)", _last_msg_id)
+    if not channel_entities:
+        log.error("No channels could be resolved — exiting")
+        return
 
-    # Replay any messages that arrived while the bot was offline
-    missed = await client.get_messages(channel_entity, limit=20, min_id=_last_msg_id)
-    if missed:
-        log.info("Replaying %d missed messages...", len(missed))
-        for m in reversed(missed):  # oldest first
-            if not m.text:
-                continue
-            log.info("Replay msg id=%d: %s", m.id, m.text[:80])
-            _last_msg_id = m.id
-            _save_last_msg_id(_last_msg_id)
-            remove_expired()
-            msg = classify(m.text)
-            msg_type = msg.get("type", "ignore")
-            if msg_type not in ("close", "breakeven") and _is_duplicate_text(m.text):
-                continue
-            if msg_type == "new_signal":
-                _handle_new_signal(msg)
-            elif msg_type == "signal_update":
-                _handle_signal_update(msg)
-            elif msg_type == "breakeven":
-                log.info("Replay breakeven")
-                write_breakeven()
-            elif msg_type == "close":
-                log.info("Replay close")
-                write_close()
-            else:
-                log.debug("Replay ignored (type=%s)", msg_type)
+    # Load per-channel last message IDs; seed from disk for primary channel
+    global_last = _load_last_msg_id()
+    for entity in channel_entities:
+        ch_id = entity.id
+        if ch_id not in _last_msg_ids:
+            # Try to get the latest message to start from
+            try:
+                history = await client.get_messages(entity, limit=1)
+                if history:
+                    # If first run (global_last==0), start from latest to avoid replaying history
+                    _last_msg_ids[ch_id] = history[0].id if global_last == 0 else global_last
+                else:
+                    _last_msg_ids[ch_id] = global_last
+            except Exception as e:
+                log.warning("Could not fetch history for channel %s: %s", ch_id, e)
+                _last_msg_ids[ch_id] = global_last
+        log.info("Channel %s: starting from message ID %d", ch_id, _last_msg_ids[ch_id])
 
-    @client.on(events.NewMessage(chats=channel_entity))
+    # Replay missed messages for each channel
+    for entity in channel_entities:
+        ch_id = entity.id
+        last_id = _last_msg_ids[ch_id]
+        try:
+            missed = await client.get_messages(entity, limit=20, min_id=last_id)
+            if missed:
+                title = getattr(entity, "title", str(ch_id))
+                log.info("Replaying %d missed messages from [%s]...", len(missed), title)
+                for m in reversed(missed):
+                    if not m.text:
+                        continue
+                    log.info("Replay [%s] msg id=%d: %s", title, m.id, m.text[:80])
+                    _last_msg_ids[ch_id] = m.id
+                    _save_last_msg_id_for(ch_id, m.id)
+                    remove_expired()
+                    msg = classify(m.text)
+                    msg_type = msg.get("type", "ignore")
+                    if msg_type not in ("close", "breakeven") and _is_duplicate_text(m.text):
+                        continue
+                    if msg_type == "new_signal":
+                        _handle_new_signal(msg)
+                    elif msg_type == "signal_update":
+                        _handle_signal_update(msg)
+                    elif msg_type == "breakeven":
+                        log.info("Replay breakeven")
+                        write_breakeven()
+                    elif msg_type == "close":
+                        log.info("Replay close")
+                        write_close()
+                    else:
+                        log.debug("Replay ignored (type=%s)", msg_type)
+        except Exception as e:
+            log.warning("Replay error for channel %s: %s", ch_id, e)
+
+    @client.on(events.NewMessage(chats=channel_entities))
     async def on_message(event):
-        nonlocal _last_msg_id
+        ch_id = event.message.peer_id.channel_id if hasattr(event.message.peer_id, "channel_id") else 0
+        last_id = _last_msg_ids.get(ch_id, 0)
+
         # Only process messages newer than last processed
-        if event.message.id <= _last_msg_id:
-            log.info("Skipping replay msg id=%d (last=%d)", event.message.id, _last_msg_id)
+        if event.message.id <= last_id:
+            log.info("Skipping replay msg id=%d (last=%d) ch=%s", event.message.id, last_id, ch_id)
             return
         # Mark as processed immediately to prevent re-delivery duplicates
-        _last_msg_id = event.message.id
-        _save_last_msg_id(_last_msg_id)
+        _last_msg_ids[ch_id] = event.message.id
+        _save_last_msg_id_for(ch_id, event.message.id)
 
         text = event.message.text
         if not text:
             log.debug("Non-text message (voice/media) — ignored")
             return
 
-        remove_expired()
+        log.debug("New message [ch=%s id=%d]:\n%s", ch_id, event.message.id, text[:200])
+        await _process_message(text)
 
-        log.debug("New message [id=%d]:\n%s", event.message.id, text[:200])
-        msg = classify(text)
-        msg_type = msg.get("type", "ignore")
-
-        # Dedup: skip for close/breakeven so they can always be resent
-        if msg_type not in ("close", "breakeven") and _is_duplicate_text(text):
-            return
-
-        if msg_type == "new_signal":
-            _handle_new_signal(msg)
-
-        elif msg_type == "signal_update":
-            _handle_signal_update(msg)
-
-        elif msg_type == "breakeven":
-            log.info("Breakeven instruction detected")
-            write_breakeven()
-
-        elif msg_type == "close":
-            log.info("Close/cancel instruction detected")
-            write_close()
-
-        else:
-            log.debug("Message ignored (type=%s)", msg_type)
-
-    @client.on(events.MessageEdited(chats=channel_entity))
+    @client.on(events.MessageEdited(chats=channel_entities))
     async def on_edit(event):
         """Detect when a signal message is edited (e.g. SL corrected) and update trades."""
         text = event.message.text
@@ -350,52 +383,33 @@ async def start():
         if not sl:
             return
         # Update SL on all open trades for this symbol+direction
-        symbol   = msg.get("symbol") or ""
+        symbol    = msg.get("symbol") or ""
         direction = msg.get("direction") or ""
-        tps      = msg.get("tps") or []
         if symbol and direction:
             log.info("Edit detected — updating SL to %.5f for %s %s", sl, direction.upper(), symbol)
             write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id="edit")
 
-    async def _process_message(text: str):
-        """Shared handler for both real-time events and poll fallback."""
-        nonlocal _last_msg_id
-        remove_expired()
-        msg = classify(text)
-        msg_type = msg.get("type", "ignore")
-        if msg_type not in ("close", "breakeven") and _is_duplicate_text(text):
-            return
-        if msg_type == "new_signal":
-            _handle_new_signal(msg)
-        elif msg_type == "signal_update":
-            _handle_signal_update(msg)
-        elif msg_type == "breakeven":
-            log.info("Breakeven instruction detected")
-            write_breakeven()
-        elif msg_type == "close":
-            log.info("Close/cancel instruction detected")
-            write_close()
-        else:
-            log.debug("Message ignored (type=%s)", msg_type)
-
     async def _poll_fallback():
-        """Poll every 30s to catch messages the event handler missed."""
-        nonlocal _last_msg_id
+        """Poll every 5s to catch messages the event handler missed."""
         while True:
             await asyncio.sleep(5)
-            try:
-                missed = await client.get_messages(channel_entity, limit=10, min_id=_last_msg_id)
-                if missed:
-                    log.warning("Poll fallback caught %d missed message(s)", len(missed))
-                    for m in reversed(missed):
-                        if not m.text:
-                            continue
-                        log.info("Poll msg id=%d: %s", m.id, m.text[:80])
-                        _last_msg_id = m.id
-                        _save_last_msg_id(_last_msg_id)
-                        await _process_message(m.text)
-            except Exception as e:
-                log.warning("Poll fallback error: %s", e)
+            for entity in channel_entities:
+                ch_id = entity.id
+                last_id = _last_msg_ids.get(ch_id, 0)
+                try:
+                    missed = await client.get_messages(entity, limit=10, min_id=last_id)
+                    if missed:
+                        title = getattr(entity, "title", str(ch_id))
+                        log.warning("Poll fallback caught %d missed message(s) from [%s]", len(missed), title)
+                        for m in reversed(missed):
+                            if not m.text:
+                                continue
+                            log.info("Poll [%s] msg id=%d: %s", title, m.id, m.text[:80])
+                            _last_msg_ids[ch_id] = m.id
+                            _save_last_msg_id_for(ch_id, m.id)
+                            await _process_message(m.text)
+                except Exception as e:
+                    log.warning("Poll fallback error for channel %s: %s", ch_id, e)
 
     log.info("Bot is running. Press Ctrl+C to stop.")
     asyncio.ensure_future(_poll_fallback())
