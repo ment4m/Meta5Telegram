@@ -1,0 +1,1213 @@
+2026-05-26 23:26:38 [INFO] main: Lock acquired (pid=22423)
+2026-05-26 23:26:38 [INFO] main: Starting Telegram → MT5 signal bot...
+2026-05-26 23:26:38 [INFO] main: Signal files will be written to: /Users/ment4m/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals
+2026-05-26 23:26:38 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-05-26 23:26:43 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-05-26 23:26:49 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-05-26 23:26:54 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-05-26 23:26:59 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-05-26 23:27:04 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-05-26 23:27:09 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-05-26 23:30:52 [INFO] main: Lock acquired (pid=24330)
+2026-05-26 23:30:52 [INFO] main: Starting Telegram → MT5 signal bot...
+2026-05-26 23:30:52 [INFO] main: Signal files will be written to: /Users/ment4m/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals
+2026-05-26 23:30:52 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-05-26 23:30:57 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-05-26 23:31:03 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-05-26 23:31:08 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-05-26 23:31:13 [ERROR] main: Bot crashed: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest))) — reconnecting in 5s...
+2026-07-07 22:34:43 [INFO] main: Lock acquired (pid=16364)
+2026-07-07 22:34:43 [INFO] main: Starting Telegram → MT5 signal bot...
+2026-07-07 22:34:43 [INFO] main: Signal files will be written to: /Users/ment4m/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals
+2026-07-07 22:34:43 [INFO] telegram_listener: Logged in as 14695582454 | monitoring 3 channel(s): [-1003595147533, -1002109622623, -1003376031148]
+2026-07-07 22:34:44 [INFO] telegram_listener: Channel resolved: 500$ to 100k $ (id=3595147533)
+2026-07-07 22:34:44 [INFO] telegram_listener: Channel resolved: VIP Signals (id=2109622623)
+2026-07-07 22:34:44 [INFO] telegram_listener: Channel resolved: 1% Club (id=3376031148)
+2026-07-07 22:34:44 [INFO] telegram_listener: Channel 3595147533: starting from message ID 641
+2026-07-07 22:34:44 [INFO] telegram_listener: Channel 2109622623: starting from message ID 5383
+2026-07-07 22:34:44 [INFO] telegram_listener: Channel 3376031148: starting from message ID 204
+2026-07-07 22:34:44 [INFO] telegram_listener: Bot is running. Press Ctrl+C to stop.
+2026-07-07 22:57:27 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-07 22:57:27 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=642: Good morning
+2026-07-07 23:34:44 [INFO] telegram_listener: Skipping replay msg id=642 (last=642) ch=3595147533
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Attempt 1 at connecting failed: TimeoutError: 
+Attempt 2 at connecting failed: TimeoutError: 
+Attempt 3 at connecting failed: TimeoutError: 
+2026-07-08 02:06:10 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-08 02:06:10 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=643: Sell gold
+2026-07-08 02:06:10 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-08 02:06:10 [INFO] signal_state: Pending signal stored: id=008552f3 sell XAUUSD auto_tp=True
+2026-07-08 02:06:10 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-08 02:06:10 [INFO] mt5_bridge: Written → open_1783494370.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': '008552f3', 'force': False, 'timestamp': 1783494370}
+2026-07-08 02:07:54 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-08 02:07:54 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=644: Risky  TRADE ☠️
+👉🏾 sell   XAUUSD now 
+🛑 SL 4135
+✅ TP 4120
+✅ TP 4117
+✅ TP 4114
+✅ 
+2026-07-08 02:07:54 [INFO] telegram_listener: Within 10min window — updating SL on pending 008552f3: SELL XAUUSD | sl=4135.00000
+2026-07-08 02:07:54 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4135.00000 (keeping auto TPs)
+2026-07-08 02:07:54 [INFO] mt5_bridge: Written → update_sl_1783494474.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4135.0, 'magic': 234000, 'signal_id': '008552f3', 'timestamp': 1783494474}
+2026-07-08 02:10:10 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-08 02:10:10 [INFO] telegram_listener: Poll [VIP Signals] msg id=5384: 👉🏼 GOLD SELL  a now 
+🛑 SL 4049
+✅ TP 3906 
+✅ TP every 100 pips 
+Proper risk
+discl
+2026-07-08 02:10:10 [INFO] telegram_listener: Pip-step signal: step=10.00000 (100 pips) — EA will generate TPs from entry
+2026-07-08 02:10:10 [INFO] telegram_listener: Within 10min window — updating SL on active trades: SELL XAUUSD | sl=4049.00000
+2026-07-08 02:10:10 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4049.00000 (keeping auto TPs)
+2026-07-08 02:10:10 [INFO] mt5_bridge: Written → update_sl_1783494610.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4049.0, 'magic': 234000, 'signal_id': 'sl_update', 'timestamp': 1783494610}
+2026-07-08 02:13:01 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-08 02:13:01 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=645: ✅ Our 1st TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-08 02:13:45 [INFO] telegram_listener: Skipping replay msg id=643 (last=645) ch=3595147533
+2026-07-08 02:13:45 [INFO] telegram_listener: Skipping replay msg id=644 (last=645) ch=3595147533
+2026-07-08 02:13:45 [INFO] telegram_listener: Skipping replay msg id=645 (last=645) ch=3595147533
+2026-07-08 02:26:39 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-08 02:26:39 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=647: Now risk make it free
+2026-07-08 02:26:40 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-08 02:26:40 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-08 02:26:40 [INFO] mt5_bridge: Written → breakeven_1783495600.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783495600}
+2026-07-08 02:27:22 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-08 02:27:22 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=648: Now go risk free
+2026-07-08 02:27:22 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-08 02:27:22 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-08 02:27:22 [INFO] mt5_bridge: Written → breakeven_1783495642.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783495642}
+2026-07-08 02:27:22 [INFO] telegram_listener: Skipping replay msg id=647 (last=648) ch=3595147533
+2026-07-08 02:27:22 [INFO] telegram_listener: Skipping replay msg id=648 (last=648) ch=3595147533
+2026-07-08 02:32:50 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-08 02:32:50 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=649: Touched Breakeven 
+Wait for reentry setup
+2026-07-08 02:32:51 [INFO] telegram_listener: Skipping replay msg id=649 (last=649) ch=3595147533
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Attempt 1 at connecting failed: TimeoutError: 
+Attempt 2 at connecting failed: TimeoutError: 
+Attempt 3 at connecting failed: TimeoutError: 
+Server closed the connection: [Errno 54] Connection reset by peer
+2026-07-08 03:05:55 [INFO] telegram_listener: No symbol in message — using last traded symbol: XAUUSD
+2026-07-08 03:05:55 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-08 03:05:55 [INFO] signal_state: Pending signal stored: id=ca7ff324 sell XAUUSD auto_tp=True
+2026-07-08 03:05:55 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-08 03:05:55 [INFO] mt5_bridge: Written → open_1783497955.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'ca7ff324', 'force': False, 'timestamp': 1783497955}
+2026-07-08 03:06:46 [INFO] telegram_listener: Within 10min window — updating SL on pending bd5fa435: SELL XAUUSD | sl=4135.00000
+2026-07-08 03:06:46 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4135.00000 (keeping auto TPs)
+2026-07-08 03:06:46 [INFO] mt5_bridge: Written → update_sl_1783498006.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4135.0, 'magic': 234000, 'signal_id': 'bd5fa435', 'timestamp': 1783498006}
+2026-07-08 03:13:41 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-08 03:13:41 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=652: ✅ Our 1st TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-08 03:17:46 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-08 03:17:46 [INFO] telegram_listener: Poll [VIP Signals] msg id=5386: TP 1 smashed 100 pips
+2026-07-08 03:18:03 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-08 03:18:03 [INFO] telegram_listener: Poll [VIP Signals] msg id=5387: TP 2 smashed 200 pips
+2026-07-08 03:18:18 [INFO] telegram_listener: Skipping replay msg id=5386 (last=5387) ch=2109622623
+2026-07-08 03:18:18 [INFO] telegram_listener: Skipping replay msg id=5387 (last=5387) ch=2109622623
+2026-07-08 03:18:52 [INFO] telegram_listener: Skipping replay msg id=652 (last=652) ch=3595147533
+2026-07-08 03:19:12 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-08 03:19:12 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=655: ✅ Our 5th TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-08 03:19:28 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-08 03:19:28 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=656: ✅ Our 6th TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-08 03:19:28 [INFO] telegram_listener: Skipping replay msg id=655 (last=656) ch=3595147533
+2026-07-08 03:19:28 [INFO] telegram_listener: Skipping replay msg id=656 (last=656) ch=3595147533
+2026-07-08 03:21:07 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-08 03:21:07 [INFO] telegram_listener: Poll [VIP Signals] msg id=5391: Share your results to @liontradingacademy
+2026-07-08 03:33:18 [INFO] telegram_listener: Skipping replay msg id=5391 (last=5391) ch=2109622623
+2026-07-08 03:37:26 [INFO] telegram_listener: Message edited [id=5392]: TP 5 smashed 500 pips in profit
+2026-07-08 03:41:25 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-08 03:41:25 [INFO] telegram_listener: Poll [VIP Signals] msg id=5393: TP 6 smashed 600 pips in profit
+2026-07-08 03:43:00 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-08 03:43:00 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=661: Close all here
+2026-07-08 03:43:00 [INFO] telegram_listener: Close/cancel instruction detected
+2026-07-08 03:43:00 [INFO] mt5_bridge: CLOSE — closing all bot trades
+2026-07-08 03:43:00 [INFO] mt5_bridge: Written → close_1783500180.json | {'action': 'close', 'magic': 234000, 'timestamp': 1783500180}
+2026-07-08 03:44:23 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-08 03:44:23 [INFO] telegram_listener: Poll [VIP Signals] msg id=5394: You can start taking profits now
+2026-07-08 03:44:24 [INFO] telegram_listener: Skipping replay msg id=5393 (last=5394) ch=2109622623
+2026-07-08 03:44:24 [INFO] telegram_listener: Skipping replay msg id=5394 (last=5394) ch=2109622623
+2026-07-08 03:49:28 [INFO] telegram_listener: Skipping replay msg id=661 (last=661) ch=3595147533
+2026-07-08 10:32:09 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-08 10:32:09 [INFO] telegram_listener: Poll [VIP Signals] msg id=5398: TP 9 and TP 10 smashed 
+1000 pips in profit
+2026-07-08 10:33:35 [INFO] telegram_listener: Skipping replay msg id=5398 (last=5398) ch=2109622623
+Server closed the connection: [Errno 32] Broken pipe
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+2026-07-09 00:17:52 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 00:17:52 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=662: Good morning
+2026-07-09 00:20:24 [INFO] telegram_listener: Skipping replay msg id=662 (last=662) ch=3595147533
+2026-07-09 04:42:09 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 04:42:09 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=663: Sell gold
+2026-07-09 04:42:09 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-09 04:42:09 [INFO] signal_state: Pending signal stored: id=d528946b sell XAUUSD auto_tp=True
+2026-07-09 04:42:09 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-09 04:42:09 [INFO] mt5_bridge: Written → open_1783590129.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'd528946b', 'force': False, 'timestamp': 1783590129}
+2026-07-09 04:44:02 [INFO] telegram_listener: Skipping replay msg id=663 (last=663) ch=3595147533
+2026-07-09 04:44:02 [INFO] telegram_listener: Within 10min window — updating SL on pending d528946b: SELL XAUUSD | sl=4122.00000
+2026-07-09 04:44:02 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4122.00000 (keeping auto TPs)
+2026-07-09 04:44:02 [INFO] mt5_bridge: Written → update_sl_1783590242.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4122.0, 'magic': 234000, 'signal_id': 'd528946b', 'timestamp': 1783590242}
+2026-07-09 04:44:19 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 04:44:19 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=665: Use small for this
+2026-07-09 04:59:02 [INFO] telegram_listener: Skipping replay msg id=665 (last=665) ch=3595147533
+2026-07-09 05:33:39 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 05:33:39 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=667: Go Risk free now
+2026-07-09 05:33:39 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-09 05:33:39 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-09 05:33:39 [INFO] mt5_bridge: Written → breakeven_1783593219.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783593219}
+2026-07-09 05:38:52 [INFO] telegram_listener: Skipping replay msg id=667 (last=667) ch=3595147533
+2026-07-09 05:49:25 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 05:49:25 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=668: ✅ Our 2nd TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-09 05:53:22 [INFO] telegram_listener: Skipping replay msg id=668 (last=668) ch=3595147533
+2026-07-09 05:56:58 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 05:56:58 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=670: ✅ Our 4th TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-09 06:08:22 [INFO] telegram_listener: Skipping replay msg id=670 (last=670) ch=3595147533
+2026-07-09 06:17:09 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-09 06:17:09 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-09 06:17:09 [INFO] mt5_bridge: Written → breakeven_1783595829.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783595829}
+2026-07-09 06:28:08 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 06:28:08 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=672: Risky  TRADE ☠️
+👉🏾 sell   XAUUSD now 
+🛑 SL 4112
+✅ TP 4100
+✅ TP 4097
+✅ TP 4094
+✅ 
+2026-07-09 06:28:08 [INFO] telegram_listener: Complete signal: SELL XAUUSD | SL=4112.00000 | 6 TPs | tp_step=None
+2026-07-09 06:28:08 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=4112.0 | sl_pts=None | 6 trades (capped) | tp_step=None
+2026-07-09 06:28:08 [INFO] mt5_bridge: Written → open_1783596488.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': 4112.0, 'sl_points': None, 'tps': [4100.0, 4097.0, 4094.0, 4091.0, 4087.0, None], 'tp_step': None, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'sig_1783596488', 'force': True, 'timestamp': 1783596488}
+2026-07-09 06:28:29 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 06:28:29 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=673: Use small it’s volatile
+2026-07-09 06:38:22 [INFO] telegram_listener: Skipping replay msg id=672 (last=673) ch=3595147533
+2026-07-09 06:38:22 [INFO] telegram_listener: Skipping replay msg id=673 (last=673) ch=3595147533
+2026-07-09 06:41:14 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 06:41:14 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=674: Not good any more exit and wait another entry
+2026-07-09 06:41:14 [INFO] telegram_listener: Skipping replay msg id=674 (last=674) ch=3595147533
+2026-07-09 07:38:08 [INFO] telegram_listener: Incomplete signal: BUY XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-09 07:38:08 [INFO] signal_state: Pending signal stored: id=5f3cea12 buy XAUUSD auto_tp=True
+2026-07-09 07:38:08 [INFO] mt5_bridge: OPEN BUY XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-09 07:38:08 [INFO] mt5_bridge: Written → open_1783600688.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'buy', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': '5f3cea12', 'force': False, 'timestamp': 1783600688}
+2026-07-09 07:39:37 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 07:39:37 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=676: Risky  TRADE ☠️
+👉🏾 BUY XAUUSD now 
+🛑 SL 4100
+✅ TP 4120
+✅ TP 4123
+✅ TP 4126
+✅ TP 
+2026-07-09 07:39:37 [INFO] telegram_listener: Within 10min window — updating SL on pending 8c9762ba: BUY XAUUSD | sl=4100.00000
+2026-07-09 07:39:37 [INFO] mt5_bridge: UPDATE_SL BUY XAUUSD | new_sl=4100.00000 (keeping auto TPs)
+2026-07-09 07:39:37 [INFO] mt5_bridge: Written → update_sl_1783600777.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'buy', 'new_sl': 4100.0, 'magic': 234000, 'signal_id': '8c9762ba', 'timestamp': 1783600777}
+2026-07-09 07:40:28 [INFO] telegram_listener: Pip-step signal: step=10.00000 (100 pips) — EA will generate TPs from entry
+2026-07-09 07:40:28 [INFO] telegram_listener: Within 10min window — updating SL on active trades: BUY XAUUSD | sl=4095.00000
+2026-07-09 07:40:28 [INFO] mt5_bridge: UPDATE_SL BUY XAUUSD | new_sl=4095.00000 (keeping auto TPs)
+2026-07-09 07:40:28 [INFO] mt5_bridge: Written → update_sl_1783600828.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'buy', 'new_sl': 4095.0, 'magic': 234000, 'signal_id': 'sl_update', 'timestamp': 1783600828}
+2026-07-09 07:40:55 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 07:40:55 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=677: ✅ Our 1st TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-09 07:40:56 [INFO] telegram_listener: Skipping replay msg id=676 (last=677) ch=3595147533
+2026-07-09 07:40:56 [INFO] telegram_listener: Skipping replay msg id=677 (last=677) ch=3595147533
+2026-07-09 07:42:03 [INFO] telegram_listener: Message edited [id=5400]: Small size
+2026-07-09 07:42:08 [INFO] telegram_listener: Message edited [id=5399]: 👉🏼 GOLD BUY a now 
+🛑 SL 4095
+✅ TP 4300
+✅ TP every 100 pips 
+Proper risk
+disclaimer:Past Profits do not predict future ea
+2026-07-09 07:42:08 [INFO] telegram_listener: Edit detected — updating SL to 4095.00000 for BUY XAUUSD
+2026-07-09 07:42:08 [INFO] mt5_bridge: UPDATE_SL BUY XAUUSD | new_sl=4095.00000 (keeping auto TPs)
+2026-07-09 07:42:08 [INFO] mt5_bridge: Written → update_sl_1783600928.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'buy', 'new_sl': 4095.0, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1783600928}
+2026-07-09 08:18:22 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-09 08:18:22 [INFO] telegram_listener: Poll [VIP Signals] msg id=5401: TP 1 smashed 100 pips
+2026-07-09 08:19:31 [INFO] telegram_listener: Skipping replay msg id=5401 (last=5401) ch=2109622623
+2026-07-09 08:19:37 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 08:19:37 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=680: Risk free now
+2026-07-09 08:19:37 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-09 08:19:37 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-09 08:19:37 [INFO] mt5_bridge: Written → breakeven_1783603177.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783603177}
+2026-07-09 08:20:13 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-09 08:20:13 [INFO] telegram_listener: Poll [VIP Signals] msg id=5402: You can go risk free if you want
+2026-07-09 08:20:13 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-09 08:20:13 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-09 08:20:13 [INFO] mt5_bridge: Written → breakeven_1783603213.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783603213}
+2026-07-09 08:25:56 [INFO] telegram_listener: Skipping replay msg id=680 (last=680) ch=3595147533
+2026-07-09 08:34:32 [INFO] telegram_listener: Skipping replay msg id=5402 (last=5402) ch=2109622623
+Server closed the connection: [Errno 49] Can't assign requested address
+Attempt 1 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 2 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 3 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 4 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 5 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 6 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 7 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 8 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 9 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 10 at connecting failed: OSError: [Errno 51] Network is unreachable
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Server resent the older message 7660584577917882369, ignoring
+2026-07-09 12:40:38 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-09 12:40:38 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=684: ✅ Our 6th TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-09 12:40:38 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-09 12:40:38 [INFO] telegram_listener: Poll [VIP Signals] msg id=5403: TP 2 smashed 200 pips
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Server closed the connection: [Errno 49] Can't assign requested address
+Server closed the connection: [Errno 49] Can't assign requested address
+Attempt 1 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 2 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 3 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 4 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 5 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 6 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 7 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 8 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 9 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 10 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 11 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 12 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 13 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 14 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 15 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 16 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 17 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 18 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 19 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 20 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 21 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 22 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 23 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 24 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 25 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 26 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 27 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 28 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 29 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 30 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 31 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 32 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 33 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 34 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 35 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 36 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 37 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 38 at connecting failed: OSError: [Errno 51] Network is unreachable
+2026-07-09 15:43:52 [INFO] telegram_listener: Skipping replay msg id=684 (last=684) ch=3595147533
+2026-07-09 15:43:53 [INFO] telegram_listener: Skipping replay msg id=5403 (last=5403) ch=2109622623
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+2026-07-10 02:08:33 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-10 02:08:33 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=685: Good morning
+2026-07-10 02:19:49 [INFO] telegram_listener: Skipping replay msg id=685 (last=685) ch=3595147533
+2026-07-10 03:27:39 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-10 03:27:39 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=686: Sell gold
+2026-07-10 03:27:39 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-10 03:27:39 [INFO] signal_state: Pending signal stored: id=14576220 sell XAUUSD auto_tp=True
+2026-07-10 03:27:39 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-10 03:27:39 [INFO] mt5_bridge: Written → open_1783672059.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': '14576220', 'force': False, 'timestamp': 1783672059}
+2026-07-10 03:29:29 [INFO] telegram_listener: Skipping replay msg id=686 (last=686) ch=3595147533
+2026-07-10 03:29:29 [INFO] telegram_listener: Within 10min window — updating SL on pending 14576220: SELL XAUUSD | sl=4120.00000
+2026-07-10 03:29:29 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4120.00000 (keeping auto TPs)
+2026-07-10 03:29:29 [INFO] mt5_bridge: Written → update_sl_1783672169.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4120.0, 'magic': 234000, 'signal_id': '14576220', 'timestamp': 1783672169}
+2026-07-10 03:29:40 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-10 03:29:40 [INFO] signal_state: Pending signal stored: id=ed16a738 sell XAUUSD auto_tp=True
+2026-07-10 03:29:40 [WARNING] mt5_bridge: Duplicate OPEN blocked: SELL XAUUSD (121s ago)
+2026-07-10 03:31:08 [INFO] telegram_listener: Pip-step signal: step=10.00000 (100 pips) — EA will generate TPs from entry
+2026-07-10 03:31:08 [INFO] telegram_listener: Within 10min window — updating SL on pending ed16a738: SELL XAUUSD | sl=4121.00000
+2026-07-10 03:31:08 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4121.00000 (keeping auto TPs)
+2026-07-10 03:31:08 [INFO] mt5_bridge: Written → update_sl_1783672268.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4121.0, 'magic': 234000, 'signal_id': 'ed16a738', 'timestamp': 1783672268}
+2026-07-10 03:34:03 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-10 03:34:03 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=688: ✅ Our 1st TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-10 03:35:30 [INFO] telegram_listener: Skipping replay msg id=688 (last=688) ch=3595147533
+2026-07-10 03:49:05 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-10 03:49:05 [INFO] telegram_listener: Poll [VIP Signals] msg id=5406: TP 1 smashed 100 pips
+2026-07-10 03:49:43 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-10 03:49:43 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=690: ✅ Our 3rd TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-10 03:49:50 [INFO] telegram_listener: Skipping replay msg id=5406 (last=5406) ch=2109622623
+2026-07-10 03:51:07 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-10 03:51:07 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=691: Risk free now
+2026-07-10 03:51:07 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-10 03:51:07 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-10 03:51:07 [INFO] mt5_bridge: Written → breakeven_1783673467.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783673467}
+2026-07-10 03:59:29 [INFO] telegram_listener: Skipping replay msg id=690 (last=691) ch=3595147533
+2026-07-10 03:59:29 [INFO] telegram_listener: Skipping replay msg id=691 (last=691) ch=3595147533
+2026-07-10 05:01:36 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-10 05:01:36 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=693: Be touched wait for reentry
+2026-07-10 05:14:29 [INFO] telegram_listener: Skipping replay msg id=693 (last=693) ch=3595147533
+2026-07-10 06:32:16 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-10 06:32:16 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=694: Risky  TRADE ☠️
+👉🏾 sell   XAUUSD now 
+🛑 SL 4120
+✅ TP 4102
+✅ TP 4100
+✅ TP 4097
+✅ 
+2026-07-10 06:32:16 [INFO] telegram_listener: Complete signal: SELL XAUUSD | SL=4120.00000 | 7 TPs | tp_step=None
+2026-07-10 06:32:16 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=4120.0 | sl_pts=None | 6 trades (capped) | tp_step=None
+2026-07-10 06:32:16 [INFO] mt5_bridge: Written → open_1783683136.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': 4120.0, 'sl_points': None, 'tps': [4102.0, 4100.0, 4097.0, 4093.0, 4090.0, None], 'tp_step': None, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'sig_1783683136', 'force': True, 'timestamp': 1783683136}
+2026-07-10 06:44:30 [INFO] telegram_listener: Skipping replay msg id=694 (last=694) ch=3595147533
+2026-07-10 06:51:28 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-10 06:51:28 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=695: Our profit Target TP 1 to TP 3 hit 
+I just checked it now and the market is back
+2026-07-10 06:51:28 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-10 06:51:28 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-10 06:51:28 [INFO] mt5_bridge: Written → breakeven_1783684288.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783684288}
+2026-07-10 06:59:30 [INFO] telegram_listener: Skipping replay msg id=695 (last=695) ch=3595147533
+2026-07-10 07:30:22 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-10 07:30:22 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=696: Make it risk free
+2026-07-10 07:30:22 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-10 07:30:22 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-10 07:30:22 [INFO] mt5_bridge: Written → breakeven_1783686622.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783686622}
+2026-07-10 07:36:37 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-10 07:36:37 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=697: Make sure your your set your TPs
+2026-07-10 07:38:17 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-10 07:38:17 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-10 07:38:17 [INFO] mt5_bridge: Written → breakeven_1783687097.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783687097}
+2026-07-10 07:44:30 [INFO] telegram_listener: Skipping replay msg id=696 (last=697) ch=3595147533
+2026-07-10 07:44:30 [INFO] telegram_listener: Skipping replay msg id=697 (last=697) ch=3595147533
+2026-07-12 21:36:14 [INFO] main: Lock acquired (pid=45599)
+2026-07-12 21:36:14 [INFO] main: Starting Telegram → MT5 signal bot...
+2026-07-12 21:36:14 [INFO] main: Signal files will be written to: /Users/ment4m/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals
+2026-07-12 21:36:15 [INFO] telegram_listener: Logged in as 14695582454 | monitoring 3 channel(s): [-1003595147533, -1002109622623, -1003376031148]
+2026-07-12 21:36:15 [INFO] telegram_listener: Channel resolved: 500$ to 100k $ (id=3595147533)
+2026-07-12 21:36:15 [INFO] telegram_listener: Channel resolved: VIP Signals (id=2109622623)
+2026-07-12 21:36:16 [INFO] telegram_listener: Channel resolved: 1% Club (id=3376031148)
+2026-07-12 21:36:16 [INFO] telegram_listener: Channel 3595147533: starting from message ID 706
+2026-07-12 21:36:16 [INFO] telegram_listener: Channel 2109622623: starting from message ID 5413
+2026-07-12 21:36:16 [INFO] telegram_listener: Channel 3376031148: starting from message ID 204
+2026-07-12 21:36:16 [INFO] telegram_listener: Bot is running. Press Ctrl+C to stop.
+2026-07-13 03:32:22 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-13 03:32:22 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=707: Good morning
+2026-07-13 07:09:00 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-13 07:09:00 [INFO] signal_state: Pending signal stored: id=8ea3d8ae sell XAUUSD auto_tp=True
+2026-07-13 07:09:00 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-13 07:09:00 [INFO] mt5_bridge: Written → open_1783944540.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': '8ea3d8ae', 'force': False, 'timestamp': 1783944540}
+2026-07-13 07:09:08 [WARNING] telegram_listener: Duplicate message blocked (same text seen 8s ago)
+2026-07-13 07:11:07 [INFO] telegram_listener: Within 10min window — updating SL on pending 7a50e9e6: SELL XAUUSD | sl=4076.00000
+2026-07-13 07:11:07 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4076.00000 (keeping auto TPs)
+2026-07-13 07:11:07 [INFO] mt5_bridge: Written → update_sl_1783944667.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4076.0, 'magic': 234000, 'signal_id': '7a50e9e6', 'timestamp': 1783944667}
+2026-07-13 07:11:20 [INFO] telegram_listener: Pip-step signal: step=10.00000 (100 pips) — EA will generate TPs from entry
+2026-07-13 07:11:20 [INFO] telegram_listener: Within 10min window — updating SL on pending 841406d0: SELL XAUUSD | sl=4076.00000
+2026-07-13 07:11:20 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4076.00000 (keeping auto TPs)
+2026-07-13 07:11:20 [INFO] mt5_bridge: Written → update_sl_1783944680.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4076.0, 'magic': 234000, 'signal_id': '841406d0', 'timestamp': 1783944680}
+2026-07-13 08:40:16 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-13 08:40:16 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=710: ✅ Our 1st TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-13 08:40:16 [INFO] telegram_listener: Skipping replay msg id=710 (last=710) ch=3595147533
+2026-07-13 08:55:19 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-13 08:55:19 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=711: ✅ Our 2nd TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-13 08:55:50 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-13 08:55:50 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=712: ✅ Our 3rd TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-13 09:01:37 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-13 09:01:37 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=713: ✅ Our 4th TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-13 09:04:47 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-13 09:04:47 [INFO] telegram_listener: Poll [VIP Signals] msg id=5417: Tp 2 smashed 200 pips
+2026-07-13 09:04:53 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-13 09:04:53 [INFO] telegram_listener: Poll [VIP Signals] msg id=5418: #Rrrrrrraaaaaaaaaaa
+2026-07-13 09:05:21 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-13 09:05:21 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=714: #Rrrrrrraaaaaaaaaaa
+2026-07-13 09:05:46 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-13 09:05:46 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=715: Share your open and closed position to @liontradingacademy
+2026-07-13 09:05:47 [INFO] telegram_listener: Skipping replay msg id=711 (last=715) ch=3595147533
+2026-07-13 09:05:47 [INFO] telegram_listener: Skipping replay msg id=712 (last=715) ch=3595147533
+2026-07-13 09:05:47 [INFO] telegram_listener: Skipping replay msg id=713 (last=715) ch=3595147533
+2026-07-13 09:05:47 [INFO] telegram_listener: Skipping replay msg id=714 (last=715) ch=3595147533
+2026-07-13 09:05:47 [INFO] telegram_listener: Skipping replay msg id=715 (last=715) ch=3595147533
+2026-07-13 09:07:00 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-13 09:07:00 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-13 09:07:00 [INFO] mt5_bridge: Written → breakeven_1783951620.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783951620}
+2026-07-13 09:09:08 [INFO] telegram_listener: Message edited [id=5416]: TP 1 smashed 100 pips
+2026-07-13 09:09:09 [INFO] telegram_listener: Skipping replay msg id=5417 (last=5418) ch=2109622623
+2026-07-13 09:09:09 [INFO] telegram_listener: Skipping replay msg id=5418 (last=5418) ch=2109622623
+2026-07-13 09:09:09 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-13 09:09:09 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=718: ✅ Our 6th TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-13 09:09:41 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-13 09:09:41 [INFO] telegram_listener: Poll [VIP Signals] msg id=5419: TP 3 smashed 300 pips
+2026-07-13 09:09:52 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-13 09:09:52 [INFO] telegram_listener: Poll [VIP Signals] msg id=5420: You can go risk free now if you want
+2026-07-13 09:09:52 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-13 09:09:52 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-13 09:09:52 [INFO] mt5_bridge: Written → breakeven_1783951792.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1783951792}
+2026-07-13 09:10:09 [INFO] telegram_listener: Skipping replay msg id=718 (last=718) ch=3595147533
+2026-07-13 09:10:14 [INFO] telegram_listener: Skipping replay msg id=5419 (last=5420) ch=2109622623
+2026-07-13 09:10:14 [INFO] telegram_listener: Skipping replay msg id=5420 (last=5420) ch=2109622623
+2026-07-13 09:18:16 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-13 09:18:16 [INFO] telegram_listener: Poll [VIP Signals] msg id=5423: TP 5 smashed 500 pips
+2026-07-13 09:25:14 [INFO] telegram_listener: Skipping replay msg id=5423 (last=5423) ch=2109622623
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Attempt 1 at connecting failed: TimeoutError: 
+Server closed the connection: [Errno 49] Can't assign requested address
+Attempt 1 at connecting failed: OSError: [Errno 51] Network is unreachable
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Server resent the older message 7662084034425846785, ignoring
+2026-07-13 13:39:17 [WARNING] telegram_listener: Poll fallback caught 3 missed message(s) from [500$ to 100k $]
+2026-07-13 13:39:17 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=720: ✅ Our 7th TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-13 13:39:17 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=721: Full TP smashed close
+All positions here
+2026-07-13 13:39:17 [INFO] telegram_listener: Close/cancel instruction detected
+2026-07-13 13:39:17 [INFO] mt5_bridge: CLOSE — closing all bot trades
+2026-07-13 13:39:17 [INFO] mt5_bridge: Written → close_1783967957.json | {'action': 'close', 'magic': 234000, 'timestamp': 1783967957}
+2026-07-13 13:39:17 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=722: Should I continue for this month or finish the challenge here ???
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+2026-07-13 13:52:46 [INFO] telegram_listener: Skipping replay msg id=720 (last=722) ch=3595147533
+2026-07-13 13:52:46 [INFO] telegram_listener: Skipping replay msg id=721 (last=722) ch=3595147533
+2026-07-13 13:52:46 [INFO] telegram_listener: Skipping replay msg id=722 (last=722) ch=3595147533
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Server closed the connection: [Errno 49] Can't assign requested address
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 49] Can't assign requested address
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+2026-07-13 23:08:38 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-13 23:08:38 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=723: Good morning
+2026-07-13 23:15:38 [INFO] telegram_listener: Skipping replay msg id=723 (last=723) ch=3595147533
+2026-07-13 23:20:07 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-13 23:20:07 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=724: I will continue for a month please make sure you take advantage and take all the
+2026-07-13 23:30:38 [INFO] telegram_listener: Skipping replay msg id=724 (last=724) ch=3595147533
+2026-07-13 23:33:08 [INFO] telegram_listener: Incomplete signal: BUY XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-13 23:33:08 [INFO] signal_state: Pending signal stored: id=666d14a3 buy XAUUSD auto_tp=True
+2026-07-13 23:33:08 [INFO] mt5_bridge: OPEN BUY XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-13 23:33:08 [INFO] mt5_bridge: Written → open_1784003588.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'buy', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': '666d14a3', 'force': False, 'timestamp': 1784003588}
+2026-07-13 23:35:45 [INFO] telegram_listener: Within 10min window — updating SL on pending b63b6231: BUY XAUUSD | sl=4011.00000
+2026-07-13 23:35:45 [INFO] mt5_bridge: UPDATE_SL BUY XAUUSD | new_sl=4011.00000 (keeping auto TPs)
+2026-07-13 23:35:45 [INFO] mt5_bridge: Written → update_sl_1784003745.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'buy', 'new_sl': 4011.0, 'magic': 234000, 'signal_id': 'b63b6231', 'timestamp': 1784003745}
+2026-07-14 00:34:59 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-14 00:34:59 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=732: Now go risk free
+2026-07-14 00:34:59 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-14 00:34:59 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-14 00:34:59 [INFO] mt5_bridge: Written → breakeven_1784007299.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784007299}
+2026-07-14 00:42:10 [INFO] telegram_listener: Skipping replay msg id=732 (last=732) ch=3595147533
+2026-07-14 00:44:37 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-14 00:44:37 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=734: ✅ Our 5th TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-14 00:57:10 [INFO] telegram_listener: Skipping replay msg id=734 (last=734) ch=3595147533
+2026-07-14 02:30:39 [INFO] telegram_listener: Message edited [id=5423]: TP 5 smashed 500 pips
+2026-07-14 02:30:40 [INFO] telegram_listener: Message edited [id=5422]: TP 4 smashed 400 pips
+2026-07-14 02:30:41 [INFO] telegram_listener: Message edited [id=5421]: Tp 3 smashed 300 pips
+2026-07-14 02:30:41 [INFO] telegram_listener: Message edited [id=5414]: Sell gold
+2026-07-14 02:53:51 [INFO] telegram_listener: Message edited [id=207]: Menu
+2026-07-14 02:54:03 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-14 02:54:03 [INFO] telegram_listener: Poll [1% Club] msg id=208: Menu
+2026-07-14 02:54:06 [INFO] telegram_listener: Skipping replay msg id=208 (last=208) ch=3376031148
+2026-07-14 03:40:49 [INFO] telegram_listener: Message edited [id=209]: selam indet nachu
+2026-07-14 03:41:24 [INFO] telegram_listener: Message edited [id=209]: selam indet nachu
+Let’s go (🔥)
+2026-07-14 04:31:53 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-14 04:31:53 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=735: Sell gold
+2026-07-14 04:31:53 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-14 04:31:53 [INFO] signal_state: Pending signal stored: id=c179b2b0 sell XAUUSD auto_tp=True
+2026-07-14 04:31:53 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-14 04:31:53 [INFO] mt5_bridge: Written → open_1784021513.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'c179b2b0', 'force': False, 'timestamp': 1784021513}
+2026-07-14 04:32:04 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-14 04:32:04 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=736: Small size
+2026-07-14 04:33:54 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-14 04:33:54 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=737: Risky  TRADE ☠️
+👉🏾 sell   XAUUSD now 
+🛑 SL 4030
+✅ TP 4014
+✅ TP 4011
+✅ TP 4008
+✅ 
+2026-07-14 04:33:54 [INFO] telegram_listener: Within 10min window — updating SL on pending c179b2b0: SELL XAUUSD | sl=4030.00000
+2026-07-14 04:33:54 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4030.00000 (keeping auto TPs)
+2026-07-14 04:33:54 [INFO] mt5_bridge: Written → update_sl_1784021634.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4030.0, 'magic': 234000, 'signal_id': 'c179b2b0', 'timestamp': 1784021634}
+2026-07-14 04:33:55 [INFO] telegram_listener: Skipping replay msg id=735 (last=737) ch=3595147533
+2026-07-14 04:33:55 [INFO] telegram_listener: Skipping replay msg id=736 (last=737) ch=3595147533
+2026-07-14 04:33:55 [INFO] telegram_listener: Skipping replay msg id=737 (last=737) ch=3595147533
+2026-07-14 04:34:01 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-14 04:34:01 [INFO] signal_state: Pending signal stored: id=cd87b833 sell XAUUSD auto_tp=True
+2026-07-14 04:34:01 [WARNING] mt5_bridge: Duplicate OPEN blocked: SELL XAUUSD (128s ago)
+2026-07-14 04:34:11 [INFO] telegram_listener: Pip-step signal: step=10.00000 (100 pips) — EA will generate TPs from entry
+2026-07-14 04:34:11 [INFO] telegram_listener: Within 10min window — updating SL on pending 614c07c2: SELL XAUUSD | sl=4030.00000
+2026-07-14 04:34:11 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4030.00000 (keeping auto TPs)
+2026-07-14 04:34:11 [INFO] mt5_bridge: Written → update_sl_1784021651.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4030.0, 'magic': 234000, 'signal_id': '614c07c2', 'timestamp': 1784021651}
+2026-07-14 04:36:17 [INFO] telegram_listener: Message edited [id=5425]: 👉🏼 GOLD sell a now 
+🛑 SL 4030
+✅ TP 3906
+✅ TP every 100 pips 
+Proper risk
+disclaimer:Past Profits do not predict future e
+2026-07-14 04:36:17 [INFO] telegram_listener: Edit detected — updating SL to 4030.00000 for SELL XAUUSD
+2026-07-14 04:36:17 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4030.00000 (keeping auto TPs)
+2026-07-14 04:36:17 [INFO] mt5_bridge: Written → update_sl_1784021777.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4030.0, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784021777}
+2026-07-14 04:48:44 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-14 04:48:44 [INFO] telegram_listener: Poll [1% Club] msg id=210: GOLD SELL NOW 
+SL:-4030.74
+2026-07-14 04:48:44 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-14 04:48:44 [INFO] signal_state: Pending signal stored: id=a0a11c62 sell XAUUSD auto_tp=True
+2026-07-14 04:48:44 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-14 04:48:44 [INFO] mt5_bridge: Written → open_1784022524.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'a0a11c62', 'force': False, 'timestamp': 1784022524}
+2026-07-14 04:48:44 [INFO] telegram_listener: Skipping replay msg id=210 (last=210) ch=3376031148
+2026-07-14 04:49:18 [INFO] telegram_listener: Message edited [id=210]: GOLD SELL NOW 
+SL:-4030.74
+2026-07-14 04:49:18 [INFO] telegram_listener: Edit detected — updating SL to 4030.74000 for SELL XAUUSD
+2026-07-14 04:49:18 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4030.74000 (keeping auto TPs)
+2026-07-14 04:49:18 [INFO] mt5_bridge: Written → update_sl_1784022558.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4030.74, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784022558}
+2026-07-14 04:49:44 [INFO] telegram_listener: Close/cancel instruction detected
+2026-07-14 04:49:44 [INFO] mt5_bridge: CLOSE — closing all bot trades
+2026-07-14 04:49:44 [INFO] mt5_bridge: Written → close_1784022584.json | {'action': 'close', 'magic': 234000, 'timestamp': 1784022584}
+2026-07-14 04:49:55 [INFO] telegram_listener: Close/cancel instruction detected
+2026-07-14 04:49:55 [INFO] mt5_bridge: CLOSE — closing all bot trades
+2026-07-14 04:49:55 [INFO] mt5_bridge: Written → close_1784022595.json | {'action': 'close', 'magic': 234000, 'timestamp': 1784022595}
+2026-07-14 04:50:32 [INFO] telegram_listener: Message edited [id=5427]: I don’t like it anymore
+2026-07-14 04:51:39 [INFO] telegram_listener: Message edited [id=210]: GOLD SELL NOW @4021.35
+SL:-4031:85
+Tp1:-4016
+Tp2:-4011
+Tp3:-4006
+Tp4:-3993
+Use proper risk management
+2026-07-14 04:51:39 [INFO] telegram_listener: Edit detected — updating SL to 4031.00000 for SELL XAUUSD
+2026-07-14 04:51:39 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4031.00000 (keeping auto TPs)
+2026-07-14 04:51:39 [INFO] mt5_bridge: Written → update_sl_1784022699.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4031.0, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784022699}
+2026-07-14 04:51:50 [INFO] telegram_listener: Message edited [id=211]: Use proper risk management ‼️
+2026-07-14 04:53:51 [INFO] telegram_listener: Message edited [id=5426]: Close with small loss
+2026-07-14 05:02:38 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-14 05:02:38 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=740: Sell again
+2026-07-14 05:02:38 [INFO] telegram_listener: No symbol in message — using last traded symbol: XAUUSD
+2026-07-14 05:02:38 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-14 05:02:38 [INFO] signal_state: Pending signal stored: id=e3352b71 sell XAUUSD auto_tp=True
+2026-07-14 05:02:38 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-14 05:02:38 [INFO] mt5_bridge: Written → open_1784023358.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'e3352b71', 'force': False, 'timestamp': 1784023358}
+2026-07-14 05:02:43 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-14 05:02:43 [INFO] telegram_listener: Poll [VIP Signals] msg id=5428: Sell again
+2026-07-14 05:02:43 [WARNING] telegram_listener: Duplicate message blocked (same text seen 5s ago)
+2026-07-14 05:02:49 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-14 05:02:49 [INFO] telegram_listener: Poll [VIP Signals] msg id=5429: Use small size
+2026-07-14 05:03:40 [INFO] telegram_listener: Skipping replay msg id=740 (last=740) ch=3595147533
+2026-07-14 05:03:40 [INFO] telegram_listener: Within 10min window — updating SL on pending e3352b71: SELL XAUUSD | sl=4030.00000
+2026-07-14 05:03:40 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4030.00000 (keeping auto TPs)
+2026-07-14 05:03:40 [INFO] mt5_bridge: Written → update_sl_1784023420.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4030.0, 'magic': 234000, 'signal_id': 'e3352b71', 'timestamp': 1784023420}
+2026-07-14 05:04:36 [INFO] telegram_listener: Skipping replay msg id=5428 (last=5429) ch=2109622623
+2026-07-14 05:04:36 [INFO] telegram_listener: Skipping replay msg id=5429 (last=5429) ch=2109622623
+2026-07-14 05:04:50 [INFO] telegram_listener: Message edited [id=5429]: Use small size
+2026-07-14 05:07:36 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-14 05:07:36 [INFO] telegram_listener: Poll [1% Club] msg id=212: GOLD +30 pips running in profit 
+Let’s go family
+2026-07-14 05:07:45 [INFO] telegram_listener: Skipping replay msg id=212 (last=212) ch=3376031148
+2026-07-14 05:15:17 [INFO] telegram_listener: Message edited [id=213]: GOLD +40 pips running in profit 
+Scalper profitachun secure adirigu
+2026-07-14 05:27:15 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-14 05:27:15 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-14 05:27:15 [INFO] mt5_bridge: Written → breakeven_1784024835.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784024835}
+2026-07-14 05:27:36 [INFO] telegram_listener: Message edited [id=214]: GOLD +50 pips Tp1 Smash 
+Let’s go family profitachun secure adirigu Hold position Sl BE
+2026-07-14 06:21:35 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-14 06:21:35 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=744: Today is not the day cut your loss here
+2026-07-14 06:21:40 [WARNING] telegram_listener: Duplicate message blocked (same text seen 1s ago)
+2026-07-14 06:22:32 [INFO] telegram_listener: Skipping replay msg id=744 (last=744) ch=3595147533
+2026-07-14 06:23:03 [INFO] telegram_listener: Message edited [id=5430]: Today is not the day cut your loss here
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: 0 bytes read on a total of 8 expected bytes
+Attempt 1 at connecting failed: TimeoutError: 
+Attempt 2 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 3 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 4 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 5 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 6 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 7 at connecting failed: OSError: [Errno 51] Network is unreachable
+Server closed the connection: [Errno 49] Can't assign requested address
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Server closed the connection: [Errno 60] Operation timed out
+Graceful disconnection timed out, forcibly ignoring cleanup
+Attempt 1 at connecting failed: OSError: [Errno 51] Network is unreachable
+Server closed the connection: [Errno 49] Can't assign requested address
+Attempt 1 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 2 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 3 at connecting failed: OSError: [Errno 51] Network is unreachable
+Attempt 4 at connecting failed: OSError: [Errno 51] Network is unreachable
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server resent the older message 7662515817528010753, ignoring
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server resent the older message 7662564623312415745, ignoring
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+2026-07-14 21:59:00 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-14 21:59:00 [INFO] telegram_listener: Poll [1% Club] msg id=215: GOLD SELL NOW 4039
+SL:-4050.10
+2026-07-14 21:59:00 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-14 21:59:00 [INFO] signal_state: Pending signal stored: id=1c1cdcd7 sell XAUUSD auto_tp=True
+2026-07-14 21:59:00 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-14 21:59:00 [INFO] mt5_bridge: Written → open_1784084340.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': '1c1cdcd7', 'force': False, 'timestamp': 1784084340}
+2026-07-14 22:00:34 [INFO] telegram_listener: Skipping replay msg id=215 (last=215) ch=3376031148
+2026-07-14 22:18:23 [INFO] telegram_listener: Message edited [id=215]: GOLD SELL NOW 4039
+SL:-4050.10
+Tp1:-4034
+Tp2:-4030
+Tp3:-4024
+Tp4:-4015
+Use proper risk management
+2026-07-14 22:18:23 [INFO] telegram_listener: Edit detected — updating SL to 4050.10000 for SELL XAUUSD
+2026-07-14 22:18:23 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4050.10000 (keeping auto TPs)
+2026-07-14 22:18:23 [INFO] mt5_bridge: Written → update_sl_1784085503.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4050.1, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784085503}
+2026-07-14 22:24:04 [WARNING] telegram_listener: Poll fallback caught 2 missed message(s) from [1% Club]
+2026-07-14 22:24:04 [INFO] telegram_listener: Poll [1% Club] msg id=217: GOLD +80 pips running in profit Let’s go family profitachun secure adirigu Hold 
+2026-07-14 22:24:04 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-14 22:24:04 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-14 22:24:04 [INFO] mt5_bridge: Written → breakeven_1784085844.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784085844}
+2026-07-14 22:24:04 [INFO] telegram_listener: Poll [1% Club] msg id=218: GOLD +80 pips running in profit Let’s go family profitachun secure adirigu Hold 
+2026-07-14 22:24:04 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-14 22:24:04 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-14 22:24:04 [INFO] mt5_bridge: Written → breakeven_1784085844.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784085844}
+2026-07-14 22:24:05 [INFO] telegram_listener: Skipping replay msg id=217 (last=218) ch=3376031148
+2026-07-14 22:24:05 [INFO] telegram_listener: Skipping replay msg id=218 (last=218) ch=3376031148
+2026-07-14 23:24:01 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-14 23:24:01 [INFO] telegram_listener: Poll [VIP Signals] msg id=5431: Good morning
+2026-07-14 23:24:02 [INFO] telegram_listener: Skipping replay msg id=5431 (last=5431) ch=2109622623
+2026-07-14 23:31:41 [INFO] telegram_listener: Message edited [id=5431]: Good morning
+2026-07-14 23:51:41 [INFO] telegram_listener: Message edited [id=218]: GOLD +80 pips running in profit Let’s go family profitachun secure adirigu Hold position Sl BE
+2026-07-15 00:14:03 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-15 00:14:03 [INFO] telegram_listener: Poll [1% Club] msg id=220: GOLD +140 pips running in profit 
+Let’s go family profitachun secure adirigu Hol
+2026-07-15 00:14:03 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-15 00:14:03 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-15 00:14:03 [INFO] mt5_bridge: Written → breakeven_1784092443.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784092443}
+2026-07-15 00:21:42 [INFO] telegram_listener: Skipping replay msg id=220 (last=220) ch=3376031148
+2026-07-15 00:31:19 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-15 00:31:19 [INFO] telegram_listener: Poll [1% Club] msg id=221: GOLD +170 pips Tp3 smash 
+Let’s go
+2026-07-15 00:36:42 [INFO] telegram_listener: Skipping replay msg id=221 (last=221) ch=3376031148
+2026-07-15 00:41:49 [INFO] telegram_listener: Message edited [id=220]: GOLD +140 pips running in profit 
+Let’s go family profitachun secure adirigu Hold position Sl BE
+2026-07-15 01:06:42 [INFO] telegram_listener: Message edited [id=221]: GOLD +170 pips Tp3 smash 
+Let’s go
+2026-07-15 01:10:05 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-15 01:10:05 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=746: Risky  TRADE ☠️
+👉🏾 sell   XAUUSD now 
+🛑 SL 4037
+✅ TP 4024
+✅ TP 4021
+✅ TP 4017
+✅ 
+2026-07-15 01:10:05 [INFO] telegram_listener: Complete signal: SELL XAUUSD | SL=4037.00000 | 8 TPs | tp_step=None
+2026-07-15 01:10:05 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=4037.0 | sl_pts=None | 6 trades (capped) | tp_step=None
+2026-07-15 01:10:05 [INFO] mt5_bridge: Written → open_1784095805.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': 4037.0, 'sl_points': None, 'tps': [4024.0, 4021.0, 4017.0, 4014.0, 4011.0, None], 'tp_step': None, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'sig_1784095805', 'force': True, 'timestamp': 1784095805}
+2026-07-15 01:10:45 [INFO] telegram_listener: Pip-step signal: step=10.00000 (100 pips) — EA will generate TPs from entry
+2026-07-15 01:10:45 [INFO] telegram_listener: Within 10min window — updating SL on active trades: SELL XAUUSD | sl=4037.00000
+2026-07-15 01:10:45 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4037.00000 (keeping auto TPs)
+2026-07-15 01:10:45 [INFO] mt5_bridge: Written → update_sl_1784095845.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4037.0, 'magic': 234000, 'signal_id': 'sl_update', 'timestamp': 1784095845}
+2026-07-15 01:16:41 [INFO] telegram_listener: Skipping replay msg id=746 (last=746) ch=3595147533
+2026-07-15 01:42:37 [INFO] telegram_listener: SL move instruction: SELL XAUUSD → new_sl=4043.00000
+2026-07-15 01:42:37 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4043.00000 (keeping auto TPs)
+2026-07-15 01:42:37 [INFO] mt5_bridge: Written → update_sl_1784097757.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4043.0, 'magic': 234000, 'signal_id': 'sl_move', 'timestamp': 1784097757}
+2026-07-15 01:43:36 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-15 01:43:36 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=748: Move SL to 4043 just in case and manage your risk for the rest positions
+2026-07-15 01:43:36 [INFO] telegram_listener: SL move instruction: SELL XAUUSD → new_sl=4043.00000
+2026-07-15 01:43:36 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4043.00000 (keeping auto TPs)
+2026-07-15 01:43:36 [INFO] mt5_bridge: Written → update_sl_1784097816.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4043.0, 'magic': 234000, 'signal_id': 'sl_move', 'timestamp': 1784097816}
+2026-07-15 01:46:42 [INFO] telegram_listener: Skipping replay msg id=748 (last=748) ch=3595147533
+2026-07-15 02:27:55 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-15 02:27:55 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=749: ✅ Our 2nd  TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-15 02:29:19 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-15 02:29:19 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=750: Go risk free and send your positions to my team
+2026-07-15 02:29:19 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-15 02:29:19 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-15 02:29:19 [INFO] mt5_bridge: Written → breakeven_1784100559.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784100559}
+2026-07-15 02:30:32 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-15 02:30:32 [INFO] telegram_listener: Poll [VIP Signals] msg id=5435: TP 1 smashed 100 pips
+2026-07-15 02:31:42 [INFO] telegram_listener: Skipping replay msg id=749 (last=750) ch=3595147533
+2026-07-15 02:31:42 [INFO] telegram_listener: Skipping replay msg id=750 (last=750) ch=3595147533
+2026-07-15 02:31:42 [INFO] telegram_listener: Skipping replay msg id=5435 (last=5435) ch=2109622623
+2026-07-15 02:37:11 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-15 02:37:11 [INFO] telegram_listener: Poll [1% Club] msg id=222: GOLD +190 pips running in profit 
+Let’s go family
+2026-07-15 02:40:20 [WARNING] telegram_listener: Poll fallback caught 2 missed message(s) from [1% Club]
+2026-07-15 02:40:20 [INFO] telegram_listener: Poll [1% Club] msg id=223: GOLD +190 pips running in profit 
+Let’s go family profitachun secure adirigu
+2026-07-15 02:40:22 [INFO] telegram_listener: Skipping replay msg id=222 (last=223) ch=3376031148
+2026-07-15 02:40:22 [INFO] telegram_listener: Skipping replay msg id=223 (last=223) ch=3376031148
+2026-07-15 03:59:57 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-15 03:59:57 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-15 03:59:57 [INFO] mt5_bridge: Written → breakeven_1784105997.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784105997}
+2026-07-15 04:44:41 [INFO] telegram_listener: Message edited [id=5435]: TP 1 smashed 100 pips
+2026-07-15 04:44:42 [INFO] telegram_listener: Message edited [id=5434]: Move SL to 4043 just in case and manage your risk
+2026-07-15 04:59:41 [INFO] telegram_listener: Message edited [id=5433]: 70 pips in profit
+2026-07-15 04:59:42 [INFO] telegram_listener: Message edited [id=5432]: 👉🏼 GOLD sell a now 
+🛑 SL 4037
+✅ TP 3906
+✅ TP every 100 pips 
+Proper risk
+disclaimer:Past Profits do not predict future e
+2026-07-15 04:59:42 [INFO] telegram_listener: Edit detected — updating SL to 4037.00000 for SELL XAUUSD
+2026-07-15 04:59:42 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4037.00000 (keeping auto TPs)
+2026-07-15 04:59:42 [INFO] mt5_bridge: Written → update_sl_1784109582.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4037.0, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784109582}
+2026-07-15 05:15:12 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-15 05:15:12 [INFO] signal_state: Pending signal stored: id=fb7e5bb8 sell XAUUSD auto_tp=True
+2026-07-15 05:15:12 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-15 05:15:12 [INFO] mt5_bridge: Written → open_1784110512.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'fb7e5bb8', 'force': False, 'timestamp': 1784110512}
+2026-07-15 05:17:47 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-15 05:17:47 [INFO] telegram_listener: Poll [1% Club] msg id=226: Use proper risk management ‼️
+2026-07-15 05:17:48 [INFO] telegram_listener: Message edited [id=225]: GOLD SELL NOW :-@4035.14
+SL:-4046
+Tp1:-4028
+Tp2:-4024
+Tp3:-4019
+Tp4:-4010
+Use proper risk management
+2026-07-15 05:17:48 [INFO] telegram_listener: Edit detected — updating SL to 4046.00000 for SELL XAUUSD
+2026-07-15 05:17:48 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4046.00000 (keeping auto TPs)
+2026-07-15 05:17:48 [INFO] mt5_bridge: Written → update_sl_1784110668.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4046.0, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784110668}
+2026-07-15 05:17:48 [INFO] telegram_listener: Skipping replay msg id=226 (last=226) ch=3376031148
+2026-07-15 05:18:15 [INFO] telegram_listener: Message edited [id=226]: Use proper risk management ‼️
+2026-07-15 05:18:16 [INFO] telegram_listener: Message edited [id=225]: GOLD SELL NOW :-@4035.14
+SL:-4046
+Tp1:-4028
+Tp2:-4024
+Tp3:-4019
+Tp4:-4010
+Use proper risk management
+2026-07-15 05:18:16 [INFO] telegram_listener: Edit detected — updating SL to 4046.00000 for SELL XAUUSD
+2026-07-15 05:18:16 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4046.00000 (keeping auto TPs)
+2026-07-15 05:18:16 [INFO] mt5_bridge: Written → update_sl_1784110696.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4046.0, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784110696}
+2026-07-15 05:25:08 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-15 05:25:08 [INFO] telegram_listener: Poll [1% Club] msg id=227: GOLD +40 pips running in profit 
+Let’s go
+2026-07-15 05:28:37 [INFO] telegram_listener: Skipping replay msg id=227 (last=227) ch=3376031148
+2026-07-15 05:43:14 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-15 05:43:14 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-15 05:43:14 [INFO] mt5_bridge: Written → breakeven_1784112194.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784112194}
+2026-07-15 05:43:37 [INFO] telegram_listener: Message edited [id=229]: Round two GOLD SETUP 
+
+GOLD +75 pips running in profit 
+Let’s go profitachun secure adirigu Hold position Sl BE
+2026-07-15 11:13:39 [INFO] telegram_listener: Message edited [id=231]: 📍 Quick Update
+
+I’m currently in Bali, so I’ll be active during the **Asian session**. If the market gives us a high-qua
+2026-07-15 20:54:11 [INFO] telegram_listener: Incomplete signal: BUY XAUUSD — no SL | trades=6 | auto_tp=True
+2026-07-15 20:54:11 [INFO] signal_state: Pending signal stored: id=84fb2d33 buy XAUUSD auto_tp=True
+2026-07-15 20:54:11 [INFO] mt5_bridge: OPEN BUY XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-07-15 20:54:11 [INFO] mt5_bridge: Written → open_1784166851.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'buy', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': '84fb2d33', 'force': False, 'timestamp': 1784166851}
+2026-07-15 20:54:48 [INFO] telegram_listener: Message edited [id=232]: GOLD BUY NOW@4037.36
+Sl:-4026.43
+2026-07-15 20:54:48 [INFO] telegram_listener: Edit detected — updating SL to 4026.43000 for BUY XAUUSD
+2026-07-15 20:54:48 [INFO] mt5_bridge: UPDATE_SL BUY XAUUSD | new_sl=4026.43000 (keeping auto TPs)
+2026-07-15 20:54:48 [INFO] mt5_bridge: Written → update_sl_1784166888.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'buy', 'new_sl': 4026.43, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784166888}
+2026-07-15 20:56:15 [INFO] telegram_listener: Message edited [id=232]: GOLD BUY NOW@4037.36
+Sl:-4026.43
+Tp1:-4043
+Tp2:-4048
+Tp3:-4052
+Tp4:-4068
+Use proper risk management
+2026-07-15 20:56:15 [INFO] telegram_listener: Edit detected — updating SL to 4026.43000 for BUY XAUUSD
+2026-07-15 20:56:15 [INFO] mt5_bridge: UPDATE_SL BUY XAUUSD | new_sl=4026.43000 (keeping auto TPs)
+2026-07-15 20:56:15 [INFO] mt5_bridge: Written → update_sl_1784166975.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'buy', 'new_sl': 4026.43, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784166975}
+2026-07-15 21:43:51 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-15 21:43:51 [INFO] telegram_listener: Poll [1% Club] msg id=233: GOLD BUY hit our risk 
+Let’s focus on next setup 
+Be ready
+2026-07-15 21:43:51 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-15 21:43:51 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-15 21:43:51 [INFO] mt5_bridge: Written → breakeven_1784169831.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784169831}
+2026-07-15 21:44:12 [INFO] telegram_listener: Skipping replay msg id=233 (last=233) ch=3376031148
+2026-07-15 21:53:52 [INFO] telegram_listener: Message edited [id=233]: GOLD BUY hit our risk 
+Let’s focus on next setup 
+Be ready
+2026-07-15 22:08:52 [INFO] telegram_listener: Message edited [id=232]: GOLD BUY NOW@4037.36
+Sl:-4026.43
+Tp1:-4043
+Tp2:-4048
+Tp3:-4052
+Tp4:-4068
+Use proper risk management
+2026-07-15 22:08:52 [INFO] telegram_listener: Edit detected — updating SL to 4026.43000 for BUY XAUUSD
+2026-07-15 22:08:52 [INFO] mt5_bridge: UPDATE_SL BUY XAUUSD | new_sl=4026.43000 (keeping auto TPs)
+2026-07-15 22:08:52 [INFO] mt5_bridge: Written → update_sl_1784171332.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'buy', 'new_sl': 4026.43, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784171332}
+2026-07-16 00:09:15 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 00:09:15 [INFO] telegram_listener: Poll [1% Club] msg id=234: High risk 
+GOLD BUY NOW @4031.29
+SL:-4023.29
+Tp1:-
+Tp2:-
+Tp3:-
+Tp4:-
+Use proper 
+2026-07-16 00:09:15 [INFO] telegram_listener: Complete signal: BUY XAUUSD | SL=4023.29000 | 4 TPs | tp_step=None
+2026-07-16 00:09:15 [INFO] mt5_bridge: OPEN BUY XAUUSD | sl=4023.29 | sl_pts=None | 4 trades (capped) | tp_step=None
+2026-07-16 00:09:15 [INFO] mt5_bridge: Written → open_1784178555.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'buy', 'sl': 4023.29, 'sl_points': None, 'tps': [1.0, 2.0, 3.0, None], 'tp_step': None, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'sig_1784178555', 'force': True, 'timestamp': 1784178555}
+2026-07-16 00:09:22 [INFO] telegram_listener: Skipping replay msg id=234 (last=234) ch=3376031148
+2026-07-16 00:10:25 [INFO] telegram_listener: Message edited [id=234]: High risk 
+GOLD BUY NOW @4031.29
+SL:-4023.29
+Tp1:-4035
+Tp2:-4039
+Tp3:-4042
+Tp4:-4063
+Use proper risk management
+2026-07-16 00:10:25 [INFO] telegram_listener: Edit detected — updating SL to 4023.29000 for BUY XAUUSD
+2026-07-16 00:10:25 [INFO] mt5_bridge: UPDATE_SL BUY XAUUSD | new_sl=4023.29000 (keeping auto TPs)
+2026-07-16 00:10:25 [INFO] mt5_bridge: Written → update_sl_1784178625.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'buy', 'new_sl': 4023.29, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784178625}
+2026-07-16 00:12:23 [INFO] telegram_listener: Message edited [id=234]: High risk 
+GOLD BUY NOW @4031.29
+SL:-4023.29
+Tp1:-4035
+Tp2:-4039
+Tp3:-4042
+Tp4:-4063
+Use proper risk management
+2026-07-16 00:12:23 [INFO] telegram_listener: Edit detected — updating SL to 4023.29000 for BUY XAUUSD
+2026-07-16 00:12:23 [INFO] mt5_bridge: UPDATE_SL BUY XAUUSD | new_sl=4023.29000 (keeping auto TPs)
+2026-07-16 00:12:23 [INFO] mt5_bridge: Written → update_sl_1784178743.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'buy', 'new_sl': 4023.29, 'magic': 234000, 'signal_id': 'edit', 'timestamp': 1784178743}
+2026-07-16 01:06:56 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-16 01:06:56 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=752: Good morning
+2026-07-16 01:07:06 [ERROR] signal_classifier: Classifier error: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011Cd5Eax9kesG4rPU6jWpKh'}
+2026-07-16 01:07:12 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-16 01:07:12 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=753: The war making the market a little bit moving at the same zone 
+That’s why this 
+2026-07-16 01:07:20 [ERROR] signal_classifier: Classifier error: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011Cd5EcDwoazPdzBRVsKaDb'}
+2026-07-16 01:08:12 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 01:08:12 [INFO] telegram_listener: Poll [1% Club] msg id=235: GOLD TP1 Smash 🫠🫠🫠
+2026-07-16 01:08:16 [ERROR] signal_classifier: Classifier error: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011Cd5EgPNT7ENNASFzbNQwV'}
+2026-07-16 01:08:16 [INFO] telegram_listener: Skipping replay msg id=235 (last=235) ch=3376031148
+2026-07-16 01:17:19 [INFO] telegram_listener: Skipping replay msg id=752 (last=753) ch=3595147533
+2026-07-16 01:17:19 [INFO] telegram_listener: Skipping replay msg id=753 (last=753) ch=3595147533
+2026-07-16 01:36:09 [INFO] telegram_listener: SL move instruction: BUY XAUUSD → new_sl=4016.94000
+2026-07-16 01:36:09 [INFO] mt5_bridge: UPDATE_SL BUY XAUUSD | new_sl=4016.94000 (keeping auto TPs)
+2026-07-16 01:36:09 [INFO] mt5_bridge: Written → update_sl_1784183769.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'buy', 'new_sl': 4016.94, 'magic': 234000, 'signal_id': 'sl_move', 'timestamp': 1784183769}
+2026-07-16 01:41:15 [INFO] telegram_listener: Complete signal: SELL XAUUSD | SL=4038.00000 | 8 TPs | tp_step=None
+2026-07-16 01:41:15 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=4038.0 | sl_pts=None | 6 trades (capped) | tp_step=None
+2026-07-16 01:41:15 [INFO] mt5_bridge: Written → open_1784184075.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': 4038.0, 'sl_points': None, 'tps': [4024.0, 4021.0, 4017.0, 4014.0, 4011.0, None], 'tp_step': None, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'sig_1784184075', 'force': True, 'timestamp': 1784184075}
+2026-07-16 01:41:25 [INFO] telegram_listener: Pip-step signal: step=10.00000 (100 pips) — EA will generate TPs from entry
+2026-07-16 01:41:25 [INFO] telegram_listener: Within 10min window — updating SL on active trades: SELL XAUUSD | sl=4038.00000
+2026-07-16 01:41:25 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4038.00000 (keeping auto TPs)
+2026-07-16 01:41:25 [INFO] mt5_bridge: Written → update_sl_1784184085.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4038.0, 'magic': 234000, 'signal_id': 'sl_update', 'timestamp': 1784184085}
+2026-07-16 03:29:56 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-16 03:29:56 [INFO] telegram_listener: Poll [VIP Signals] msg id=5437: Moving SL to 4053 until the first TP
+2026-07-16 03:29:57 [INFO] telegram_listener: SL move instruction: SELL XAUUSD → new_sl=4053.00000
+2026-07-16 03:29:57 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4053.00000 (keeping auto TPs)
+2026-07-16 03:29:57 [INFO] mt5_bridge: Written → update_sl_1784190597.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4053.0, 'magic': 234000, 'signal_id': 'sl_move', 'timestamp': 1784190597}
+2026-07-16 03:30:18 [INFO] telegram_listener: Skipping replay msg id=5437 (last=5437) ch=2109622623
+2026-07-16 03:30:33 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-16 03:30:33 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=755: Moving SL to 4053 until we see 100 pips down
+2026-07-16 03:30:34 [INFO] telegram_listener: SL move instruction: SELL XAUUSD → new_sl=4053.00000
+2026-07-16 03:30:34 [INFO] mt5_bridge: UPDATE_SL SELL XAUUSD | new_sl=4053.00000 (keeping auto TPs)
+2026-07-16 03:30:34 [INFO] mt5_bridge: Written → update_sl_1784190634.json | {'action': 'update_sl', 'symbol': 'XAUUSD', 'direction': 'sell', 'new_sl': 4053.0, 'magic': 234000, 'signal_id': 'sl_move', 'timestamp': 1784190634}
+2026-07-16 03:32:19 [INFO] telegram_listener: Skipping replay msg id=755 (last=755) ch=3595147533
+2026-07-16 06:09:24 [INFO] telegram_listener: Message edited [id=235]: GOLD TP1 Smash 🫠🫠🫠
+2026-07-16 06:09:25 [INFO] telegram_listener: Message edited [id=236]: GOLD HOLD POSITION MOVE SL:-4016.94
+2026-07-16 07:01:19 [WARNING] telegram_listener: Poll fallback caught 2 missed message(s) from [1% Club]
+2026-07-16 07:01:19 [INFO] telegram_listener: Poll [1% Club] msg id=238: GOLD +120 pips Tp3 Smash 
+Let’s go secure your profit Hold position Sl BE 
+LETS 
+2026-07-16 07:01:19 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-16 07:01:19 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-16 07:01:19 [INFO] mt5_bridge: Written → breakeven_1784203279.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784203279}
+2026-07-16 07:01:24 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 07:01:30 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 07:01:35 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 07:01:40 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 07:01:46 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 07:01:51 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 07:01:56 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 07:02:01 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 07:02:06 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 07:02:11 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 07:02:17 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [1% Club]
+2026-07-16 07:02:19 [INFO] telegram_listener: Skipping replay msg id=238 (last=238) ch=3376031148
+2026-07-16 07:02:19 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-16 07:02:19 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-16 07:02:19 [INFO] mt5_bridge: Written → breakeven_1784203339.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784203339}
+2026-07-16 07:03:21 [INFO] telegram_listener: Message edited [id=240]: GOLD +120 pips Tp3 Smash 
+Let’s go secure your profit Hold position Sl BE 
+LETS GO
+2026-07-16 07:05:30 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-16 07:05:30 [INFO] telegram_listener: Poll [VIP Signals] msg id=5438: Bad week On the Market
+2026-07-16 07:10:02 [INFO] telegram_listener: Skipping replay msg id=5438 (last=5438) ch=2109622623
+2026-07-16 07:16:28 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-16 07:16:28 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=758: ✅ Our 2nd  TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-16 07:16:38 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-16 07:16:38 [INFO] telegram_listener: Poll [VIP Signals] msg id=5439: TP 1 smashed 100 pips
+2026-07-16 07:17:20 [INFO] telegram_listener: Skipping replay msg id=758 (last=758) ch=3595147533
+2026-07-16 07:17:31 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-16 07:17:31 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=760: ✅ Our 4th  TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-16 07:17:52 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-16 07:17:52 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=761: Risk free
+2026-07-16 07:17:52 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-16 07:17:52 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-16 07:17:52 [INFO] mt5_bridge: Written → breakeven_1784204272.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784204272}
+2026-07-16 07:17:58 [INFO] telegram_listener: Skipping replay msg id=5439 (last=5439) ch=2109622623
+2026-07-16 07:17:58 [INFO] telegram_listener: Breakeven instruction detected
+2026-07-16 07:17:58 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-07-16 07:17:58 [INFO] mt5_bridge: Written → breakeven_1784204278.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1784204278}
+2026-07-16 07:32:20 [INFO] telegram_listener: Skipping replay msg id=760 (last=761) ch=3595147533
+2026-07-16 07:32:20 [INFO] telegram_listener: Skipping replay msg id=761 (last=761) ch=3595147533
+2026-07-16 07:44:33 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-16 07:44:33 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=762: ✅ Our 5th  TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-16 07:44:43 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-16 07:44:43 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=763: ✅ Our 6th  TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-16 07:44:54 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-16 07:44:54 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=764: ✅ Our 7th TP successfully hit ✅ 
+
+ make sure you  follow my instructions well
+2026-07-16 07:45:09 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-16 07:45:09 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=765: Full TP smashed hold the last position
+2026-07-16 07:47:20 [INFO] telegram_listener: Skipping replay msg id=762 (last=765) ch=3595147533
+2026-07-16 07:47:20 [INFO] telegram_listener: Skipping replay msg id=763 (last=765) ch=3595147533
+2026-07-16 07:47:20 [INFO] telegram_listener: Skipping replay msg id=764 (last=765) ch=3595147533
+2026-07-16 07:47:20 [INFO] telegram_listener: Skipping replay msg id=765 (last=765) ch=3595147533
+2026-07-16 07:57:33 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-16 07:57:33 [INFO] telegram_listener: Poll [VIP Signals] msg id=5444: Tp 4 smashed 400 pips
+2026-07-16 08:02:58 [INFO] telegram_listener: Skipping replay msg id=5444 (last=5444) ch=2109622623
+2026-07-16 08:05:20 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [500$ to 100k $]
+2026-07-16 08:05:20 [INFO] telegram_listener: Poll [500$ to 100k $] msg id=768: 600 pips
+In profit
+2026-07-16 08:05:39 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-07-16 08:05:39 [INFO] telegram_listener: Poll [VIP Signals] msg id=5445: TP 5 smashed 500 pips
+2026-07-16 08:05:57 [INFO] telegram_listener: Skipping replay msg id=5445 (last=5445) ch=2109622623
+2026-07-16 08:15:08 [INFO] telegram_listener: Message edited [id=5446]: TP 6 smashed 600 pips
+2026-07-16 08:17:21 [INFO] telegram_listener: Skipping replay msg id=768 (last=768) ch=3595147533
+2026-08-05 18:47:22 [INFO] main: Lock acquired (pid=53813)
+2026-08-05 18:47:22 [INFO] main: Starting Telegram → MT5 signal bot...
+2026-08-05 18:47:22 [INFO] main: Signal files will be written to: /Users/ment4m/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals
+2026-08-05 18:47:23 [INFO] telegram_listener: Logged in as 14695582454 | monitoring 3 channel(s): [-1003595147533, -1002109622623, -1003376031148]
+2026-08-05 18:47:23 [INFO] telegram_listener: Channel resolved: 500$ to 100k $ (id=3595147533)
+2026-08-05 18:47:23 [INFO] telegram_listener: Channel resolved: VIP Signals (id=2109622623)
+2026-08-05 18:47:23 [INFO] telegram_listener: Channel resolved: 1% Club (id=3376031148)
+2026-08-05 18:47:23 [INFO] telegram_listener: Channel 3595147533: starting from message ID 902
+2026-08-05 18:47:23 [INFO] telegram_listener: Channel 2109622623: starting from message ID 5541
+2026-08-05 18:47:23 [INFO] telegram_listener: Channel 3376031148: starting from message ID 290
+2026-08-05 18:47:24 [INFO] telegram_listener: Bot is running. Press Ctrl+C to stop.
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server resent the older message 7670720271396302849, ignoring
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+Server closed the connection: [Errno 54] Connection reset by peer
+2026-08-06 00:39:38 [WARNING] telegram_listener: Poll fallback caught 3 missed message(s) from [VIP Signals]
+2026-08-06 00:39:38 [INFO] telegram_listener: Poll [VIP Signals] msg id=5542: 👉🏼 GOLD SELL now 
+🛑 SL 4267
+✅ TP 4100
+✅ TP every 50 pips 
+Proper risk
+disclaimer
+2026-08-06 00:39:38 [INFO] telegram_listener: Pip-step signal: step=5.00000 (50 pips) — EA will generate TPs from entry
+2026-08-06 00:39:38 [INFO] telegram_listener: Complete signal: SELL XAUUSD | SL=4267.00000 | 6 TPs | tp_step=5.0
+2026-08-06 00:39:38 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=4267.0 | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-08-06 00:39:38 [INFO] mt5_bridge: Written → open_1785994778.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': 4267.0, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'sig_1785994778', 'force': True, 'timestamp': 1785994778}
+2026-08-06 00:39:38 [INFO] telegram_listener: Poll [VIP Signals] msg id=5543: Risky trade use small size
+2026-08-06 00:39:39 [INFO] telegram_listener: Poll [VIP Signals] msg id=5544: TP 1 smashed
+Server closed the connection: [Errno 54] Connection reset by peer
+Security error while unpacking a received message: Server replied with a wrong session ID (see FAQ for details)
+Server resent the older message 7670812347858963457, ignoring
+Server closed the connection: [Errno 54] Connection reset by peer
+2026-08-06 02:24:48 [WARNING] telegram_listener: Poll fallback caught 8 missed message(s) from [VIP Signals]
+2026-08-06 02:24:48 [INFO] telegram_listener: Poll [VIP Signals] msg id=5545: Sell again 
+SL 4282
+2026-08-06 02:24:48 [INFO] telegram_listener: No symbol in message — using last traded symbol: XAUUSD
+2026-08-06 02:24:48 [INFO] telegram_listener: Incomplete signal: SELL XAUUSD — no SL | trades=6 | auto_tp=True
+2026-08-06 02:24:48 [INFO] signal_state: Pending signal stored: id=382398b3 sell XAUUSD auto_tp=True
+2026-08-06 02:24:48 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=None | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-08-06 02:24:48 [INFO] mt5_bridge: Written → open_1786001088.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': None, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': '382398b3', 'force': False, 'timestamp': 1786001088}
+2026-08-06 02:24:48 [INFO] telegram_listener: Poll [VIP Signals] msg id=5546: Small size again
+2026-08-06 06:30:40 [INFO] telegram_listener: Poll [VIP Signals] msg id=5547: Use small for both
+2026-08-06 06:30:41 [INFO] telegram_listener: Poll [VIP Signals] msg id=5548: 👉🏼 GOLD SELL again now 
+🛑 SL 4282 
+✅ TP 4100
+✅ TP every 50 pips 
+Proper risk
+dis
+2026-08-06 06:30:41 [INFO] telegram_listener: Pip-step signal: step=5.00000 (50 pips) — EA will generate TPs from entry
+2026-08-06 06:30:41 [INFO] telegram_listener: Complete signal: SELL XAUUSD | SL=4282.00000 | 6 TPs | tp_step=5.0
+2026-08-06 06:30:41 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=4282.0 | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-08-06 06:30:41 [INFO] mt5_bridge: Written → open_1786015841.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': 4282.0, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'sig_1786015841', 'force': True, 'timestamp': 1786015841}
+2026-08-06 06:30:41 [INFO] telegram_listener: Poll [VIP Signals] msg id=5549: TP 1 smashed
+2026-08-06 06:30:42 [INFO] telegram_listener: Poll [VIP Signals] msg id=5550: TP 2 hit
+2026-08-06 08:03:06 [INFO] telegram_listener: Poll [VIP Signals] msg id=5551: For the second entry you can go risk free now if you want 
+And hold both
+2026-08-06 08:03:06 [INFO] telegram_listener: Breakeven instruction detected
+2026-08-06 08:03:06 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-08-06 08:03:06 [INFO] mt5_bridge: Written → breakeven_1786021386.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1786021386}
+2026-08-06 08:03:06 [INFO] telegram_listener: Poll [VIP Signals] msg id=5552: ✅ TP 3 smashed
+Server closed the connection: [Errno 54] Connection reset by peer
+Security error while unpacking a received message: Server replied with a wrong session ID (see FAQ for details)
+Server resent the older message 7670903448649451521, ignoring
+2026-08-06 08:03:12 [WARNING] telegram_listener: Poll fallback caught 6 missed message(s) from [VIP Signals]
+2026-08-06 08:03:12 [INFO] telegram_listener: Poll [VIP Signals] msg id=5553: 👉🏼 GOLD SELL again now 
+🛑 SL 4282 
+✅ TP 4100
+✅ TP every 50 pips 
+Proper risk
+dis
+2026-08-06 08:03:12 [INFO] telegram_listener: Pip-step signal: step=5.00000 (50 pips) — EA will generate TPs from entry
+2026-08-06 08:03:12 [INFO] telegram_listener: Complete signal: SELL XAUUSD | SL=4282.00000 | 6 TPs | tp_step=5.0
+2026-08-06 08:03:12 [INFO] mt5_bridge: OPEN SELL XAUUSD | sl=4282.0 | sl_pts=None | 6 trades (capped) | tp_step=5.0
+2026-08-06 08:03:12 [INFO] mt5_bridge: Written → open_1786021392.json | {'action': 'open', 'symbol': 'XAUUSD', 'direction': 'sell', 'sl': 4282.0, 'sl_points': None, 'tps': [None, None, None, None, None, None], 'tp_step': 5.0, 'magic': 234000, 'deviation': 20, 'lot_balance_div': 3, 'signal_id': 'sig_1786021392', 'force': True, 'timestamp': 1786021392}
+2026-08-06 08:03:12 [INFO] telegram_listener: Poll [VIP Signals] msg id=5554: TP 1 smashed
+2026-08-06 08:03:14 [INFO] telegram_listener: Poll [VIP Signals] msg id=5555: You can go risk free if you want
+2026-08-06 08:03:14 [INFO] telegram_listener: Breakeven instruction detected
+2026-08-06 08:03:14 [INFO] mt5_bridge: BREAKEVEN — moving all SL to entry + spread buffer
+2026-08-06 08:03:14 [INFO] mt5_bridge: Written → breakeven_1786021394.json | {'action': 'breakeven', 'magic': 234000, 'timestamp': 1786021394}
+2026-08-06 08:03:14 [INFO] telegram_listener: Poll [VIP Signals] msg id=5556: TP 2 smashed 🚀
+2026-08-06 08:03:16 [INFO] telegram_listener: Poll [VIP Signals] msg id=5557: TP 3 smashed
+2026-08-06 08:03:17 [INFO] telegram_listener: Poll [VIP Signals] msg id=5558: TP 4 smashed
+2026-08-06 08:07:24 [INFO] telegram_listener: Message edited [id=5556]: TP 2 smashed 🚀
+2026-08-06 08:09:17 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-08-06 08:09:17 [INFO] telegram_listener: Poll [VIP Signals] msg id=5560: TP 6 smashed
+2026-08-06 08:09:39 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [VIP Signals]
+2026-08-06 08:09:39 [INFO] telegram_listener: Poll [VIP Signals] msg id=5561: ✅ TP 7 smashed
+2026-08-06 08:11:07 [INFO] telegram_listener: Message edited [id=5557]: TP 3 smashed
+2026-08-06 08:11:11 [INFO] telegram_listener: Skipping replay msg id=5560 (last=5561) ch=2109622623
+2026-08-06 08:11:11 [INFO] telegram_listener: Skipping replay msg id=5561 (last=5561) ch=2109622623
+Traceback (most recent call last):
+  File "/Users/ment4m/Meta5Telegram/main.py", line 7, in <module>
+    import config
+  File "/Users/ment4m/Meta5Telegram/config.py", line 2, in <module>
+    from dotenv import load_dotenv
+ModuleNotFoundError: No module named 'dotenv'
+2026-08-06 10:53:50 [INFO] main: Lock acquired (pid=84828)
+2026-08-06 10:53:50 [INFO] main: Starting Telegram → MT5 signal bot...
+2026-08-06 10:53:50 [INFO] main: Signal files will be written to: /Users/ment4m/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals
+2026-08-06 10:53:51 [INFO] telegram_listener: Logged in as 14695582454 | monitoring 1 channel(s): [-1001623437581]
+2026-08-06 10:53:51 [INFO] telegram_listener: Channel resolved: 🚀 CallistoFx Premium Channel 🚀 (id=1623437581)
+2026-08-06 10:53:51 [INFO] telegram_listener: Channel 1623437581: starting from message ID 69134
+2026-08-06 10:53:51 [INFO] telegram_listener: Bot is running. Press Ctrl+C to stop.
+2026-08-06 10:58:33 [INFO] main: Lock acquired (pid=87331)
+2026-08-06 10:58:33 [INFO] main: Starting Telegram → MT5 signal bot...
+2026-08-06 10:58:33 [INFO] main: Signal files will be written to: /Users/ment4m/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals
+2026-08-06 10:58:33 [INFO] telegram_listener: Logged in as 14695582454 | monitoring 1 channel(s): [-1001623437581]
+2026-08-06 10:58:33 [INFO] telegram_listener: Channel resolved: 🚀 CallistoFx Premium Channel 🚀 (id=1623437581)
+2026-08-06 10:58:33 [INFO] telegram_listener: Channel 1623437581: starting from message ID 69134
+2026-08-06 10:58:34 [INFO] telegram_listener: Bot is running. Press Ctrl+C to stop.
+2026-08-06 11:09:26 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [🚀 CallistoFx Premium Channel 🚀]
+2026-08-06 11:09:26 [INFO] telegram_listener: Poll [🚀 CallistoFx Premium Channel 🚀] msg id=69135: **🟢POSITION CLOSED**🟢
+
+We are **no longer in this trade**, we have taken our pro
+2026-08-06 11:09:26 [INFO] telegram_listener: Close/cancel instruction detected
+2026-08-06 11:09:26 [INFO] mt5_bridge: CLOSE — closing all bot trades
+2026-08-06 11:09:26 [INFO] mt5_bridge: Written → close_1786032566.json | {'action': 'close', 'magic': 234000, 'timestamp': 1786032566}
+2026-08-06 11:10:38 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [🚀 CallistoFx Premium Channel 🚀]
+2026-08-06 11:10:38 [INFO] telegram_listener: Poll [🚀 CallistoFx Premium Channel 🚀] msg id=69136: What a day lads, back to back TP5s basically the entire week!
+
+Tomorrow we go ag
+2026-08-06 11:10:42 [INFO] telegram_listener: Message edited [id=69136]: What a day lads, back to back TP5s basically the entire week!
+
+Tomorrow we go again, lets end the week off strong 💪🏻 🥂
+2026-08-06 11:28:37 [INFO] main: Lock acquired (pid=3419)
+2026-08-06 11:28:37 [INFO] main: Starting Telegram → MT5 signal bot...
+2026-08-06 11:28:37 [INFO] main: Signal files will be written to: /Users/ment4m/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals
+2026-08-06 11:28:38 [INFO] telegram_listener: Logged in as 14695582454 | monitoring 1 channel(s): [-1001623437581]
+2026-08-06 11:28:38 [INFO] telegram_listener: Channel resolved: 🚀 CallistoFx Premium Channel 🚀 (id=1623437581)
+2026-08-06 11:28:38 [INFO] telegram_listener: Channel 1623437581: starting from message ID 69136
+2026-08-06 11:28:38 [INFO] telegram_listener: Bot is running. Press Ctrl+C to stop.
+2026-08-06 11:31:19 [INFO] main: Lock acquired (pid=4855)
+2026-08-06 11:31:19 [INFO] main: Starting Telegram → MT5 signal bot...
+2026-08-06 11:31:19 [INFO] main: Signal files will be written to: /Users/ment4m/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals
+2026-08-06 11:31:19 [INFO] telegram_listener: Logged in as 14695582454 | monitoring 1 channel(s): [-1001623437581]
+2026-08-06 11:31:20 [INFO] telegram_listener: Channel resolved: 🚀 CallistoFx Premium Channel 🚀 (id=1623437581)
+2026-08-06 11:31:20 [INFO] telegram_listener: Channel 1623437581: starting from message ID 69136
+2026-08-06 11:31:20 [INFO] telegram_listener: Bot is running. Press Ctrl+C to stop.
+2026-08-06 11:38:06 [INFO] main: Lock acquired (pid=8404)
+2026-08-06 11:38:06 [INFO] main: Starting Telegram → MT5 signal bot...
+2026-08-06 11:38:06 [INFO] main: Signal files will be written to: /Users/ment4m/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals
+2026-08-06 11:38:07 [INFO] telegram_listener: Logged in as 14695582454 | monitoring 1 channel(s): [-1001623437581]
+2026-08-06 11:38:07 [INFO] telegram_listener: Channel resolved: 🚀 CallistoFx Premium Channel 🚀 (id=1623437581)
+2026-08-06 11:38:07 [INFO] telegram_listener: Channel 1623437581: starting from message ID 69136
+2026-08-06 11:38:07 [INFO] telegram_listener: Bot is running. Press Ctrl+C to stop.
+2026-08-06 11:42:23 [WARNING] telegram_listener: Poll fallback caught 5 missed message(s) from [🚀 CallistoFx Premium Channel 🚀]
+2026-08-06 11:42:23 [INFO] telegram_listener: Poll [🚀 CallistoFx Premium Channel 🚀] msg id=69141: 6th august 2026 (batch 1)
+2026-08-06 11:42:25 [ERROR] signal_classifier: Classifier returned invalid JSON: Expecting value: line 1 column 1 (char 0) | raw=I'm ready to parse trading signals. Please provide the message(s) from the Telegram copy-trading channel, and I'll return JSON objects for each one.
+2026-08-06 11:49:20 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [🚀 CallistoFx Premium Channel 🚀]
+2026-08-06 11:49:22 [ERROR] signal_classifier: Classifier returned invalid JSON: Expecting value: line 1 column 1 (char 0) | raw=I'm ready to parse trading signals. However, I don't see any message content to analyze in your input — you've only provided a date label "6th august 2026 (batch 2)".
+
+Please provide the actual Telegram message(s) you'd like me to parse, and I'll return ONLY JSON objects as specified.
+2026-08-06 11:58:05 [ERROR] signal_classifier: Classifier returned invalid JSON: Expecting value: line 1 column 1 (char 0) | raw=I'm ready to parse trading signals from the Telegram copy-trading channel for August 6th, 2026 (batch 3).
+
+Please provide the message(s) and I'll return ONLY JSON objects—no explanation, no markdown.
+2026-08-06 12:16:12 [WARNING] telegram_listener: Poll fallback caught 5 missed message(s) from [🚀 CallistoFx Premium Channel 🚀]
+2026-08-06 12:16:12 [INFO] telegram_listener: Poll [🚀 CallistoFx Premium Channel 🚀] msg id=69161: 6th august 2026 (batch 5)
+2026-08-06 12:18:02 [INFO] telegram_listener: Skipping replay msg id=69157 (last=69161) ch=1623437581
+2026-08-06 12:18:02 [INFO] telegram_listener: Skipping replay msg id=69158 (last=69161) ch=1623437581
+2026-08-06 12:18:02 [INFO] telegram_listener: Skipping replay msg id=69159 (last=69161) ch=1623437581
+2026-08-06 12:18:02 [INFO] telegram_listener: Skipping replay msg id=69160 (last=69161) ch=1623437581
+2026-08-06 12:18:02 [INFO] telegram_listener: Skipping replay msg id=69161 (last=69161) ch=1623437581
+2026-08-06 12:25:56 [WARNING] telegram_listener: Poll fallback caught 1 missed message(s) from [🚀 CallistoFx Premium Channel 🚀]
+2026-08-06 12:25:56 [INFO] telegram_listener: Poll [🚀 CallistoFx Premium Channel 🚀] msg id=69162: That’s another day of DREAMS fulfilled. 
+
+This ain’t my job. It’s my passion. 
+
+
+2026-08-06 12:25:58 [INFO] telegram_listener: Skipping replay msg id=69162 (last=69162) ch=1623437581
+2026-08-06 12:26:24 [INFO] telegram_listener: Message edited [id=69162]: That’s another day of DREAMS fulfilled. 
+
+This ain’t my job. It’s my passion. 
+
+You see the 13k, 14k wins today? It was 

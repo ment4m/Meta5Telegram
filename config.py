@@ -10,6 +10,20 @@ PHONE_NUMBER = os.getenv("TELEGRAM_PHONE", "")
 _channel = os.getenv("CHANNEL_USERNAME", "")
 CHANNEL_USERNAME = int(_channel) if _channel.lstrip("-").isdigit() else _channel
 
+# Support multiple channels via CHANNEL_USERNAMES (comma-separated)
+# Falls back to CHANNEL_USERNAME if not set
+def _parse_channels():
+    multi = os.getenv("CHANNEL_USERNAMES", "")
+    if multi:
+        result = []
+        for c in multi.split(","):
+            c = c.strip()
+            result.append(int(c) if c.lstrip("-").isdigit() else c)
+        return result
+    return [CHANNEL_USERNAME] if CHANNEL_USERNAME else []
+
+CHANNEL_LIST = _parse_channels()
+
 # MT5
 MT5_LOGIN = int(os.getenv("MT5_LOGIN", "0"))
 MT5_PASSWORD = os.getenv("MT5_PASSWORD", "")
@@ -43,6 +57,7 @@ TP_STEP_MAP = {
     "ETHUSD": float(os.getenv("TP_STEP_ETHUSD", "25.0")),
 }
 MAX_TRADES = int(os.getenv("MAX_TRADES", "6"))  # max trades to open per signal
+DRY_RUN = os.getenv("DRY_RUN", "false").lower() == "true"
 
 # Price value of 1 pip per symbol (used to convert "every N pips" to price step)
 PIP_VALUE_MAP = {

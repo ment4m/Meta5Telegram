@@ -1,10 +1,10 @@
 //+------------------------------------------------------------------+
-//|  TelegramSignalEA.mq5  v2.4                                      |
+//|  TelegramSignalEA.mq5  v2.5                                      |
 //|  Handles: open / update / breakeven actions from Python bot.     |
 //|  Reads from MT5 Common Files folder every second.                |
 //+------------------------------------------------------------------+
 #property copyright "MyTradeBot"
-#property version   "2.40"
+#property version   "2.50"
 #property strict
 
 #include <Trade\Trade.mqh>
@@ -13,6 +13,8 @@ CTrade trade;
 
 input int    CheckIntervalMs = 1000;
 input string SignalFolder    = "signals";
+input int    MagicBase       = 234000;  // must match MAGIC_NUMBER in .env
+input double AutoBE_Trigger  = 2.0;    // points in profit to auto-move SL to entry
 
 //+------------------------------------------------------------------+
 //| Minimal JSON helpers                                             |
@@ -102,7 +104,7 @@ int ParseTPs(const string &arr, double &tps[])
 string ResolveSymbol(const string base)
 {
     if(SymbolInfoDouble(base, SYMBOL_ASK) > 0) return base;
-    string tries[] = {"m", ".", "_micro"};
+    string tries[] = {"m", ".", ".s", "_micro"};
     for(int i = 0; i < ArraySize(tries); i++)
     {
         string c = base + tries[i];
@@ -405,60 +407,20 @@ int HandleBreakeven(const string &json)
         long pos_magic = PositionGetInteger(POSITION_MAGIC);
         if(pos_magic < magic_base || pos_magic > magic_base + 9999) continue;
 
-        string pos_symbol  = PositionGetString(POSITION_SYMBOL);
-        double open_price  = PositionGetDouble(POSITION_PRICE_OPEN);
-        double current_sl  = PositionGetDouble(POSITION_SL);
-        double current_tp  = PositionGetDouble(POSITION_TP);
-        int    pos_type    = (int)PositionGetInteger(POSITION_TYPE);
+        string pos_symbol = PositionGetString(POSITION_SYMBOL);
+        double open_price = PositionGetDouble(POSITION_PRICE_OPEN);
+        double current_sl = PositionGetDouble(POSITION_SL);
+        double current_tp = PositionGetDouble(POSITION_TP);
+        int    pos_type   = (int)PositionGetInteger(POSITION_TYPE);
+        int    digits     = (int)SymbolInfoInteger(pos_symbol, SYMBOL_DIGITS);
 
-        // Buffer = 1.5× current spread (small, covers spread without big offset)
-        long   spread = SymbolInfoInteger(pos_symbol, SYMBOL_SPREAD);
-        double point  = SymbolInfoDouble(pos_symbol, SYMBOL_POINT);
-        double buffer = spread * point * 1.5;
-
-        double new_sl;
-        double current_bid = SymbolInfoDouble(pos_symbol, SYMBOL_BID);
-        double current_ask = SymbolInfoDouble(pos_symbol, SYMBOL_ASK);
-
-        if(pos_type == POSITION_TYPE_BUY)
-        {
-            new_sl = NormalizeDouble(open_price + buffer, (int)SymbolInfoInteger(pos_symbol, SYMBOL_DIGITS));
-            // Already past breakeven — skip
-            if(new_sl <= current_sl && current_sl > 0) continue;
-            // In drawdown — price hasn't reached breakeven level — close instead
-            if(current_bid < new_sl)
-            {
-                Print("  In drawdown — closing ticket=", ticket, " bid=", current_bid, " < be=", new_sl);
-                if(trade.PositionClose(ticket))
-                    Print("  Closed | ticket=", ticket);
-                else
-                    Print("  Close FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode());
-                moved++;
-                continue;
-            }
-        }
-        else
-        {
-            new_sl = NormalizeDouble(open_price - buffer, (int)SymbolInfoInteger(pos_symbol, SYMBOL_DIGITS));
-            if(new_sl >= current_sl && current_sl > 0) continue;
-            // In drawdown — close instead
-            if(current_ask > new_sl)
-            {
-                Print("  In drawdown — closing ticket=", ticket, " ask=", current_ask, " > be=", new_sl);
-                if(trade.PositionClose(ticket))
-                    Print("  Closed | ticket=", ticket);
-                else
-                    Print("  Close FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode());
-                moved++;
-                continue;
-            }
-        }
+        // BE: SL = exact entry price (true breakeven, no offset)
+        double new_sl = NormalizeDouble(open_price, digits);
 
         if(trade.PositionModify(ticket, new_sl, current_tp))
-            Print("  Breakeven set | ticket=", ticket, " entry=", open_price,
-                  " new_sl=", new_sl, " buffer=", buffer);
+            Print("  BE set | ticket=", ticket, " entry=", open_price, " new_sl=", new_sl);
         else
-            Print("  Breakeven FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode());
+            Print("  BE FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode());
         moved++;
     }
     if(moved == 0) Print("BREAKEVEN: no eligible trades found");
@@ -562,6 +524,59 @@ void ProcessFile(const string filename)
 }
 
 //+------------------------------------------------------------------+
+//| Auto breakeven — runs every timer tick                           |
+//| BUY:  when bid >= entry + AutoBE_Trigger → SL = entry           |
+//| SELL: when ask <= entry - AutoBE_Trigger → SL = entry           |
+//+------------------------------------------------------------------+
+void AutoBreakeven()
+{
+    if(AutoBE_Trigger <= 0) return;
+
+    for(int i = PositionsTotal() - 1; i >= 0; i--)
+    {
+        ulong ticket = PositionGetTicket(i);
+        if(!PositionSelectByTicket(ticket)) continue;
+
+        long pos_magic = PositionGetInteger(POSITION_MAGIC);
+        if(pos_magic < MagicBase || pos_magic > MagicBase + 9999) continue;
+
+        string pos_symbol = PositionGetString(POSITION_SYMBOL);
+        int    pos_type   = (int)PositionGetInteger(POSITION_TYPE);
+        double open_price = PositionGetDouble(POSITION_PRICE_OPEN);
+        double current_sl = PositionGetDouble(POSITION_SL);
+        double current_tp = PositionGetDouble(POSITION_TP);
+        int    digits     = (int)SymbolInfoInteger(pos_symbol, SYMBOL_DIGITS);
+
+        double be_sl = NormalizeDouble(open_price, digits);
+
+        if(pos_type == POSITION_TYPE_BUY)
+        {
+            // Already at or past breakeven
+            if(current_sl >= be_sl && current_sl != 0.0) continue;
+            double bid = SymbolInfoDouble(pos_symbol, SYMBOL_BID);
+            if(bid >= open_price + AutoBE_Trigger)
+            {
+                if(trade.PositionModify(ticket, be_sl, current_tp))
+                    Print("AutoBE BUY | ticket=", ticket, " entry=", open_price,
+                          " bid=", bid, " → sl=", be_sl);
+            }
+        }
+        else
+        {
+            // Already at or past breakeven
+            if(current_sl != 0.0 && current_sl <= be_sl) continue;
+            double ask = SymbolInfoDouble(pos_symbol, SYMBOL_ASK);
+            if(ask <= open_price - AutoBE_Trigger)
+            {
+                if(trade.PositionModify(ticket, be_sl, current_tp))
+                    Print("AutoBE SELL | ticket=", ticket, " entry=", open_price,
+                          " ask=", ask, " → sl=", be_sl);
+            }
+        }
+    }
+}
+
+//+------------------------------------------------------------------+
 int OnInit()
 {
     EventSetMillisecondTimer(CheckIntervalMs);
@@ -573,6 +588,8 @@ void OnDeinit(const int reason) { EventKillTimer(); }
 
 void OnTimer()
 {
+    AutoBreakeven();
+
     string folder = SignalFolder + "\\";
     string filename;
     long h = FileFindFirst(folder + "*.json", filename, FILE_COMMON);

@@ -1,602 +1,602 @@
 [
   {
-    "symbol": "BTCUSD",
+    "symbol": "XAUUSD",
     "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
-  },
-  {
-    "symbol": "BTCUSD",
-    "direction": "buy",
-    "sl_points": 450,
-    "num_tps": 2
+    "sl_points": 21,
+    "num_tps": 6
   },
   {
     "symbol": "XAUUSD",
     "direction": "sell",
+    "sl_points": 12,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
     "sl_points": 7,
-    "num_tps": 5
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 21,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 7,
+    "num_tps": 4
   },
   {
     "symbol": "XAUUSD",
     "direction": "sell",
-    "sl_points": 7,
-    "num_tps": 5
+    "sl_points": 8,
+    "num_tps": 7
   },
   {
     "symbol": "XAUUSD",
     "direction": "sell",
-    "sl_points": 7,
-    "num_tps": 5
+    "sl_points": 19,
+    "num_tps": 7
   },
   {
     "symbol": "XAUUSD",
     "direction": "sell",
+    "sl_points": 19,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
     "sl_points": 7,
-    "num_tps": 5
+    "num_tps": 4
   },
   {
     "symbol": "XAUUSD",
     "direction": "sell",
-    "sl_points": 7,
-    "num_tps": 5
+    "sl_points": 9,
+    "num_tps": 6
   },
   {
     "symbol": "XAUUSD",
     "direction": "sell",
-    "sl_points": 7,
+    "sl_points": 11,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 11,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 11,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 9,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 9,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 9,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 13,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 14,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 13,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 13,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 15,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 14,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 12,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 13,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 13,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 13,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 10,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 14,
     "num_tps": 5
   },
   {
     "symbol": "XAUUSD",
     "direction": "buy",
     "sl_points": 10,
-    "num_tps": 5
+    "num_tps": 4
   },
   {
     "symbol": "XAUUSD",
-    "direction": "buy",
-    "sl_points": 18,
-    "num_tps": 5
-  },
-  {
-    "symbol": "XAUUSD",
-    "direction": "buy",
-    "sl_points": 20,
-    "num_tps": 2
-  },
-  {
-    "symbol": "XAUUSD",
-    "direction": "buy",
+    "direction": "sell",
     "sl_points": 7,
-    "num_tps": 5
+    "num_tps": 4
   },
   {
     "symbol": "XAUUSD",
-    "direction": "buy",
-    "sl_points": 7,
-    "num_tps": 5
+    "direction": "sell",
+    "sl_points": 5,
+    "num_tps": 4
   },
   {
     "symbol": "XAUUSD",
-    "direction": "buy",
+    "direction": "sell",
+    "sl_points": 15,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
     "sl_points": 7,
     "num_tps": 5
   },
   {
     "symbol": "XAUUSD",
     "direction": "sell",
-    "sl_points": 32,
-    "num_tps": 5
+    "sl_points": 7,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 25,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 1,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 20,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 15,
+    "num_tps": 9
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 12,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 11,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 11,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 15,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 11,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 12,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 3,
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 3,
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 7,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 7,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 7,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 7,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 7,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 5,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 5,
+    "num_tps": 6
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 9,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 9,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 7
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 11,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 11,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 6,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 6,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 9,
+    "num_tps": 9
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 9,
+    "num_tps": 9
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 10
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 10
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 7,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 7,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 1206,
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 1206,
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 7,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 7,
+    "num_tps": 8
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 11,
+    "num_tps": 11
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 278,
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 8,
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 14,
+    "num_tps": 10
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 14,
+    "num_tps": 10
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 14,
+    "num_tps": 10
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 10,
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 9,
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 9,
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 20,
+    "num_tps": 9
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 20,
+    "num_tps": 9
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 12,
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 9,
+    "num_tps": 11
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 8,
+    "num_tps": 4
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 9,
+    "num_tps": 10
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 7,
+    "num_tps": 10
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "sl_points": 39,
+    "num_tps": 11
+  },
+  {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "sl_points": 4,
+    "num_tps": 4
   }
 ]

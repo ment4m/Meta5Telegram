@@ -100,11 +100,20 @@ def _handle_new_signal(msg: dict):
         existing_id, existing_pending = find_pending(symbol, direction)
 
         if within_window and (existing_pending or last_open > 0):
-            # Within 10 min — update SL on existing trades instead of opening new ones
+            # Within 10 min — update existing trades instead of opening new ones
             if existing_pending:
-                log.info("Within 10min window — updating SL on pending %s: %s %s | sl=%.5f",
-                         existing_id, direction.upper(), symbol, sl)
-                write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id=existing_id)
+                if existing_pending.get("auto_tp") and tps:
+                    # auto_tp trade now has explicit TPs — update SL and TPs, keep last open
+                    update_tps = list(tps[:config.MAX_TRADES])
+                    if update_tps and update_tps[-1] is not None:
+                        update_tps[-1] = None  # last trade stays open
+                    log.info("Within 10min window — full update (auto_tp→explicit) %s: %s %s | sl=%.5f | %d TPs",
+                             existing_id, direction.upper(), symbol, sl, len(update_tps))
+                    write_update(symbol=symbol, direction=direction, new_sl=sl, tps=update_tps, signal_id=existing_id)
+                else:
+                    log.info("Within 10min window — updating SL on pending %s: %s %s | sl=%.5f",
+                             existing_id, direction.upper(), symbol, sl)
+                    write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id=existing_id)
                 mark_active(existing_id)
             else:
                 log.info("Within 10min window — updating SL on active trades: %s %s | sl=%.5f",
@@ -239,17 +248,46 @@ def _save_session(client):
     log.info("Session saved to %s", _SESSION_FILE)
 
 
+def _handle_sl_move(msg: dict):
+    """
+    Explicit SL price move instruction: e.g. "Move SL to 4200".
+    Uses last known symbol/direction if not in the message.
+    """
+    new_sl = msg.get("sl")
+    symbol = msg.get("symbol") or _get_last_symbol()
+    direction = (msg.get("direction") or "").lower()
+
+    if not direction and _last_open_time:
+        # Pick the most recently opened (symbol, direction) pair
+        latest_key = max(_last_open_time, key=lambda k: _last_open_time[k])
+        if not symbol:
+            symbol = latest_key[0]
+        direction = latest_key[1]
+
+    if not new_sl or not symbol or not direction:
+        log.warning("SL move: missing data — sl=%s symbol=%s dir=%s", new_sl, symbol, direction)
+        return
+
+    if config.SYMBOL_SUFFIX and not symbol.endswith(config.SYMBOL_SUFFIX):
+        symbol = symbol + config.SYMBOL_SUFFIX
+
+    log.info("SL move instruction: %s %s → new_sl=%.5f", direction.upper(), symbol, new_sl)
+    write_update_sl_only(symbol=symbol, direction=direction, new_sl=new_sl, signal_id="sl_move")
+
+
 async def _process_message(text: str):
     """Shared handler for both real-time events and poll fallback."""
     remove_expired()
     msg = classify(text)
     msg_type = msg.get("type", "ignore")
-    if msg_type not in ("close", "breakeven") and _is_duplicate_text(text):
+    if msg_type not in ("close", "breakeven", "sl_move") and _is_duplicate_text(text):
         return
     if msg_type == "new_signal":
         _handle_new_signal(msg)
     elif msg_type == "signal_update":
         _handle_signal_update(msg)
+    elif msg_type == "sl_move":
+        _handle_sl_move(msg)
     elif msg_type == "breakeven":
         log.info("Breakeven instruction detected")
         write_breakeven()
@@ -261,7 +299,12 @@ async def _process_message(text: str):
 
 
 async def start():
-    client = TelegramClient(_load_session(), config.API_ID, config.API_HASH)
+    client = TelegramClient(
+        _load_session(), config.API_ID, config.API_HASH,
+        connection_retries=-1,   # retry forever on disconnect
+        retry_delay=5,           # wait 5s between retries
+        auto_reconnect=True,
+    )
     await client.connect()
     if not await client.is_user_authorized():
         await client.send_code_request(config.PHONE_NUMBER)
@@ -406,6 +449,17 @@ async def start():
                 except Exception as e:
                     log.warning("Poll fallback error for channel %s: %s", ch_id, e)
 
+    async def _keepalive():
+        """Ping Telegram every 60s to prevent idle connection drops."""
+        while True:
+            await asyncio.sleep(60)
+            try:
+                await client.get_me()
+                log.debug("Keepalive ping OK")
+            except Exception as e:
+                log.debug("Keepalive ping failed: %s", e)
+
     log.info("Bot is running. Press Ctrl+C to stop.")
     asyncio.ensure_future(_poll_fallback())
+    asyncio.ensure_future(_keepalive())
     await client.run_until_disconnected()

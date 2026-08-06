@@ -1,1 +1,470 @@
-{}
+{
+  "dca0ca83": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1777460217,
+    "status": "active",
+    "auto_tp": true
+  },
+  "a44af08d": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1777460218,
+    "status": "active",
+    "auto_tp": true
+  },
+  "c5af0244": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1777460218,
+    "status": "active",
+    "auto_tp": true
+  },
+  "3dbe3e47": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1777556274,
+    "status": "active",
+    "auto_tp": true
+  },
+  "dcac013b": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1778137737,
+    "status": "active",
+    "auto_tp": true
+  },
+  "45a5f9c8": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1778458820,
+    "status": "active",
+    "auto_tp": true
+  },
+  "a13085af": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1778476323,
+    "status": "active",
+    "auto_tp": true
+  },
+  "2c8e0c81": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1778516227,
+    "status": "active",
+    "auto_tp": true
+  },
+  "36ac639b": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1778560150,
+    "status": "active",
+    "auto_tp": true
+  },
+  "1da34d7d": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1778649040,
+    "status": "active",
+    "auto_tp": true
+  },
+  "4696a1c2": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1778653511,
+    "status": "active",
+    "auto_tp": true
+  },
+  "cce6c134": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1779696272,
+    "status": "active",
+    "auto_tp": true
+  },
+  "223b230f": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1779807060,
+    "status": "active",
+    "auto_tp": true
+  },
+  "c81d71d8": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1779858977,
+    "status": "active",
+    "auto_tp": true
+  },
+  "959c3e13": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1780299629,
+    "status": "active",
+    "auto_tp": true
+  },
+  "cb403178": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1780415220,
+    "status": "active",
+    "auto_tp": true
+  },
+  "d9fd8b42": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1781098392,
+    "status": "active",
+    "auto_tp": true
+  },
+  "c4b6ceb2": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1781183233,
+    "status": "active",
+    "auto_tp": true
+  },
+  "14cac699": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1782457294,
+    "status": "active",
+    "auto_tp": true
+  },
+  "cf58144d": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1782723420,
+    "status": "active",
+    "auto_tp": true
+  },
+  "1f09b5a7": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783086523,
+    "status": "active",
+    "auto_tp": true
+  },
+  "0de9c3b5": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783494370,
+    "status": "active",
+    "auto_tp": true
+  },
+  "008552f3": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783494370,
+    "status": "active",
+    "auto_tp": true
+  },
+  "ca7ff324": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783497955,
+    "status": "active",
+    "auto_tp": true
+  },
+  "bd5fa435": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783497957,
+    "status": "active",
+    "auto_tp": true
+  },
+  "7c3babf5": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783590128,
+    "status": "active",
+    "auto_tp": true
+  },
+  "d528946b": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783590129,
+    "status": "active",
+    "auto_tp": true
+  },
+  "5f3cea12": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783600688,
+    "status": "active",
+    "auto_tp": true
+  },
+  "8c9762ba": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783600691,
+    "status": "active",
+    "auto_tp": true
+  },
+  "f351d1d8": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783672056,
+    "status": "active",
+    "auto_tp": true
+  },
+  "14576220": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783672059,
+    "status": "active",
+    "auto_tp": true
+  },
+  "ed16a738": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783672180,
+    "status": "active",
+    "auto_tp": true
+  },
+  "e8ac72ec": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783672180,
+    "status": "active",
+    "auto_tp": true
+  },
+  "8ea3d8ae": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783944540,
+    "status": "active",
+    "auto_tp": true
+  },
+  "841406d0": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783944540,
+    "status": "active",
+    "auto_tp": true
+  },
+  "7a50e9e6": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1783944551,
+    "status": "active",
+    "auto_tp": true
+  },
+  "666d14a3": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784003588,
+    "status": "active",
+    "auto_tp": true
+  },
+  "b63b6231": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784003590,
+    "status": "active",
+    "auto_tp": true
+  },
+  "57459102": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784021509,
+    "status": "active",
+    "auto_tp": true
+  },
+  "c179b2b0": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784021513,
+    "status": "active",
+    "auto_tp": true
+  },
+  "cd87b833": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784021641,
+    "status": "active",
+    "auto_tp": true
+  },
+  "614c07c2": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784021643,
+    "status": "active",
+    "auto_tp": true
+  },
+  "2c1913df": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784023356,
+    "status": "active",
+    "auto_tp": true
+  },
+  "e3352b71": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784023358,
+    "status": "active",
+    "auto_tp": true
+  },
+  "c984f2a5": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784291768,
+    "status": "active",
+    "auto_tp": true
+  },
+  "a5a33914": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784811564,
+    "status": "active",
+    "auto_tp": true
+  },
+  "2fcc1854": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784900199,
+    "status": "active",
+    "auto_tp": true
+  },
+  "6e442b1a": {
+    "symbol": "XAUUSD",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1784900217,
+    "status": "active",
+    "auto_tp": true
+  },
+  "d9b87b0f": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1785234053,
+    "status": "active",
+    "auto_tp": true
+  },
+  "35c49956": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1785397601,
+    "status": "active",
+    "auto_tp": true
+  },
+  "4ad45b11": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1785749762,
+    "status": "active",
+    "auto_tp": true
+  },
+  "f8fb3748": {
+    "symbol": "XAUUSD",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1785750710,
+    "status": "active",
+    "auto_tp": true
+  }
+}

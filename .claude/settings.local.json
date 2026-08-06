@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(osascript)",
+      "Bash(pip3 show *)",
+      "Read(//Library/**)"
+    ]
+  }
+}

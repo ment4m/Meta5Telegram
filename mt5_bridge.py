@@ -31,6 +31,9 @@ def _signals_dir() -> Path:
 
 def _write(payload: dict, prefix: str) -> Path:
     filename = f"{prefix}_{int(time.time())}.json"
+    if config.DRY_RUN:
+        log.info("[DRY RUN] Would write → %s | %s", filename, payload)
+        return _signals_dir() / filename
     filepath = _signals_dir() / filename
     with open(filepath, "w") as f:
         json.dump(payload, f, indent=2)
