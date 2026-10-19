@@ -14,7 +14,10 @@ CTrade trade;
 input int    CheckIntervalMs = 1000;
 input string SignalFolder    = "signals";
 input int    MagicBase       = 234000;  // must match MAGIC_NUMBER in .env
-input double AutoBE_Trigger  = 2.0;    // points in profit to auto-move SL to entry
+input double AutoBE_Trigger  = 0.0;    // 0 = disabled; channel message triggers BE instead
+input double BE_Offset       = 2.5;    // distance past entry when moving SL to BE (clears broker min-stop-distance)
+input double AutoSL_Distance = 15.0;   // SL distance from entry when the signal has no SL yet ("Sell now"); also the lot-sizing distance
+input int    MaxOpenAgeSec   = 120;    // skip open signals older than this (e.g. MT5 was closed when they arrived)
 
 //+------------------------------------------------------------------+
 //| Minimal JSON helpers                                             |
@@ -104,7 +107,7 @@ int ParseTPs(const string &arr, double &tps[])
 string ResolveSymbol(const string base)
 {
     if(SymbolInfoDouble(base, SYMBOL_ASK) > 0) return base;
-    string tries[] = {"m", ".", ".s", "_micro"};
+    string tries[] = {"c", "m", ".", ".s", "_micro"};
     for(int i = 0; i < ArraySize(tries); i++)
     {
         string c = base + tries[i];
@@ -171,6 +174,61 @@ double CalcLot(const string symbol, int num_tps, int lot_balance_div, double sl_
 //+------------------------------------------------------------------+
 //| ACTION: open                                                     |
 //+------------------------------------------------------------------+
+//+------------------------------------------------------------------+
+//| Signal entry per trade — the channel's entry price, kept in a     |
+//| terminal global variable so it survives EA/terminal restarts.     |
+//| Breakeven moves SL to this level instead of our own fill price.   |
+//+------------------------------------------------------------------+
+string EntryVarName(const ulong ticket) { return "TGE_" + IntegerToString((long)ticket); }
+
+void SetSignalEntry(const ulong ticket, const double price)
+{
+    if(price > 0) GlobalVariableSet(EntryVarName(ticket), price);
+}
+
+double GetSignalEntry(const ulong ticket)
+{
+    string name = EntryVarName(ticket);
+    return GlobalVariableCheck(name) ? GlobalVariableGet(name) : 0.0;
+}
+
+// Trades are commented "TG_<signal_id>_<n>" so follow-up SL updates touch only their own signal
+string GroupPrefix(const string sid) { return "TG_" + StringSubstr(sid, 0, 16) + "_"; }
+
+// Targeted update: the signal_id names a real signal (not a generic "sl_move"/"edit"/"sl_update")
+bool IsTargetedSignal(const string sid)
+{
+    return sid != "" && sid != "sl_update" && sid != "sl_move" && sid != "edit";
+}
+
+// Number of open positions carrying this signal's comment prefix
+int CountGroup(const string sid, const int magic_base)
+{
+    int n = 0;
+    string prefix = GroupPrefix(sid);
+    for(int i = PositionsTotal() - 1; i >= 0; i--)
+    {
+        ulong ticket = PositionGetTicket(i);
+        if(!PositionSelectByTicket(ticket)) continue;
+        long pos_magic = PositionGetInteger(POSITION_MAGIC);
+        if(pos_magic < magic_base || pos_magic > magic_base + 200) continue;
+        if(StringFind(PositionGetString(POSITION_COMMENT), prefix) == 0) n++;
+    }
+    return n;
+}
+
+// Remove entry records of trades that are no longer open
+void CleanupSignalEntries()
+{
+    for(int i = GlobalVariablesTotal() - 1; i >= 0; i--)
+    {
+        string name = GlobalVariableName(i);
+        if(StringFind(name, "TGE_") != 0) continue;
+        ulong ticket = (ulong)StringToInteger(StringSubstr(name, 4));
+        if(!PositionSelectByTicket(ticket)) GlobalVariableDel(name);
+    }
+}
+
 void HandleOpen(const string &json)
 {
     string rawSymbol = JsonGetString(json, "symbol");
@@ -211,6 +269,8 @@ void HandleOpen(const string &json)
     if(numTPs == 0) { Print("OPEN: no TPs found"); return; }
 
     double tp_step = JsonGetDouble(json, "tp_step"); // -999999 = not set
+    double sig_entry = JsonGetDouble(json, "entry_price"); // -999999 = not in signal
+    string sid       = JsonGetString(json, "signal_id");
 
     string symbol = ResolveSymbol(rawSymbol);
     SymbolSelect(symbol, true);
@@ -240,31 +300,28 @@ void HandleOpen(const string &json)
     }
     else
     {
-        // No SL provided — use fixed 15-unit SL distance from entry.
-        // CalcLot will size the lot so that 25% of balance is at risk across all TPs.
-        double sl_dist_auto = 15.0;
+        // No SL provided — use fixed AutoSL_Distance from entry.
         sl_price = (orderType == ORDER_TYPE_BUY)
-            ? NormalizeDouble(entry - sl_dist_auto, digits)
-            : NormalizeDouble(entry + sl_dist_auto, digits);
-        Print("Auto SL (fixed 15pts): entry=", entry, " sl_price=", sl_price);
+            ? NormalizeDouble(entry - AutoSL_Distance, digits)
+            : NormalizeDouble(entry + AutoSL_Distance, digits);
+        Print("Auto SL (fixed ", AutoSL_Distance, "): entry=", entry, " sl_price=", sl_price);
     }
 
-    // Validate SL is on the correct side of entry — fall back to 15-unit default if wrong
+    // Validate SL is on the correct side of entry — fall back to AutoSL_Distance if wrong
     bool sl_valid = (orderType == ORDER_TYPE_BUY)  ? (sl_price < entry)
                                                    : (sl_price > entry);
     if(!sl_valid && sl_price != 0.0)
     {
-        double sl_dist_auto = 15.0;
         double corrected = (orderType == ORDER_TYPE_BUY)
-            ? NormalizeDouble(entry - sl_dist_auto, digits)
-            : NormalizeDouble(entry + sl_dist_auto, digits);
+            ? NormalizeDouble(entry - AutoSL_Distance, digits)
+            : NormalizeDouble(entry + AutoSL_Distance, digits);
         Print("SL validation failed (sl=", sl_price, " entry=", entry, " dir=", direction,
-              ") — using default 15-unit SL: ", corrected);
+              ") — using default SL distance ", AutoSL_Distance, ": ", corrected);
         sl_price = corrected;
     }
 
-    double sl_distance = MathAbs(entry - sl_price);
-    double lot = CalcLot(symbol, numTPs, lb, sl_distance);
+    // Always size lot on the fixed AutoSL_Distance for consistent risk on all signals
+    double lot = CalcLot(symbol, numTPs, lb, AutoSL_Distance);
 
     trade.SetDeviationInPoints(deviation > 0 ? deviation : 20);
     trade.SetTypeFilling(ORDER_FILLING_IOC);
@@ -289,10 +346,11 @@ void HandleOpen(const string &json)
 
         bool ok;
         if(orderType == ORDER_TYPE_BUY)
-            ok = trade.Buy(lot, symbol, 0, sl, tp, StringFormat("TG_TP%d", i + 1));
+            ok = trade.Buy(lot, symbol, 0, sl, tp, GroupPrefix(sid) + IntegerToString(i + 1));
         else
-            ok = trade.Sell(lot, symbol, 0, sl, tp, StringFormat("TG_TP%d", i + 1));
+            ok = trade.Sell(lot, symbol, 0, sl, tp, GroupPrefix(sid) + IntegerToString(i + 1));
 
+        if(ok) SetSignalEntry(trade.ResultOrder(), sig_entry);
         if(ok)
             Print("  TP", i+1, " opened | ticket=", trade.ResultOrder(),
                   " | sl=", sl, " | tp=", (tp > 0 ? DoubleToString(tp,5) : "OPEN"));
@@ -303,7 +361,7 @@ void HandleOpen(const string &json)
 }
 
 //+------------------------------------------------------------------+
-//| ACTION: update — modify SL/TP on existing trades                 |
+//| ACTION: update — set the signal's SL and TPs on existing trades  |
 //+------------------------------------------------------------------+
 void HandleUpdate(const string &json)
 {
@@ -312,6 +370,10 @@ void HandleUpdate(const string &json)
     double new_sl    = JsonGetDouble(json, "new_sl");
     int    magic_base= (int)JsonGetDouble(json, "magic");
     string tpsRaw    = JsonGetArray(json, "tps");
+    double sig_entry = JsonGetDouble(json, "entry_price"); // -999999 = not in signal
+    string sid       = JsonGetString(json, "signal_id");
+    // Only this signal's trades — unless none carry its comment (e.g. broker dropped it)
+    bool   targeted  = IsTargetedSignal(sid) && CountGroup(sid, magic_base) > 0;
 
     double tps[];
     int numTPs = ParseTPs(tpsRaw, tps);
@@ -335,16 +397,50 @@ void HandleUpdate(const string &json)
         if(StringFind(pos_symbol, rawSymbol) < 0 && StringFind(rawSymbol, pos_symbol) < 0) continue;
         if(pos_dir != direction) continue;
         if(pos_magic < magic_base || pos_magic > magic_base + 200) continue;
+        if(targeted && StringFind(PositionGetString(POSITION_COMMENT), GroupPrefix(sid)) != 0) continue;
 
-        int tp_index = (int)(pos_magic - magic_base);
-        double tp = 0.0;
-        if(tp_index < numTPs && tps[tp_index] > 0) tp = tps[tp_index];
-
-        if(trade.PositionModify(ticket, new_sl, tp))
-            Print("  Updated ticket=", ticket, " sl=", new_sl, " tp=", (tp>0?DoubleToString(tp,5):"OPEN"));
-        else
-            Print("  Update FAILED ticket=", ticket, " retcode=", trade.ResultRetcode());
+        int    tp_index   = (int)(pos_magic - magic_base);
+        double current_sl = PositionGetDouble(POSITION_SL);
+        double current_tp = PositionGetDouble(POSITION_TP);
+        bool   is_buy     = (pos_type == POSITION_TYPE_BUY);
+        int    digits     = (int)SymbolInfoInteger(pos_symbol, SYMBOL_DIGITS);
+        SetSignalEntry(ticket, sig_entry);
         updated++;
+
+        // TP per slot: last slot always open; slots the signal gives a number for take it;
+        // slots it leaves blank keep their current (auto) TP
+        double tp = current_tp;
+        if(tp_index == numTPs - 1)                     tp = 0.0;
+        else if(tp_index < numTPs && tps[tp_index] > 0) tp = NormalizeDouble(tps[tp_index], digits);
+        double sl = (new_sl > 0) ? NormalizeDouble(new_sl, digits) : current_sl;
+
+        // Stops must sit on the correct side of current price (plus broker minimum distance).
+        // If price is already past the signal's SL or TP, that level has effectively been hit — close.
+        double min_dist = SymbolInfoInteger(pos_symbol, SYMBOL_TRADE_STOPS_LEVEL)
+                          * SymbolInfoDouble(pos_symbol, SYMBOL_POINT);
+        double bid = SymbolInfoDouble(pos_symbol, SYMBOL_BID);
+        double ask = SymbolInfoDouble(pos_symbol, SYMBOL_ASK);
+        bool sl_ok = (sl <= 0) || (is_buy ? sl < bid - min_dist : sl > ask + min_dist);
+        bool tp_ok = (tp <= 0) || (is_buy ? tp > bid + min_dist : tp < ask - min_dist);
+
+        if(!sl_ok || !tp_ok)
+        {
+            Print("  Price ", (is_buy ? bid : ask), " already past signal ", (!sl_ok ? "SL " : "TP "),
+                  (!sl_ok ? sl : tp), " — closing ticket=", ticket);
+            if(trade.PositionClose(ticket))
+                Print("  Closed ticket=", ticket);
+            else
+                Print("  Close FAILED ticket=", ticket, " retcode=", trade.ResultRetcode(),
+                      " | ", trade.ResultRetcodeDescription());
+            continue;
+        }
+
+        if(trade.PositionModify(ticket, sl, tp))
+            Print("  Updated ticket=", ticket, " TP", tp_index + 1, " sl=", sl,
+                  " tp=", (tp > 0 ? DoubleToString(tp, digits) : "OPEN"));
+        else
+            Print("  Update FAILED ticket=", ticket, " retcode=", trade.ResultRetcode(),
+                  " | ", trade.ResultRetcodeDescription());
     }
     if(updated == 0) Print("UPDATE: no matching trades found for ", symbol, " ", direction);
 }
@@ -358,6 +454,10 @@ void HandleUpdateSL(const string &json)
     string direction = JsonGetString(json, "direction");
     double new_sl    = JsonGetDouble(json, "new_sl");
     int    magic_base= (int)JsonGetDouble(json, "magic");
+    double sig_entry = JsonGetDouble(json, "entry_price"); // -999999 = not in signal
+    string sid       = JsonGetString(json, "signal_id");
+    // Only this signal's trades — unless none carry its comment (e.g. broker dropped it)
+    bool   targeted  = IsTargetedSignal(sid) && CountGroup(sid, magic_base) > 0;
 
     string symbol = ResolveSymbol(rawSymbol);
 
@@ -377,8 +477,10 @@ void HandleUpdateSL(const string &json)
         if(StringFind(pos_symbol, rawSymbol) < 0 && StringFind(rawSymbol, pos_symbol) < 0) continue;
         if(pos_dir != direction) continue;
         if(pos_magic < magic_base || pos_magic > magic_base + 200) continue;
+        if(targeted && StringFind(PositionGetString(POSITION_COMMENT), GroupPrefix(sid)) != 0) continue;
 
         double current_tp = PositionGetDouble(POSITION_TP); // keep unchanged
+        SetSignalEntry(ticket, sig_entry);
 
         if(trade.PositionModify(ticket, new_sl, current_tp))
             Print("  SL updated ticket=", ticket, " new_sl=", new_sl, " tp=", current_tp, " (unchanged)");
@@ -392,11 +494,55 @@ void HandleUpdateSL(const string &json)
 //+------------------------------------------------------------------+
 //| ACTION: breakeven — move SL to entry + spread buffer            |
 //+------------------------------------------------------------------+
+// "Move SL to BE after first TP" — arm, and let OnTimer move SL once the TP1 trade has closed
+string ARM_VAR = "TGE_ARM_BE_TP1";
+
 int HandleBreakeven(const string &json)
 {
     int magic_base = (int)JsonGetDouble(json, "magic");
+    bool afterTP1 = (StringFind(json, "\"after_tp1\": true") >= 0 ||
+                     StringFind(json, "\"after_tp1\":true")  >= 0);
+    if(afterTP1)
+    {
+        GlobalVariableSet(ARM_VAR, magic_base);
+        Print("BREAKEVEN armed — will move SL to signal entry once TP1 closes");
+        return 1;
+    }
+    return MoveAllToBE(magic_base);
+}
 
-    Print("BREAKEVEN — moving all bot trades to entry + spread buffer");
+// Armed BE fires when bot trades remain but the TP1 slot (magic_base + 0) is gone
+void CheckArmedBreakeven()
+{
+    if(!GlobalVariableCheck(ARM_VAR)) return;
+    int magic_base = (int)GlobalVariableGet(ARM_VAR);
+    int remaining = 0;
+    bool tp1_open = false;
+    for(int i = PositionsTotal() - 1; i >= 0; i--)
+    {
+        ulong ticket = PositionGetTicket(i);
+        if(!PositionSelectByTicket(ticket)) continue;
+        long pos_magic = PositionGetInteger(POSITION_MAGIC);
+        if(pos_magic < magic_base || pos_magic > magic_base + 200) continue;
+        remaining++;
+        if(pos_magic == magic_base) tp1_open = true;
+    }
+    if(remaining == 0)
+    {
+        GlobalVariableDel(ARM_VAR);
+        Print("BREAKEVEN (after TP1) disarmed — no bot trades left");
+    }
+    else if(!tp1_open)
+    {
+        GlobalVariableDel(ARM_VAR);
+        Print("TP1 closed — moving remaining trades to BE");
+        MoveAllToBE(magic_base);
+    }
+}
+
+int MoveAllToBE(const int magic_base)
+{
+    Print("BREAKEVEN — SL to signal entry (fallback: own entry + buffer); close if price is already past it");
 
     int moved = 0;
     for(int i = PositionsTotal() - 1; i >= 0; i--)
@@ -406,6 +552,7 @@ int HandleBreakeven(const string &json)
 
         long pos_magic = PositionGetInteger(POSITION_MAGIC);
         if(pos_magic < magic_base || pos_magic > magic_base + 9999) continue;
+        moved++;
 
         string pos_symbol = PositionGetString(POSITION_SYMBOL);
         double open_price = PositionGetDouble(POSITION_PRICE_OPEN);
@@ -413,15 +560,49 @@ int HandleBreakeven(const string &json)
         double current_tp = PositionGetDouble(POSITION_TP);
         int    pos_type   = (int)PositionGetInteger(POSITION_TYPE);
         int    digits     = (int)SymbolInfoInteger(pos_symbol, SYMBOL_DIGITS);
+        bool   is_buy     = (pos_type == POSITION_TYPE_BUY);
 
-        // BE: SL = exact entry price (true breakeven, no offset)
-        double new_sl = NormalizeDouble(open_price, digits);
+        // BE level: the channel's signal entry; without one, own entry ± offset
+        // (exact own entry gets rejected as "invalid stops" right at the fill)
+        double sig_entry = GetSignalEntry(ticket);
+        double be_sl = (sig_entry > 0)
+            ? NormalizeDouble(sig_entry, digits)
+            : NormalizeDouble(is_buy ? open_price - BE_Offset : open_price + BE_Offset, digits);
+        string be_src = (sig_entry > 0) ? "signal entry" : "own entry";
 
-        if(trade.PositionModify(ticket, new_sl, current_tp))
-            Print("  BE set | ticket=", ticket, " entry=", open_price, " new_sl=", new_sl);
+        // SL already at or beyond BE (locked profit) — never loosen it
+        if(current_sl > 0 && (is_buy ? current_sl >= be_sl : current_sl <= be_sl))
+        {
+            Print("  BE skip | ticket=", ticket, " sl=", current_sl, " already at/beyond ", be_src, " ", be_sl);
+            continue;
+        }
+
+        // The SL can only sit on the profit side of current price (plus the broker's minimum distance).
+        // If price is already past the BE level, the trade is in loss vs. BE — close it at market.
+        double min_dist = SymbolInfoInteger(pos_symbol, SYMBOL_TRADE_STOPS_LEVEL)
+                          * SymbolInfoDouble(pos_symbol, SYMBOL_POINT);
+        double bid = SymbolInfoDouble(pos_symbol, SYMBOL_BID);
+        double ask = SymbolInfoDouble(pos_symbol, SYMBOL_ASK);
+        bool   can_set = is_buy ? (be_sl < bid - min_dist) : (be_sl > ask + min_dist);
+
+        if(can_set && trade.PositionModify(ticket, be_sl, current_tp))
+        {
+            Print("  BE set | ticket=", ticket, " ", be_src, " | fill=", open_price,
+                  " signal=", (sig_entry > 0 ? DoubleToString(sig_entry, digits) : "n/a"), " new_sl=", be_sl);
+            continue;
+        }
+
+        if(can_set)
+            Print("  BE modify FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode(), " — closing instead");
         else
-            Print("  BE FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode());
-        moved++;
+            Print("  BE not possible | ticket=", ticket, " price ", (is_buy ? bid : ask), " is past ", be_src,
+                  " ", be_sl, " — closing trade");
+
+        if(trade.PositionClose(ticket))
+            Print("  BE close | ticket=", ticket, " closed at market");
+        else
+            Print("  BE close FAILED | ticket=", ticket, " retcode=", trade.ResultRetcode(),
+                  " | ", trade.ResultRetcodeDescription());
     }
     if(moved == 0) Print("BREAKEVEN: no eligible trades found");
     return moved;
@@ -481,7 +662,12 @@ void ProcessFile(const string filename)
 
     bool deleteFile = true;
 
-    if(action == "open")           HandleOpen(json);
+    // Python writes UTC epoch timestamps — compare against GMT, not broker server time
+    double age = (double)(TimeGMT() - (datetime)JsonGetDouble(json, "timestamp"));
+
+    if(action == "open" && age > MaxOpenAgeSec)
+        Print("OPEN skipped — signal is ", (int)age, "s old (max ", MaxOpenAgeSec, "s)");
+    else if(action == "open")      HandleOpen(json);
     else if(action == "update")    HandleUpdate(json);
     else if(action == "update_sl") HandleUpdateSL(json);
     else if(action == "breakeven")
@@ -490,8 +676,6 @@ void ProcessFile(const string filename)
         int moved = HandleBreakeven(json);
         if(moved == 0)
         {
-            double ts = JsonGetDouble(json, "timestamp");
-            double age = (double)(TimeCurrent() - (datetime)ts);
             if(age < 30) // retry for up to 30 seconds
             {
                 Print("BREAKEVEN: no trades yet, will retry (age=", (int)age, "s)");
@@ -507,8 +691,6 @@ void ProcessFile(const string filename)
         int closed = HandleClose(json);
         if(closed == 0)
         {
-            double ts = JsonGetDouble(json, "timestamp");
-            double age = (double)(TimeCurrent() - (datetime)ts);
             if(age < 30) // retry for up to 30 seconds
             {
                 Print("CLOSE: no trades yet, will retry (age=", (int)age, "s)");
@@ -547,7 +729,9 @@ void AutoBreakeven()
         double current_tp = PositionGetDouble(POSITION_TP);
         int    digits     = (int)SymbolInfoInteger(pos_symbol, SYMBOL_DIGITS);
 
-        double be_sl = NormalizeDouble(open_price, digits);
+        double be_sl = (pos_type == POSITION_TYPE_BUY)
+            ? NormalizeDouble(open_price - BE_Offset, digits)
+            : NormalizeDouble(open_price + BE_Offset, digits);
 
         if(pos_type == POSITION_TYPE_BUY)
         {
@@ -580,6 +764,7 @@ void AutoBreakeven()
 int OnInit()
 {
     EventSetMillisecondTimer(CheckIntervalMs);
+    CleanupSignalEntries();
     Print("TelegramSignalEA v2.0 started | folder: Common\\Files\\", SignalFolder);
     return INIT_SUCCEEDED;
 }
@@ -589,6 +774,7 @@ void OnDeinit(const int reason) { EventKillTimer(); }
 void OnTimer()
 {
     AutoBreakeven();
+    CheckArmedBreakeven();
 
     string folder = SignalFolder + "\\";
     string filename;

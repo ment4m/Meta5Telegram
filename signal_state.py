@@ -12,7 +12,7 @@ from logger import get_logger
 log = get_logger(__name__)
 
 STATE_FILE = Path(__file__).parent / "signal_state.json"
-PENDING_TIMEOUT_SEC = 300  # 5 minutes — if no update arrives, discard
+PENDING_TIMEOUT_SEC = 600  # 10 minutes (matches _SL_UPDATE_WINDOW) — if no update arrives, discard
 
 
 def _load() -> dict:

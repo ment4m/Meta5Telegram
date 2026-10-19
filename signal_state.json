@@ -466,5 +466,428 @@
     "timestamp": 1785750710,
     "status": "active",
     "auto_tp": true
+  },
+  "1212d30a": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786087712,
+    "status": "active",
+    "auto_tp": true
+  },
+  "57217aff": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786339496,
+    "status": "active",
+    "auto_tp": true
+  },
+  "6eab5cb5": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786341849,
+    "status": "active",
+    "auto_tp": true
+  },
+  "deb95d45": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786423029,
+    "status": "active",
+    "auto_tp": true
+  },
+  "b89e0fc7": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786425151,
+    "status": "active",
+    "auto_tp": true
+  },
+  "42175658": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786425991,
+    "status": "active",
+    "auto_tp": true
+  },
+  "58c7e69e": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786427000,
+    "status": "active",
+    "auto_tp": true
+  },
+  "ad63a1a9": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786434408,
+    "status": "active",
+    "auto_tp": true
+  },
+  "9e635192": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786451563,
+    "status": "active",
+    "auto_tp": true
+  },
+  "cabcc4d8": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786513548,
+    "status": "active",
+    "auto_tp": true
+  },
+  "63beca56": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786522000,
+    "status": "active",
+    "auto_tp": true
+  },
+  "1fedc21e": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786688191,
+    "status": "active",
+    "auto_tp": true
+  },
+  "d0fff937": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786692058,
+    "status": "active",
+    "auto_tp": true
+  },
+  "f8f3b706": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786943604,
+    "status": "active",
+    "auto_tp": true
+  },
+  "a3b41526": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786945259,
+    "status": "active",
+    "auto_tp": true
+  },
+  "f756f612": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1786967204,
+    "status": "active",
+    "auto_tp": true
+  },
+  "5ab6bffe": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1787031273,
+    "status": "active",
+    "auto_tp": true
+  },
+  "0afa9b28": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1787031557,
+    "status": "active",
+    "auto_tp": true
+  },
+  "62feabb5": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1787033018,
+    "status": "active",
+    "auto_tp": true
+  },
+  "cf877ae2": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1787037999,
+    "status": "active",
+    "auto_tp": true
+  },
+  "64db1412": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1787205153,
+    "status": "active",
+    "auto_tp": true
+  },
+  "2cb9b861": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1787287781,
+    "status": "active",
+    "auto_tp": true
+  },
+  "02cfa912": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1787298625,
+    "status": "active",
+    "auto_tp": true
+  },
+  "abcf2408": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1787639454,
+    "status": "active",
+    "auto_tp": true
+  },
+  "13d4a02e": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1787644317,
+    "status": "active",
+    "auto_tp": true
+  },
+  "161ec913": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1787660023,
+    "status": "active",
+    "auto_tp": true
+  },
+  "7d39898c": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1787723402,
+    "status": "active",
+    "auto_tp": true
+  },
+  "e954c2e3": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1788493056,
+    "status": "active",
+    "auto_tp": true
+  },
+  "53c48a41": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1788493093,
+    "status": "active",
+    "auto_tp": true
+  },
+  "9c43967a": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1788493188,
+    "status": "active",
+    "auto_tp": true
+  },
+  "05408fee": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1788493284,
+    "status": "active",
+    "auto_tp": true
+  },
+  "1220f5f6": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1788869795,
+    "status": "active",
+    "auto_tp": true
+  },
+  "93f6235c": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1789639361,
+    "status": "active",
+    "auto_tp": true
+  },
+  "68489e12": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1789725308,
+    "status": "active",
+    "auto_tp": true
+  },
+  "fba4ff2d": {
+    "symbol": "XAUUSD.s",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1790754715,
+    "status": "active",
+    "auto_tp": true
+  },
+  "f166fe68": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1790873425,
+    "status": "active",
+    "auto_tp": true
+  },
+  "e896c940": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1791187434,
+    "status": "active",
+    "auto_tp": true
+  },
+  "bdb42402": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1791296357,
+    "status": "active",
+    "auto_tp": true
+  },
+  "d1a9154c": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1791335134,
+    "status": "active",
+    "auto_tp": true
+  },
+  "4eb58e2d": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1791536092,
+    "status": "active",
+    "auto_tp": true
+  },
+  "3e4c1458": {
+    "symbol": "XAUUSD.s",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 6,
+    "timestamp": 1791821501,
+    "status": "active",
+    "auto_tp": true
+  },
+  "6ee88d0b": {
+    "symbol": "XAUUSDc",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 4,
+    "timestamp": 1791889608,
+    "status": "active",
+    "auto_tp": true
+  },
+  "2cd90309": {
+    "symbol": "XAUUSDc",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 4,
+    "timestamp": 1791901599,
+    "status": "active",
+    "auto_tp": true
+  },
+  "e4735275": {
+    "symbol": "XAUUSDc",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 4,
+    "timestamp": 1792056094,
+    "status": "active",
+    "auto_tp": true
+  },
+  "5a98105e": {
+    "symbol": "XAUUSDc",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 4,
+    "timestamp": 1792067604,
+    "status": "active",
+    "auto_tp": true
+  },
+  "563f1437": {
+    "symbol": "XAUUSDc",
+    "direction": "sell",
+    "predicted_sl_points": 0,
+    "num_tps": 4,
+    "timestamp": 1792072991,
+    "status": "active",
+    "auto_tp": true
+  },
+  "9b362549": {
+    "symbol": "XAUUSDc",
+    "direction": "buy",
+    "predicted_sl_points": 0,
+    "num_tps": 4,
+    "timestamp": 1792142560,
+    "status": "active",
+    "auto_tp": true
   }
 }

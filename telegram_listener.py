@@ -9,7 +9,7 @@ import config
 from signal_classifier import classify
 from signal_state import add_pending, find_pending, mark_active, remove_expired
 from sl_predictor import record
-from mt5_bridge import write_open, write_update, write_update_sl_only, write_breakeven, write_close
+from mt5_bridge import write_open, write_update, write_update_sl_only, write_close, write_breakeven
 from logger import get_logger
 
 log = get_logger(__name__)
@@ -38,6 +38,13 @@ def _is_duplicate_text(text: str) -> bool:
     return False
 
 
+def _base_symbol(symbol: str) -> str:
+    """Strip the broker suffix (e.g. 'XAUUSD.s' -> 'XAUUSD') for map lookups."""
+    if config.SYMBOL_SUFFIX and symbol.endswith(config.SYMBOL_SUFFIX):
+        return symbol[: -len(config.SYMBOL_SUFFIX)]
+    return symbol
+
+
 def _get_last_symbol() -> str:
     if _LAST_SYMBOL_FILE.exists():
         return json.loads(_LAST_SYMBOL_FILE.read_text()).get("symbol", "")
@@ -49,7 +56,18 @@ def _save_last_symbol(symbol: str):
 
 
 _last_open_time: dict = {}  # (symbol, direction) -> timestamp of last open
+_last_open_sig: dict = {}   # (symbol, direction) -> signal_id of last open (SL updates target only that group)
 _SL_UPDATE_WINDOW = 600    # 10 minutes — new signal within this window updates SL instead of opening
+
+
+def _slot_tps(tps: list) -> list:
+    """
+    Map the signal's TPs onto our MAX_TRADES slots for an update: real TP numbers fill the
+    first slots in order, the last slot is the open runner (None), and slots left as None in
+    between keep their current TP in the EA.
+    """
+    real = [t for t in (tps or []) if t is not None][:config.MAX_TRADES - 1]
+    return real + [None] * (config.MAX_TRADES - len(real))
 
 
 def _handle_new_signal(msg: dict):
@@ -81,7 +99,7 @@ def _handle_new_signal(msg: dict):
     tp_step_pips = msg.get("tp_step_pips")
     tp_step = None
     if tp_step_pips:
-        pip_value = config.PIP_VALUE_MAP.get(symbol, 0.10)
+        pip_value = config.PIP_VALUE_MAP.get(_base_symbol(symbol), 0.10)
         tp_step = round(tp_step_pips * pip_value, 5)
         # TPs will be generated from entry by the EA — send nulls for all slots
         tps = [None] * config.MAX_TRADES
@@ -94,31 +112,25 @@ def _handle_new_signal(msg: dict):
         key = (symbol, direction)
         now = _time.time()
         last_open = _last_open_time.get(key, 0)
-        within_window = (now - last_open) < _SL_UPDATE_WINDOW
 
         # Check if there's already a pending signal for same symbol+direction
         existing_id, existing_pending = find_pending(symbol, direction)
+        # _last_open_time is lost on restart — fall back to the persisted pending timestamp
+        if existing_pending:
+            last_open = max(last_open, existing_pending["timestamp"])
+        within_window = (now - last_open) < _SL_UPDATE_WINDOW
 
         if within_window and (existing_pending or last_open > 0):
             # Within 10 min — update existing trades instead of opening new ones
+            # Within 10 min — set the signal's SL and TPs on the trades already open for it
+            target_id = existing_id if existing_pending else _last_open_sig.get(key, "sl_update")
+            update_tps = _slot_tps(tps)
+            log.info("Within 10min window — updating SL+TPs on %s: %s %s | sl=%.5f | tps=%s",
+                     target_id, direction.upper(), symbol, sl, update_tps)
+            write_update(symbol=symbol, direction=direction, new_sl=sl, tps=update_tps,
+                         entry_price=msg.get("entry"), signal_id=target_id)
             if existing_pending:
-                if existing_pending.get("auto_tp") and tps:
-                    # auto_tp trade now has explicit TPs — update SL and TPs, keep last open
-                    update_tps = list(tps[:config.MAX_TRADES])
-                    if update_tps and update_tps[-1] is not None:
-                        update_tps[-1] = None  # last trade stays open
-                    log.info("Within 10min window — full update (auto_tp→explicit) %s: %s %s | sl=%.5f | %d TPs",
-                             existing_id, direction.upper(), symbol, sl, len(update_tps))
-                    write_update(symbol=symbol, direction=direction, new_sl=sl, tps=update_tps, signal_id=existing_id)
-                else:
-                    log.info("Within 10min window — updating SL on pending %s: %s %s | sl=%.5f",
-                             existing_id, direction.upper(), symbol, sl)
-                    write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id=existing_id)
                 mark_active(existing_id)
-            else:
-                log.info("Within 10min window — updating SL on active trades: %s %s | sl=%.5f",
-                         direction.upper(), symbol, sl)
-                write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id="sl_update")
             if sl and tps:
                 _record_history(symbol, direction, sl, tps)
         else:
@@ -126,7 +138,8 @@ def _handle_new_signal(msg: dict):
             log.info("Complete signal: %s %s | SL=%.5f | %d TPs | tp_step=%s", direction.upper(), symbol, sl, len(tps), tp_step)
             sig_id = f"sig_{int(_time.time())}"
             _last_open_time[key] = now
-            write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, tp_step=tp_step, signal_id=sig_id, force=True)
+            _last_open_sig[key] = sig_id
+            write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, tp_step=tp_step, entry_price=msg.get("entry"), signal_id=sig_id, force=True)
             if sl and tps:
                 _record_history(symbol, direction, sl, tps)
     else:
@@ -142,14 +155,17 @@ def _handle_new_signal(msg: dict):
         sig_id = add_pending(symbol, direction, 0, num_tps, auto_tp=auto_tp)
         import time as _time
         _last_open_time[(symbol, direction)] = _time.time()
+        _last_open_sig[(symbol, direction)] = sig_id
         write_open(
             symbol=symbol,
             direction=direction,
             tps=predicted_tps,
             sl=None,       # EA calculates SL from risk
             sl_points=None,
-            tp_step=config.TP_STEP_MAP.get(symbol, config.TP_STEP_DEFAULT) if auto_tp else None,
+            tp_step=config.TP_STEP_MAP.get(_base_symbol(symbol), config.TP_STEP_DEFAULT) if auto_tp else None,
+            entry_price=msg.get("entry"),  # signal entry → BE level
             signal_id=sig_id,
+            force=True,    # "Sell now" always opens, even with older same-direction trades still running
         )
 
 
@@ -184,22 +200,18 @@ def _handle_signal_update(msg: dict):
             symbol = pending["symbol"]
 
     if pending:
-        if pending.get("auto_tp"):
-            # TPs were auto-calculated from entry — only update the SL, keep TPs
-            log.info("Updating auto-TP signal %s: %s %s | new_sl=%.5f (TPs kept)",
-                     sig_id, direction.upper(), symbol, sl)
-            write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id=sig_id)
-        else:
-            log.info("Updating pending signal %s: %s %s | new_sl=%.5f | %d TPs",
-                     sig_id, direction.upper(), symbol, sl, len(tps))
-            write_update(symbol=symbol, direction=direction, new_sl=sl, tps=tps, signal_id=sig_id)
+        update_tps = _slot_tps(tps)
+        log.info("Updating pending signal %s: %s %s | new_sl=%.5f | tps=%s",
+                 sig_id, direction.upper(), symbol, sl, update_tps)
+        write_update(symbol=symbol, direction=direction, new_sl=sl, tps=update_tps,
+                     entry_price=msg.get("entry"), signal_id=sig_id)
         mark_active(sig_id)
         _record_history(symbol, direction, sl, tps)
     else:
         # No pending found — treat as a standalone complete signal
         log.info("No pending signal found — treating update as new complete signal")
         sig_id = f"sig_{int(__import__('time').time())}"
-        write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, signal_id=sig_id)
+        write_open(symbol=symbol, direction=direction, tps=tps, sl=sl, entry_price=msg.get("entry"), signal_id=sig_id)
         _record_history(symbol, direction, sl, tps)
 
 
@@ -289,8 +301,9 @@ async def _process_message(text: str):
     elif msg_type == "sl_move":
         _handle_sl_move(msg)
     elif msg_type == "breakeven":
-        log.info("Breakeven instruction detected")
-        write_breakeven()
+        log.info("Breakeven instruction received — moving SL to signal entry%s",
+                 " after TP1 closes" if msg.get("after_tp1") else "")
+        write_breakeven(after_tp1=bool(msg.get("after_tp1")))
     elif msg_type == "close":
         log.info("Close/cancel instruction detected")
         write_close()
@@ -376,8 +389,9 @@ async def start():
                     elif msg_type == "signal_update":
                         _handle_signal_update(msg)
                     elif msg_type == "breakeven":
-                        log.info("Replay breakeven")
-                        write_breakeven()
+                        log.info("Breakeven instruction received (replay) — moving SL to signal entry%s",
+                                 " after TP1 closes" if msg.get("after_tp1") else "")
+                        write_breakeven(after_tp1=bool(msg.get("after_tp1")))
                     elif msg_type == "close":
                         log.info("Replay close")
                         write_close()
@@ -424,8 +438,13 @@ async def start():
         symbol    = msg.get("symbol") or ""
         direction = msg.get("direction") or ""
         if symbol and direction:
-            log.info("Edit detected — updating SL to %.5f for %s %s", sl, direction.upper(), symbol)
-            write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, signal_id="edit")
+            if any(t is not None for t in (msg.get("tps") or [])):
+                log.info("Edit detected — updating SL to %.5f and TPs for %s %s", sl, direction.upper(), symbol)
+                write_update(symbol=symbol, direction=direction, new_sl=sl, tps=_slot_tps(msg.get("tps")),
+                             entry_price=msg.get("entry"), signal_id="edit")
+            else:
+                log.info("Edit detected — updating SL to %.5f for %s %s", sl, direction.upper(), symbol)
+                write_update_sl_only(symbol=symbol, direction=direction, new_sl=sl, entry_price=msg.get("entry"), signal_id="edit")
 
     async def _poll_fallback():
         """Poll every 5s to catch messages the event handler missed."""
@@ -440,11 +459,13 @@ async def start():
                         title = getattr(entity, "title", str(ch_id))
                         log.warning("Poll fallback caught %d missed message(s) from [%s]", len(missed), title)
                         for m in reversed(missed):
-                            if not m.text:
-                                continue
-                            log.info("Poll [%s] msg id=%d: %s", title, m.id, m.text[:80])
+                            # Always advance last_id past media/non-text messages to avoid infinite loop
                             _last_msg_ids[ch_id] = m.id
                             _save_last_msg_id_for(ch_id, m.id)
+                            if not m.text:
+                                log.debug("Poll [%s] msg id=%d: no text (media) — skipping", title, m.id)
+                                continue
+                            log.info("Poll [%s] msg id=%d: %s", title, m.id, m.text[:80])
                             await _process_message(m.text)
                 except Exception as e:
                     log.warning("Poll fallback error for channel %s: %s", ch_id, e)

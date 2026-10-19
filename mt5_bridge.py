@@ -52,6 +52,7 @@ def write_open(
     tp_step: float = None,
     signal_id: str = "",
     force: bool = False,
+    entry_price: float = None,
 ) -> Path:
     """
     Open one trade per TP.
@@ -81,6 +82,7 @@ def write_open(
         "lot_balance_div":   config.LOT_BALANCE_DIVISOR,
         "signal_id":         signal_id,
         "force":             force,
+        "entry_price":       entry_price, # channel's entry — EA moves SL here on breakeven
         "timestamp":         int(time.time()),
     }
     with _open_lock:
@@ -107,6 +109,7 @@ def write_update(
     new_sl: float,
     tps: list,
     signal_id: str = "",
+    entry_price: float = None,
 ) -> Path:
     """
     Update SL and TPs on all open trades matching symbol+direction+magic.
@@ -118,11 +121,12 @@ def write_update(
         "direction": direction.lower(),
         "new_sl":    new_sl,
         "tps":       tps,
+        "entry_price": entry_price,
         "magic":     config.MAGIC_NUMBER,
         "signal_id": signal_id,
         "timestamp": int(time.time()),
     }
-    log.info("UPDATE %s %s | new_sl=%.5f | %d TPs", direction.upper(), symbol, new_sl, len(tps))
+    log.info("UPDATE %s %s | new_sl=%.5f | tps=%s", direction.upper(), symbol, new_sl, tps)
     return _write(payload, "update")
 
 
@@ -131,6 +135,7 @@ def write_update_sl_only(
     direction: str,
     new_sl: float,
     signal_id: str = "",
+    entry_price: float = None,
 ) -> Path:
     """
     Update only the SL on all open trades matching symbol+direction+magic.
@@ -141,6 +146,7 @@ def write_update_sl_only(
         "symbol":    symbol,
         "direction": direction.lower(),
         "new_sl":    new_sl,
+        "entry_price": entry_price,
         "magic":     config.MAGIC_NUMBER,
         "signal_id": signal_id,
         "timestamp": int(time.time()),
@@ -162,15 +168,17 @@ def write_close() -> Path:
     return _write(payload, "close")
 
 
-def write_breakeven() -> Path:
+def write_breakeven(after_tp1: bool = False) -> Path:
     """
-    Move SL to entry + spread buffer on ALL open trades opened by this bot.
-    Buffer = current spread × 1.5 (calculated per-trade in the EA).
+    Move SL to breakeven on ALL open trades opened by this bot. The EA uses each
+    trade's signal entry (sent with open/update) when known, else its own fill ± BE_Offset.
+    after_tp1: "Move SL to BE after first TP" — EA waits until the TP1 trade closes.
     """
     payload = {
         "action":    "breakeven",
+        "after_tp1": after_tp1,
         "magic":     config.MAGIC_NUMBER,
         "timestamp": int(time.time()),
     }
-    log.info("BREAKEVEN — moving all SL to entry + spread buffer")
+    log.info("BREAKEVEN — moving all SL to signal entry%s", " (after TP1)" if after_tp1 else "")
     return _write(payload, "breakeven")
